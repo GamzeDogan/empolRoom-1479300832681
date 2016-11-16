@@ -6,9 +6,8 @@
     "start": "node Chatroom.js"
   },
   "dependencies": {
-	express, 
-	http, 
-	socket.io
+	"express": "^4.10.2",
+	"socket.io": "^1.5.0"
 	},
   "repository": {},
   "engines": {
