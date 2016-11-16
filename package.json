@@ -1,0 +1,17 @@
+{
+  "name": "EMPOL-Chatroom",
+  "version": "0.0.1",
+  "description": "our first chatroom",
+  "scripts": {
+    "start": "node Chatroom.js"
+  },
+  "dependencies": {
+	express, 
+	http, 
+	socket.io
+	},
+  "repository": {},
+  "engines": {
+    "node": "4.x"
+  }
+}
