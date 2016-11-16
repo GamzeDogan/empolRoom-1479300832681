@@ -8,12 +8,10 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
 body {
 	font: 13px Arial;
 	background: #C6C6C6;
 }
-
 .box {
 	background: #000;
 	padding: 3px;
@@ -22,12 +20,10 @@ body {
 	width: 100%;
 	float: left;
 }
-
 .box input {
 	border: 0;
 	padding: 10px;
 }
-
 .sideDiv {
 	background: #C6C6C6;
 	border-left: 3px solid;
@@ -41,7 +37,6 @@ body {
 	position: fixed;
 	right: 0;
 }
-
 #onlineUser {
 	overflow-y: auto;
 	background-color: #eee;
@@ -53,13 +48,33 @@ body {
 	margin-bottom: 30px;
 	border: 1px solid #000;
 }
-
 #username {
 	width: 100%;
 	height: 35px;
 	margin-top: 5px;
 }
-
+#password{
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+}
+#signUsername {
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+}
+#signPassword{
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+}
+#signUp {
+	width: 100%;
+	background: #2EBFB5;
+	height: 35px;
+	margin-top: 5px;
+	border: 1.5px solid #000;
+}
 #login {
 	width: 100%;
 	background: #2EBFB5;
@@ -67,28 +82,23 @@ body {
 	margin-top: 5px;
 	border: 1.5px solid #000;
 }
-
 #login:hover {
 	background-color: #eee;
 }
-
 #messages {
 	overflow: auto;
 	width: 84%
 }
-
 #message {
 	width: 82.5%;
 	float: left;
 }
-
 #send {
 	height: 35px;
 	width: 17.3%;
 	background: #2EBFB5;
 	float: right;
 }
-
 #upload {
 	font: 15px Arial;
 	position: fixed;
@@ -103,11 +113,9 @@ body {
 	border-top: 3px solid;
 	border-right: 3px solid;
 }
-
 #upload:hover {
 	background-color: #eee;
 }
-
 #uploadLabel {
 	font: 13px Arial;
 	position: fixed;
@@ -116,17 +124,14 @@ body {
 	width: 150x;
 	heigth: 20px;
 }
-
 #messagesDiv {
 	overflow: auto;
 	top: 0;
 	margin-bottom: 13%;
 }
-
 #messages li {
 	padding: 5px;
 }
-
 #messages li:nth-child(odd) {
 	background: #eee;
 }
@@ -137,10 +142,19 @@ body {
 		<h1>
 			<center>Empol</center>
 		</h1>
+		<label>LogIn</label>
 		<input id="username" type="text" class="usClass"
 			placeholder=" Username" />
+			
+		 <input id= "password" type="password" class="pwClass" placeholder="Password"/>
 		<form id="loginEvent" action="">
 			<input id="login" type="submit" value="LogIn" />
+		</form>
+		<form id= "signEvent" action="">
+		<label>Sign Up</label>
+		<input id="signUsername" type="text" placeholder="Enter username">
+		<input id="signPassword" type="password" placeholder="Enter password"/>
+		<input id="signUp" type="submit" value="Sign Up" />
 		</form>
 		<div id="onlineUser"></div>
 	</div>
@@ -176,7 +190,6 @@ body {
 		$('#onlineUser').hide();
 		$('#send').prop('disabled', true);
 		$('#media').prop('disabled', true);
-
 		/*
 		The eventhandler for the login Button if you click on the button.
 		If the username is empty then it shows a popup message that the username is unvalid.
@@ -201,9 +214,10 @@ body {
 													if (data == false) {
 														alert("This username is already taken! Please enter another one.");
 													} else {
-														socket.username = $('#username').val();
+														socket.username= $('#username').val();
 														$('#messages').show();
 														$('#onlineUser').show();
+														$('#signEvent').hide();
 														$('#send').prop(
 																'disabled',
 																false);
@@ -215,7 +229,6 @@ body {
 							}
 							return false;
 						});
-
 		/*
 		This method listens to the server and appends the message with the current date,
 		that a user has joined the chatroom into the messages div.
@@ -244,7 +257,6 @@ body {
 							$('<strong style="color:#2EBFB5;">').text(
 									" has joined the chatroom.")));
 		});
-
 		/*
 		This method listens to the server and 
 		it fills the onlineUser div with the array which contains the online users.
@@ -254,18 +266,15 @@ body {
 			for (i = 0; i < data.length; i++) {
 				empty = empty + "<br/>- " + data[i];
 			}
-
 			$('#onlineUser').html(empty);
-
 		});
-
 		/*
 		This method listens to the server and gets the username and throws a
 		message when the user clicks to  the logout button
 		After the logout the send and the upload button will be disabled again.
 		 */
 		socket.on('logOutUserEmit', function(logOut) {
-			if(logOut.name != undefined){
+			if(logOut.name!= undefined){
 			var time = new Date(logOut.timezone);
 			$('#messages').append(
 					$('<li>').append(
@@ -290,7 +299,6 @@ body {
 									" has left the chatroom.")));
 			}
 		});
-
 		/*
 		This is the eventhandler for the send button. 
 		If the message isn't empty then it sends the message with the username to the server.
@@ -310,38 +318,34 @@ body {
 				$('#message').val('');
 				return false;
 			}
-
 		});
-
 		/*
 		This method listens to the server and appends the messages with the current date 
 		 */
 		socket.on('chat message', function(msg) {
 			if(socket.username != undefined){
-				console.log(socket.usernmae);
-				time = new Date(msg.timezone);
-				$('#messages').append(
-						$('<li>').append(
-								$('<span>').text(
-										'['
-												+ time.getFullYear()
-												+ '/'
-												+ (time.getMonth() + 1)
-												+ '/'
-												+ time.getDate()
-												+ ' '
-												+ (time.getHours() < 10 ? '0'
-														+ time.getHours() : time
-														.getHours())
-												+ ':'
-												+ (time.getMinutes() < 10 ? '0'
-														+ time.getMinutes() : time
-														.getMinutes()) + ']'),
-								$('<b>').text(' ' + msg.name + ': '),
-								$('<span>').text(msg.text)));
+			time = new Date(msg.timezone);
+			$('#messages').append(
+					$('<li>').append(
+							$('<span>').text(
+									'['
+											+ time.getFullYear()
+											+ '/'
+											+ (time.getMonth() + 1)
+											+ '/'
+											+ time.getDate()
+											+ ' '
+											+ (time.getHours() < 10 ? '0'
+													+ time.getHours() : time
+													.getHours())
+											+ ':'
+											+ (time.getMinutes() < 10 ? '0'
+													+ time.getMinutes() : time
+													.getMinutes()) + ']'),
+							$('<b>').text(' ' + msg.name + ': '),
+							$('<span>').text(msg.text)));
 			}
 		});
-
 		/*
 		This method listens to the sever and goes trough the method if the user wants to write a private message.
 		It appends the the private with the current date.
@@ -350,7 +354,7 @@ body {
 				.on(
 						'private message',
 						function(msg) {
-							if(socket.username != undefined){	
+							if(socket.usersame != undefined){
 							time = new Date(msg.timezone);
 							$('#messages')
 									.append(
@@ -393,7 +397,6 @@ body {
 																	msg.text)));
 							}
 						});
-
 		/*
 		This method appends a message if the user wants to write a private message to a user sho doesn't exists.
 		 */
@@ -439,53 +442,49 @@ body {
 															$('<span>').text(
 																	msg.text)));
 						});
-
 		/*It goes trough this method if the user clicks to the upload button
 		 Getting the name of a file before it is uploaded with the originalEvent.
 		 A file reader will be created and the event onload will be triggert read operation is completed successfully.
 		 Then it sends the result to the server.
 		 */
-
 		$('#sendMedia').on('change', function(e) {
-			if(socket.username != undefinded){
-				var media = e.originalEvent.target.files[0];
-				var reader = new FileReader();
-				reader.onload = function(evt) {
-					var username = $('#username').val();
-					socket.emit('userImage', {
-						result : evt.target.result,
-						username : username
-					});
-				};
-				// Read in the image file as a data URL.
-				reader.readAsDataURL(media);
+			//nimmt den file aus image
+			if(socket.username != undefined){
+			var media = e.originalEvent.target.files[0];
+			var reader = new FileReader();
+			reader.onload = function(evt) {
+				var username = $('#username').val();
+				socket.emit('userImage', {
+					result : evt.target.result,
+					username : username
+				});
+			};
+			// Read in the image file as a data URL.
+			reader.readAsDataURL(media);
 			}
 		});
-
 		/*
 		 This method appends the image in the messages div.
 		 It gets the image from the server.
 		 */
-
 		socket.on('userImageEmit', function(image) {
 			if(socket.username != undefined){
-				time = new Date(image.timezone);
-				$('#messages').append(
-						$('<li>').append(
-								$('<span>').text(
-										'[' + time.getFullYear() + '/'
-												+ (time.getMonth() + 1) + '/'
-												+ time.getDate() + ' '
-												+ time.getHours() + ':'
-												+ time.getMinutes() + ']'),
-								$('<b> ').text(
-										' ' + image.username
-												+ ' has sent an image:'),
-								'</p> <img width="220" height="190" src="' + image.result + '"/>'));
-				$('#media').val('');
-				}
+			time = new Date(image.timezone);
+			$('#messages').append(
+					$('<li>').append(
+							$('<span>').text(
+									'[' + time.getFullYear() + '/'
+											+ (time.getMonth() + 1) + '/'
+											+ time.getDate() + ' '
+											+ time.getHours() + ':'
+											+ time.getMinutes() + ']'),
+							$('<b> ').text(
+									' ' + image.username
+											+ ' has sent an image:'),
+							'</p> <img width="220" height="190" src="' + image.result + '"/>'));
+			$('#media').val('');
+			}
 		});
-
 		/*
 		This method is for disabling our bottons.
 		 */
