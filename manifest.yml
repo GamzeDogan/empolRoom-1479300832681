@@ -3,6 +3,6 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: empolchat
-  host: empolchat
+  name: empolRoom-1479300832681
+  host: empolRoom-1479300832681
   disk_quota: 1024M
