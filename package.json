@@ -7,7 +7,8 @@
   },
   "dependencies": {
 	"express": "^4.10.2",
-	"socket.io": "^1.5.0"
+	"socket.io": "^1.5.0",
+    "cfenv":  "^1.0.3"
 	},
   "repository": {},
   "engines": {

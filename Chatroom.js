@@ -10,6 +10,9 @@ var io = require('socket.io')(http);
 /** A list with the online users. */
 var userList = {};
 
+var cfenv = require('cfenv');
+var appEnv = cfenv.getAppEnv();
+
 /**
  * If a client want to connect with the server then this function will send a
  * respond with the URL to the client.
@@ -118,4 +121,4 @@ io.on('connection', function(socket) {
 /**
  * The server listens to the port 3000.
  */
-http.listen(3000);
+http.listen(appEnv.port || 3000);
