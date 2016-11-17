@@ -6,9 +6,9 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-//var cfenv = require('cfenv');
+var cfenv = require('cfenv');
 
-//var appEnv = cfenv.getAppEnv();
+var appEnv = cfenv.getAppEnv();
 
 /** A list with the online users. */
 var userList = {};
@@ -213,4 +213,5 @@ io.on('connection', function(socket) {
 /**
  * The server listens to the port 3000.
  */
-http.listen(3000);
+//http.listen(3000);
+http.listen(appEnv.port || 3000);
