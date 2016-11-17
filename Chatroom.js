@@ -7,10 +7,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
-
 var appEnv = cfenv.getAppEnv();
 
-/** A list with the online users. */
 var userList = {};
 var user = {};
 var home = 'home';
@@ -18,7 +16,6 @@ var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
 var passwordUserList = {};
-
 
 /**
  * If a client want to connect with the server then this function will send a
@@ -33,13 +30,12 @@ app.get('/', function(request, respond) {
  */
 io.on('connection', function(socket) {
 	/**
-	 * After the client clicked on the login button the user name will be
+	 * After the client clicked on the sign in button the user name will be
 	 * transferred to the sever. It goes through the list and checks if the
 	 * user name is already taken or not. If the user name is not in the list then
 	 * it will be added to the list. After that, the list with the objects will be
-	 * sent to the client side.
+	 * sent to the client side. Log in works like the sign in function.
 	 */
-	
 	socket.on('signInUser', function(data, callback){
 		if(data.username in passwordUserList){
 			callback(false);
@@ -72,25 +68,23 @@ io.on('connection', function(socket) {
 					callback(false);
 				}
 				roomUserlist[socket.username] = home;
-				
 				if(socket.username != undefined){
 					io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 				}
 			}		
 	});
 	
-
 	/**
 	 * Here we look at the text whether it is a private chat or not. If is a
 	 * private chat then we slice the message to look which user gets the message. 
 	 * If we have the name of the online user then we look whether the user is in the list or not.
+	 * Also we look at the text whether it is /create or /join.
 	 */
 	socket.on('chat message', function(msg) {
 		var textMessage = '' + msg.text;
 		var pwd;
 		
 		if(socket.username != undefined){
-		
 			if(textMessage.slice(0, 8) === '/create '){
 					var chatroomNameStart = textMessage.slice(8);
 					var countWords = chatroomNameStart.indexOf(' ');
@@ -134,7 +128,6 @@ io.on('connection', function(socket) {
 				}
 				if(temp == false){
 					userList[socket.username].emit('roomDoesntExistWarning', {timezone: new Date(), room: chatroomName});
-					console.log("Diesen Chatroom gibt es nicht!");
 				}
 				temp = false;
 			}
@@ -213,5 +206,4 @@ io.on('connection', function(socket) {
 /**
  * The server listens to the port 3000.
  */
-//http.listen(3000);
 http.listen(appEnv.port || 3000);

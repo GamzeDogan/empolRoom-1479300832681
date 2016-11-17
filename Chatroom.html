@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 <head>
@@ -66,7 +65,6 @@ body {
 	margin-top: 5px;
 	border: 1.5px solid #000;
 }
-
 #username {
 	width: 100%;
 	height: 35px;
@@ -77,8 +75,6 @@ body {
 	height: 35px;
 	margin-top: 5px;
 }
-
-
 #login {
 	width: 100%;
 	background: #2EBFB5;
@@ -153,12 +149,16 @@ body {
 		 <input id= "password" type="password" class="pwClass" placeholder="Password"/>
 		<form id="loginEvent" action="">
 			<input id="login" type="submit" value="LogIn" />
+			<label id="credUnvalidError" style="font: 15px Arial; color: red; margin-top: 5px">These credentials are invalid!</label>
+			<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">This account doesnt exists. Please sign up.</label>
 		</form>
 		<form id= "signinEvent" action="">
 		<label>Sign Up</label>
 		<input id="signUsername" type="text" class="signUserClass" placeholder="Username">
 		<input id="signPassword" type="password" class="signPassClass" placeholder="Password"/>
 		<input id="signUp" type="submit" value="Sign Up" />
+		<label id="usernameError" style="font: 15px Arial; color: red; margin-top: 5px">Username is already taken.</label>
+		<label id="unvalidError" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
 		</form>
 		<div id="onlineUser"></div>
 	</div>
@@ -191,23 +191,27 @@ body {
 		 */
 		var socket = io();
 		$('#messages').hide();
+		$('#usernameError').hide();
+		$('#unvalidError').hide();
+		$('#credUnvalidError').hide();
+		$('#accountError').hide();
 		$('#onlineUser').hide();
 		$('#send').prop('disabled', true);
 		$('#media').prop('disabled', true);
 		
 		$('#signinEvent').submit(function() {
 			if (($('.signUserClass').val() == "" && $('.signPassClass').val() == "") | ($('.signUserClass').val() == "" || $('.signPassClass').val() == "")){
-				//ÖZGÜN!
-				alert("Unvalid! Please try again!");
+				$('#unvalidError').show();
 			} else {
 				socket.emit('signInUser',{username : $('#signUsername').val(), password : $('#signPassword').val()},
 						function(data) {
 							if (data == false) {
-								//ÖZGÜN!
-								alert("This username is already taken! Please enter another one.");
+								$('#usernameError').show();
 							} else {
 								socket.username = $('#signUsername').val();
 								socket.password = $('#signPassword').val();
+								$('#unvalidError').hide();
+								$('#usernameError').hide();
 							}
 						});
 					}
@@ -229,18 +233,19 @@ body {
 				.submit(
 						function() {
 							if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
-								//ÖZGÜN!
-								alert("These credentials are invalid! Please try again.");
+								$('#credUnvalidError').show();
 							} else {
 								socket.emit('logInUser',{username : $('#username').val(), password : $('#password').val()},
 												function(data) {
 													if (data == false) {
-														//ÖZGÜN!
-														alert("This account doesnt exists. Please sign up.");
+														$('#accountError').show();
+														
 													} else {
 														socket.username = $('#username').val();
 														socket.password = $('#password').val();
 														$('#messages').show();
+														$('#credUnvalidError').hide();
+														$('#accountError').hide();
 														$('#onlineUser').show();
 														$('#signinEvent').hide();
 														$('#send').prop(
@@ -254,6 +259,7 @@ body {
 							}
 							return false;
 						});
+		
 		/*
 		This method listens to the server and appends the message with the current date,
 		that a user has joined the chatroom into the messages div.
@@ -282,7 +288,8 @@ body {
 							$('<strong style="color:#20B2AA">').text(
 								' has joined the chatroom: '),$('<b>').text('home')));
 		});
-		/*s
+		
+		/*
 		This method listens to the server and 
 		it fills the onlineUser div with the array which contains the online users.
 		 */
@@ -321,6 +328,7 @@ body {
 							$('<b>').text(
 									logOut.name ), $('<strong style="color:#20B2AA;">').text(" has left the chatroom.")));
 		});
+		
 		/*
 		This is the eventhandler for the send button. 
 		If the message isn't empty then it sends the message with the username to the server.
@@ -341,6 +349,7 @@ body {
 				return false;
 			}
 		});
+		
 		/*
 		This method listens to the server and appends the messages with the current date 
 		 */
@@ -368,6 +377,7 @@ body {
 							$('<span>').text(msg.text)));
 			}
 		});
+		
 		/*
 		This method listens to the sever and goes trough the method if the user wants to write a private message.
 		It appends the the private with the current date.
@@ -410,6 +420,7 @@ body {
 															$('<span>').text(
 																	msg.text)));
 						});
+		
 		/*
 		This method appends a message if the user wants to write a private message to a user sho doesn't exists.
 		 */
@@ -455,13 +466,13 @@ body {
 															$('<span>').text(
 																	msg.text)));
 						});
-		/*It goes trough this method if the user clicks to the upload button
+		
+		/*It goes through this method if the user clicks to the upload button
 		 Getting the name of a file before it is uploaded with the originalEvent.
 		 A file reader will be created and the event onload will be triggert read operation is completed successfully.
 		 Then it sends the result to the server.
 		 */
 		$('#sendMedia').on('change', function(e) {
-			//nimmt den file aus image
 			if(socket.username != undefined){
 			var media = e.originalEvent.target.files[0];
 			var reader = new FileReader();
@@ -476,6 +487,7 @@ body {
 			reader.readAsDataURL(media);
 			}
 		});
+		
 		/*
 		 This method appends the image in the messages div.
 		 It gets the image from the server.
@@ -498,6 +510,9 @@ body {
 			}
 		});
 		
+		/*
+		 Here all users will see a notification that a room is created.
+		 */
 		socket.on('chatroomBroadcast', function(msg) {
 			if(socket.username != undefined){
 				time = new Date(msg.timezone);
@@ -538,6 +553,9 @@ body {
 		}
 		});
 		
+		/*
+		 After you created/joined a chatroom you get this notification.
+		 */
 		socket.on('emptyChat', function(msg){
 			$('#messages').empty();
 			var time = new Date(msg.timezone);
@@ -563,6 +581,9 @@ body {
 									$('<b>').text(msg.pwd)));
 		});
 		
+		/*
+		 If a room exists already, you get this notification.
+		 */
 		socket.on('roomExistsWarning', function(msg){ 
 			if(socket.username != undefined){ 
 				time = new Date(msg.timezone); 
@@ -573,7 +594,9 @@ body {
 						         $('<strong style="color:red">') .text('The room " '+ msg.chatroom + ' "is already created! Please try again."'))); } 
 			});
 		
-		
+		/*
+		 If a user changed a room all users get a notification, that the user changes the room.
+		 */
 		socket.on('userChangedRoom', function (msg){ 
 			if(socket.username != undefined){ 
 				time = new Date(msg.timezone); $('#messages').append( $('<li>').append( $('<span>') 
@@ -585,6 +608,9 @@ body {
 						         $('<b>').text(msg.chatroom))); } });
 		
 		
+		/*
+		 You get this notification, if you entered a wrong password for a specific room.
+		 */
 		socket.on('wrongPWforRoom', function(msg){ 
 			if(socket.username != undefined){ 
 				time = new Date(msg.timezone); $('#messages') .append( $('<li>') .append( $('<span>') 
@@ -595,6 +621,9 @@ body {
 						         .text('You entered the wrong password for the room "'+ msg.chatroom + '"'))); 
 		}});
 		
+		/*
+		 If a room doesnt exist, you will get this notification.
+		 */
 		socket.on('roomDoesntExistsWarning', function(msg){ 
 			if(socket.username != undefined){ 
 				time = new Date(msg.timezone); $('#messages') .append( $('<li>') .append( $('<span>') 
@@ -613,6 +642,7 @@ body {
 				});
 			}
 		});
+		
 	</script>
 </body>
 </html>
