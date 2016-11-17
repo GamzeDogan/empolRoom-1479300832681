@@ -8,7 +8,8 @@
   "dependencies": {
 	"express": "^4.10.2",
 	"socket.io": "^1.5.0",
-    "cfenv":  "^1.0.3"
+    "cfenv":  "^1.0.3",
+	"cloudant": "^1.6.2"
 	},
   "repository": {},
   "engines": {
