@@ -25,6 +25,8 @@ var credentials;
 var cloudant;
 var database;
 
+init(); 
+
 var userSelector = {
 	    "selector": {
 	        "_id": ""

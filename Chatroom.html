@@ -59,23 +59,8 @@ body {
 	height: 35px;
 	margin-top: 5px;
 }
-#signUsername {
-	width: 100%;
-	height: 35px;
-	margin-top: 5px;
-}
-#signPassword{
-	width: 100%;
-	height: 35px;
-	margin-top: 5px;
-}
-#signUp {
-	width: 100%;
-	background: #2EBFB5;
-	height: 35px;
-	margin-top: 5px;
-	border: 1.5px solid #000;
-}
+
+
 #login {
 	width: 100%;
 	background: #2EBFB5;
@@ -151,12 +136,7 @@ body {
 		<form id="loginEvent" action="">
 			<input id="login" type="submit" value="LogIn" />
 		</form>
-		<form id= "signEvent" action="">
-		<label>Sign Up</label>
-		<input id="signUsername" type="text" placeholder="Enter username">
-		<input id="signPassword" type="password" placeholder="Enter password"/>
-		<input id="signUp" type="submit" value="Sign Up" />
-		</form>
+		
 		<div id="onlineUser"></div>
 	</div>
 
@@ -216,7 +196,8 @@ body {
 													if (data == false) {
 														alert("This username is already taken! Please enter another one.");
 													} else {
-														socket.username= $('#username').val();
+														socket.username = $('#username').val();
+														socket.password = $('#password').val();
 														$('#messages').show();
 														$('#onlineUser').show();
 														$('#signEvent').hide();
