@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -127,7 +128,7 @@ body {
 #messagesDiv {
 	overflow: auto;
 	top: 0;
-	margin-bottom: 13%;
+	margin-bottom: 6%;
 }
 #messages li {
 	padding: 5px;
@@ -170,7 +171,7 @@ body {
 	<div id="messagesDiv">
 		<ul id="messages"></ul>
 	</div>
-
+	
 	<div class=box>
 		<form id="sendEvent" action="">
 			<input id="message" class="msgClass" placeholder="write something..." />
@@ -190,6 +191,7 @@ body {
 		$('#onlineUser').hide();
 		$('#send').prop('disabled', true);
 		$('#media').prop('disabled', true);
+		
 		/*
 		The eventhandler for the login Button if you click on the button.
 		If the username is empty then it shows a popup message that the username is unvalid.
@@ -252,29 +254,29 @@ body {
 											+ (time.getMinutes() < 10 ? '0'
 													+ time.getMinutes() : time
 													.getMinutes()) + '] '),
-							$('<strong style="color:#2EBFB5;">').text(
+							$('<b>').text(
 									logIn.username),
-							$('<strong style="color:#2EBFB5;">').text(
-									" has joined the chatroom.")));
+							$('<strong style="color:#20B2AA">').text(
+								' has joined the chatroom: '),$('<b>').text('home')));
 		});
-		/*
+		/*s
 		This method listens to the server and 
 		it fills the onlineUser div with the array which contains the online users.
 		 */
 		socket.on('usernames', function(data) {
-			var empty = '<b>Online user:</b>';
-			for (i = 0; i < data.length; i++) {
-				empty = empty + "<br/>- " + data[i];
+			var empty = '<b>Online user / Room:</b>';
+			for (i = 0; i < data.userList.length; i++) {
+				empty = empty + "<br/>- " + data.userList[i] + " / " + data.roomList[data.userList[i]];
 			}
 			$('#onlineUser').html(empty);
 		});
+		
 		/*
 		This method listens to the server and gets the username and throws a
 		message when the user clicks to  the logout button
 		After the logout the send and the upload button will be disabled again.
 		 */
 		socket.on('logOutUserEmit', function(logOut) {
-			if(logOut.name!= undefined){
 			var time = new Date(logOut.timezone);
 			$('#messages').append(
 					$('<li>').append(
@@ -293,11 +295,8 @@ body {
 											+ (time.getMinutes() < 10 ? '0'
 													+ time.getMinutes() : time
 													.getMinutes()) + '] '),
-							$('<strong style="color:#2EBFB5;">').text(
-									logOut.name),
-							$('<strong style="color:#2EBFB5;">').text(
-									" has left the chatroom.")));
-			}
+							$('<b>').text(
+									logOut.name ), $('<strong style="color:#20B2AA;">').text(" has left the chatroom.")));
 		});
 		/*
 		This is the eventhandler for the send button. 
@@ -351,17 +350,9 @@ body {
 		It appends the the private with the current date.
 		 */
 		socket
-				.on(
-						'private message',
-						function(msg) {
-							if(socket.usersame != undefined){
+				.on('private message', function(msg) {
 							time = new Date(msg.timezone);
-							$('#messages')
-									.append(
-											$('<li>')
-													.append(
-															$('<span>')
-																	.text(
+							$('#messages').append($('<li>').append($('<span>').text(
 																			'['
 																					+ time
 																							.getFullYear()
@@ -385,7 +376,7 @@ body {
 																									.getMinutes()
 																							: time
 																									.getMinutes())
-																					+ ']'),
+																					+ '] '),
 															$('<b>')
 																	.text(
 																			' private chat between '
@@ -395,7 +386,6 @@ body {
 																					+ ': '),
 															$('<span>').text(
 																	msg.text)));
-							}
 						});
 		/*
 		This method appends a message if the user wants to write a private message to a user sho doesn't exists.
@@ -434,7 +424,7 @@ body {
 																									.getMinutes()
 																							: time
 																									.getMinutes())
-																					+ ']'),
+																					+ '] '),
 															$(
 																	'<strong style="color:red">')
 																	.text(
@@ -477,14 +467,119 @@ body {
 											+ (time.getMonth() + 1) + '/'
 											+ time.getDate() + ' '
 											+ time.getHours() + ':'
-											+ time.getMinutes() + ']'),
+											+ time.getMinutes() + '] '),
 							$('<b> ').text(
-									' ' + image.username
-											+ ' has sent an image:'),
+									' ' + image.username), $('<strong style="color:#20B2AA;">').text(' has sent an image:'),
 							'</p> <img width="220" height="190" src="' + image.result + '"/>'));
 			$('#media').val('');
 			}
 		});
+		
+		socket.on('chatroomBroadcast', function(msg) {
+			if(socket.username != undefined){
+				time = new Date(msg.timezone);
+				$('#messages')
+				.append(
+						$('<li>')
+								.append(
+										$('<span>')
+												.text(
+														'['
+																+ time
+																		.getFullYear()
+																+ '/'
+																+ (time
+																		.getMonth() + 1)
+																+ '/'
+																+ time
+																		.getDate()
+																+ ' '
+																+ (time
+																		.getHours() < 10 ? '0'
+																		+ time
+																				.getHours()
+																		: time
+																				.getHours())
+																+ ':'
+																+ (time
+																		.getMinutes() < 10 ? '0'
+																		+ time
+																				.getMinutes()
+																		: time
+																				.getMinutes())
+																+ '] '),
+										$('<b>')
+												.text(msg.name),
+												$('<strong style="color:#20B2AA;">').text(' created the room: '),
+												$('<b>').text(msg.chatroom )));
+		}
+		});
+		
+		socket.on('emptyChat', function(msg){
+			$('#messages').empty();
+			var time = new Date(msg.timezone);
+			$('#messages').append($('<li>').append($('<i>').text(
+									'['
+											+ time.getFullYear()
+											+ '/'
+											+ (time.getMonth() + 1)
+											+ '/'
+											+ time.getDate()
+											+ ' '
+											+ (time.getHours() < 10 ? '0'
+													+ time.getHours() : time
+													.getHours())
+											+ ':'
+											+ (time.getMinutes() < 10 ? '0'
+													+ time.getMinutes() : time
+													.getMinutes()) + '] '),
+							$('<strong style="color:#20B2AA;">').text(
+									" You have joined the chatroom " ),
+									$('<b>').text(msg.chatroom ),
+									$('<strong style="color:#20B2AA;">').text(". Room password: "),
+									$('<b>').text(msg.pwd)));
+		});
+		
+		socket.on('roomExistsWarning', function(msg){ 
+			if(socket.username != undefined){ 
+				time = new Date(msg.timezone); 
+				$('#messages').append( $('<li>').append( $('<span>') 
+						.text( '[' + time .getFullYear() + '/' + (time .getMonth() + 1) + '/' + time .getDate() + ' ' 
+						         + (time .getHours() < 10 ? '0' + time .getHours() : time .getHours()) + ':' 
+						         + (time .getMinutes() < 10 ? '0' + time .getMinutes() : time .getMinutes()) + '] '), 
+						         $('<strong style="color:red">') .text('The room " '+ msg.chatroom + ' "is already created! Please try again."'))); } 
+			});
+		
+		
+		socket.on('userChangedRoom', function (msg){ 
+			if(socket.username != undefined){ 
+				time = new Date(msg.timezone); $('#messages').append( $('<li>').append( $('<span>') 
+						.text( '[' + time .getFullYear() + '/' + (time .getMonth() + 1) + '/' + time .getDate() + ' ' 
+						         + (time .getHours() < 10 ? '0' + time .getHours() : time .getHours()) + ':' 
+						         + (time .getMinutes() < 10 ? '0' + time .getMinutes() : time .getMinutes()) + '] '), 
+						         $('<b>') .text( msg.name ),
+						         $('<strong style="color:#20B2AA;">') .text(' changed into the room: '), 
+						         $('<b>').text(msg.chatroom))); } });
+		
+		
+		socket.on('wrongPWforRoom', function(msg){ 
+			if(socket.username != undefined){ 
+				time = new Date(msg.timezone); $('#messages') .append( $('<li>') .append( $('<span>') 
+						.text( '[' + time .getFullYear() + '/' + (time .getMonth() + 1) + '/' + time .getDate() 
+						         + ' ' + (time .getHours() < 10 ? '0' + time .getHours() : time .getHours()) + ':' 
+						         + (time .getMinutes() < 10 ? '0' + time .getMinutes() : time .getMinutes()) + '] '), 
+						         $('<strong style="color:red">') 
+						         .text('You entered the wrong password for the room "'+ msg.chatroom + '"'))); 
+		}});
+		
+		socket.on('roomDoesntExistsWarning', function(msg){ 
+			if(socket.username != undefined){ 
+				time = new Date(msg.timezone); $('#messages') .append( $('<li>') .append( $('<span>') 
+						.text( '[' + time .getFullYear() + '/' + (time .getMonth() + 1) + '/' + time .getDate() 
+						         + ' ' + (time .getHours() < 10 ? '0' + time .getHours() : time .getHours()) + ':' 
+						         + (time .getMinutes() < 10 ? '0' + time .getMinutes() : time .getMinutes()) + ']'), 
+						         $('<strong style="color:red">') .text('The room " '+ msg.chatroom + ' doesnt exist!'))); } });
+		
 		/*
 		This method is for disabling our bottons.
 		 */
