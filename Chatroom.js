@@ -24,6 +24,13 @@ var services;
 var credentials;
 var cloudant;
 var database;
+
+var userSelector = {
+	    "selector": {
+	        "_id": ""
+	    }  
+	};
+
 /**
  * If a client want to connect with the server then this function will send a
  * respond with the URL to the client.
@@ -48,6 +55,14 @@ io.on('connection', function(socket) {
 				callback(false);
 			} else {
 				callback(true);
+				
+				database.insert({_id: socket.username, password: socket.password}, function(error, body){
+					if(er){
+						throw er;
+					}
+					console.log("created design document"+body);
+				});
+				
 				socket.username = data.username;
 				userList[socket.username] = socket;
 				if(socket.username != undefined){
