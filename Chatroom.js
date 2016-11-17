@@ -6,9 +6,9 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var cfenv = require('cfenv');
+//var cfenv = require('cfenv');
 
-var appEnv = cfenv.getAppEnv();
+//var appEnv = cfenv.getAppEnv();
 
 /** A list with the online users. */
 var userList = {};
@@ -17,6 +17,7 @@ var home = 'home';
 var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
+var passwordUserList = {};
 
 
 /**
@@ -38,21 +39,40 @@ io.on('connection', function(socket) {
 	 * it will be added to the list. After that, the list with the objects will be
 	 * sent to the client side.
 	 */
+	
+	socket.on('signInUser', function(data, callback){
+		if(data.username in passwordUserList){
+			callback(false);
+		} else {
+			callback(true);
+			socket.username = data.username;
+			socket.password = data.password;
+			passwordUserList[socket.username] = socket.password;
+			io.emit('signInSuccessfully');
+		}
+	});
+	
 	socket.on('logInUser', function(data, callback) {
-			if (data.username in userList) {
+			if (!(data.username in passwordUserList)) {
 				callback(false);
 			} else {
-				callback(true);
-				
-				socket.username = data.username;
-				userList[socket.username] = socket;
-				if(socket.username != undefined){
-					io.emit('logInUserEmit', {
-						timezone : new Date(),
-						username : socket.username
-					});
+				if(passwordUserList[data.username] == data.password){
+					socket.username = data.username;
+					userList[socket.username] = socket;
+					callback(true);
+					
+					if(socket.username != undefined){
+						io.emit('logInUserEmit', {
+							timezone : new Date(),
+							username : socket.username
+						});
+					}
+					
+				} else {
+					callback(false);
 				}
 				roomUserlist[socket.username] = home;
+				
 				if(socket.username != undefined){
 					io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 				}
@@ -193,4 +213,4 @@ io.on('connection', function(socket) {
 /**
  * The server listens to the port 3000.
  */
-http.listen(appEnv.port || 3000);
+http.listen(3000);

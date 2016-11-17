@@ -49,6 +49,24 @@ body {
 	margin-bottom: 30px;
 	border: 1px solid #000;
 }
+#signUsername {
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+}
+#signPassword{
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+}
+#signUp {
+	width: 100%;
+	background: #2EBFB5;
+	height: 35px;
+	margin-top: 5px;
+	border: 1.5px solid #000;
+}
+
 #username {
 	width: 100%;
 	height: 35px;
@@ -136,7 +154,12 @@ body {
 		<form id="loginEvent" action="">
 			<input id="login" type="submit" value="LogIn" />
 		</form>
-		
+		<form id= "signinEvent" action="">
+		<label>Sign Up</label>
+		<input id="signUsername" type="text" class="signUserClass" placeholder="Username">
+		<input id="signPassword" type="password" class="signPassClass" placeholder="Password"/>
+		<input id="signUp" type="submit" value="Sign Up" />
+		</form>
 		<div id="onlineUser"></div>
 	</div>
 
@@ -172,35 +195,54 @@ body {
 		$('#send').prop('disabled', true);
 		$('#media').prop('disabled', true);
 		
+		$('#signinEvent').submit(function() {
+			if (($('.signUserClass').val() == "" && $('.signPassClass').val() == "") | ($('.signUserClass').val() == "" || $('.signPassClass').val() == "")){
+				//ÖZGÜN!
+				alert("Unvalid! Please try again!");
+			} else {
+				socket.emit('signInUser',{username : $('#signUsername').val(), password : $('#signPassword').val()},
+						function(data) {
+							if (data == false) {
+								//ÖZGÜN!
+								alert("This username is already taken! Please enter another one.");
+							} else {
+								socket.username = $('#signUsername').val();
+								socket.password = $('#signPassword').val();
+							}
+						});
+					}
+			return false;			
+		});
+		
+		socket.on('signInSuccessfully', function(data) {
+			alert("You are signed in successfully! Please Login.");
+		});
+		
 		/*
 		The eventhandler for the login Button if you click on the button.
 		If the username is empty then it shows a popup message that the username is unvalid.
 		The username will send to the server and after it checks if the username is already taken or not.
 		And shows a popup message if the username is already taken.
 		Before the login the send button and the upload button are disabled.
-		 */
+		 */ 
 		$('#loginEvent')
 				.submit(
 						function() {
-							if ($('.usClass').val() == "") {
-								alert("This username is invalid! Please enter another one.");
+							if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
+								//ÖZGÜN!
+								alert("These credentials are invalid! Please try again.");
 							} else {
-								socket
-										.emit(
-												'logInUser',
-												{
-													username : $('#username')
-															.val()
-												},
+								socket.emit('logInUser',{username : $('#username').val(), password : $('#password').val()},
 												function(data) {
 													if (data == false) {
-														alert("This username is already taken! Please enter another one.");
+														//ÖZGÜN!
+														alert("This account doesnt exists. Please sign up.");
 													} else {
 														socket.username = $('#username').val();
 														socket.password = $('#password').val();
 														$('#messages').show();
 														$('#onlineUser').show();
-														$('#signEvent').hide();
+														$('#signinEvent').hide();
 														$('#send').prop(
 																'disabled',
 																false);
