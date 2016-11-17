@@ -60,7 +60,12 @@ io.on('connection', function(socket) {
 				if(socket.username != undefined){
 					io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 				}
-			}
+			}		
+			
+			database.insert(gamze, function (er, result) {
+				  if (er) {
+				    throw er;
+				  }
 	});
 	
 
