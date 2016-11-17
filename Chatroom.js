@@ -44,13 +44,6 @@ io.on('connection', function(socket) {
 			} else {
 				callback(true);
 				
-				database.insert({_id: socket.username, password: socket.password}, function(error, body){
-					if(er){
-						throw er;
-					}
-					console.log("created design document"+body);
-				});
-				
 				socket.username = data.username;
 				userList[socket.username] = socket;
 				if(socket.username != undefined){
