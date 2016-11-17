@@ -205,7 +205,7 @@ function init() {
 
         var cloudantService = services['cloudantNoSQLDB'];
         for (var index in cloudantService) {
-            if (cloudantService[index].name === 'cloudant-nosql-db') {
+            if (cloudantService[index].name === 'empolchatDB') {
                 credentials = cloudantService[index].credentials;
             }
         }
@@ -215,7 +215,7 @@ function init() {
     }
 
     if (isServiceAvailable(cloudant)) {
-        database = cloudant.db.use('empolchatDB');
+        database = cloudant.db.use('empoldb');
         if (database === undefined) {
             console.log("ERROR: The database with the name 'empolchatDB' is not defined. You have to define it before you can use the database.")
         }
