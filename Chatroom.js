@@ -230,12 +230,10 @@ function init() {
         console.log("ERROR: Cloudant Service was not bound! Are you running in local mode?");
     }
 
-    if (isServiceAvailable(cloudant)) {
         databaseEmpol = cloudant.db.use('datenbankempol');
         if (databaseEmpol === undefined) {
             console.log("ERROR: The database with the name 'datenbankempol' is not defined. You have to define it before you can use the database.")
         }
-    }
 }
 
 
