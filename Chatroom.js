@@ -57,6 +57,23 @@ io.on('connection', function(socket) {
 			socket.password = data.password;
 			passwordUserList[socket.username] = socket.password;
 			io.emit('signInSuccessfully');
+			
+			
+			databaseEmpol.find(userSelector, function(error, resultSet) {
+                if (error) {
+                    console.log("ERROR: Something went wrong during query procession: " + error);
+                } else {
+                    if (resultSet.docs.length == 0) {
+                        databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
+                            if (!error) {
+                                isRegisteredFunc(true);
+                            } else {
+                                console.log("ERROR: Could not store the values " + error);
+                            }
+                        });  
+			
+			
+			
 		}
 	});
 	
@@ -229,7 +246,6 @@ function init() {
     } else {
         console.log("ERROR: Cloudant Service was not bound! Are you running in local mode?");
     }
-
         databaseEmpol = cloudant.db.use('datenbankempol');
         if (databaseEmpol === undefined) {
             console.log("ERROR: The database with the name 'datenbankempol' is not defined. You have to define it before you can use the database.")
