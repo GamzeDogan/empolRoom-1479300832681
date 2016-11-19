@@ -8,14 +8,26 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
+var Cloudant = require('cloudant');
 
 var userList = {};
-var user = {};
 var home = 'home';
 var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
 var passwordUserList = {};
+
+var services;
+var cloudant;
+var databaseEmpol;
+
+var userSelector = {
+    "selector": {
+        "_id": ""
+    }  
+};
+
+init();
 
 /**
  * If a client want to connect with the server then this function will send a
@@ -202,6 +214,30 @@ io.on('connection', function(socket) {
 		}
 	});
 });
+
+function init() {
+    if (process.env.VCAP_SERVICES) {
+        services = JSON.parse(process.env.VCAP_SERVICES);
+
+        var cloudantService = services['cloudantNoSQLDB'];
+        for (var service in cloudantService) {
+            if (cloudantService[service].name === 'datenbankEmpolService') {
+                cloudant = Cloudant(cloudantService[service].credentials.url);
+            }
+        }
+ 
+    } else {
+        console.log("ERROR: Cloudant Service was not bound! Are you running in local mode?");
+    }
+
+    if (isServiceAvailable(cloudant)) {
+        databaseEmpol = cloudant.db.use('datenbankempol');
+        if (databaseEmpol === undefined) {
+            console.log("ERROR: The database with the name 'datenbankempol' is not defined. You have to define it before you can use the database.")
+        }
+    }
+}
+
 
 /**
  * The server listens to the port 3000.
