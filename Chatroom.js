@@ -70,7 +70,10 @@ io.on('connection', function(socket) {
                             } else {
                                 console.log("ERROR: Could not store the values " + error);
                             }
-                        });  
+						}
+					}
+				}
+            });  
 			
 			
 			
