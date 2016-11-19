@@ -153,9 +153,6 @@ body {
 			<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">This account doesnt exists. Please sign up.</label>
 		</form>
 		<form id= "signinEvent" action="">
-		<label>Sign Up</label>
-		<input id="signUsername" type="text" class="signUserClass" placeholder="Username">
-		<input id="signPassword" type="password" class="signPassClass" placeholder="Password"/>
 		<input id="signUp" type="submit" value="Sign Up" />
 		<label id="usernameError" style="font: 15px Arial; color: red; margin-top: 5px">Username is already taken.</label>
 		<label id="unvalidError" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
@@ -203,16 +200,16 @@ body {
 		$('#media').prop('disabled', true);
 		
 		$('#signinEvent').submit(function() {
-			if (($('.signUserClass').val() == "" && $('.signPassClass').val() == "") | ($('.signUserClass').val() == "" || $('.signPassClass').val() == "")){
+			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
 				$('#unvalidError').show();
 			} else {
-				socket.emit('signInUser',{username : $('#signUsername').val(), password : $('#signPassword').val()},
+				socket.emit('signInUser',{username : $('#username').val(), password : $('#password').val()},
 						function(data) {
 							if (data == false) {
 								$('#usernameError').show();
 							} else {
-								socket.username = $('#signUsername').val();
-								socket.password = $('#signPassword').val();
+								socket.username = $('#username').val();
+								socket.password = $('#password').val();
 								$('#unvalidError').hide();
 								$('#usernameError').hide();
 							}
