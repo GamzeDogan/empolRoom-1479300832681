@@ -52,13 +52,6 @@ io.on('connection', function(socket) {
 		if(data.username in passwordUserList){
 			callback(false);
 		} else {
-			callback(true);
-			socket.username = data.username;
-			socket.password = data.password;
-			passwordUserList[socket.username] = socket.password;
-			io.emit('signInSuccessfully');
-			
-			
 			databaseEmpol.find(userSelector, function(error, resultSet) {
                 if (error) {
                     console.log("ERROR: Something went wrong during query procession: " + error);
@@ -66,7 +59,11 @@ io.on('connection', function(socket) {
                     if (resultSet.docs.length == 0) {
                         databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
                             if (!error) {
-                                isRegisteredFunc(true);
+                                			callback(true);
+											socket.username = data.username;
+											socket.password = data.password;
+											passwordUserList[socket.username] = socket.password;
+											io.emit('signInSuccessfully');
                             } else {
                                 console.log("ERROR: Could not store the values " + error);
                             }
