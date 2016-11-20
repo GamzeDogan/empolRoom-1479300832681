@@ -88,7 +88,7 @@ io.on('connection', function(socket) {
 				} else {
 					bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
-							if(res){
+							if(res == true){
 								socket.username = data.username;
 								userList[socket.username] = socket;
 								callback(true);							
