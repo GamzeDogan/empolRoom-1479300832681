@@ -83,6 +83,7 @@ io.on('connection', function(socket) {
         userSelector.selector._id = data.username;
 		
         databaseEmpol.find(userSelector, function(error, resultSet) {
+			console.log(resultSet);
             if (error) {
                 console.log("Something went wrong!");
             } else {
