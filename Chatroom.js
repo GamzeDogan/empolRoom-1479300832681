@@ -87,7 +87,9 @@ io.on('connection', function(socket) {
 					console.log("Something went wrong!");
 				} else {
 					bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
+						console.log("Bin hieeer");
 						if(!(err)){
+							console.log("Bin hieeer2");
 							if(res == true){
 								socket.username = data.username;
 								userList[socket.username] = socket;
@@ -101,7 +103,7 @@ io.on('connection', function(socket) {
 								roomUserlist[socket.username] = home;
 								if(socket.username != undefined){
 									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-								}	
+								} else { console.log("socket username ist undefined");}	
 							} else  {
 								callback(false);
 								console.log("Passwort falsch");
