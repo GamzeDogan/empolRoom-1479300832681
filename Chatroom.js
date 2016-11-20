@@ -102,7 +102,7 @@ io.on('connection', function(socket) {
 							if(socket.username != undefined){
 								io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 							}	
-						} else {
+						} else if(res == false) {
 							callback(false);
 							console.log("Passwort falsch");
 						}
