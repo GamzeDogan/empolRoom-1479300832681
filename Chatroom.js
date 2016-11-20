@@ -88,29 +88,25 @@ io.on('connection', function(socket) {
             } else {
                 if (resultSet.docs.length == 0) {
 					//Wenn Username nicht stimmt
+					console.log(resultSet.docs.length+" Username stimmt nicht");
                     callback(false);
                 } else {
 						// Load hash from your password DB. 
 						bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
 							if(res == true){
-								if (resultSet.docs[0].password === data.password) {
-									socket.username = data.username;
-									userList[socket.username] = socket;
-									callback(true);
+								socket.username = data.username;
+								userList[socket.username] = socket;
+								callback(true);
 							
-									if(socket.username != undefined){
-										io.emit('logInUserEmit', {
-										timezone : new Date(),
-										username : socket.username
-										});
-									}	
-								} else {
-									//Password not correct
-									console.log("Passwort falsch");
-									callback(false);
-								}
+								if(socket.username != undefined){
+									io.emit('logInUserEmit', {
+									timezone : new Date(),
+									username : socket.username
+									});
+								}	
 							} else {
 								callback(false);
+								console.log("Passwort falsch");
 							}
 						});
 						
