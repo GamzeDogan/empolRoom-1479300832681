@@ -81,7 +81,8 @@ io.on('connection', function(socket) {
 			userSelector.selector._id = data.username;
 			
 			databaseEmpol.find(userSelector, function(error, resultSet) {
-				console.log("resulselt: "+resultSet);
+				console.log("login pwd eingabe: " + data.password);
+				console.log("login pwd eingabe resultset: " + resultSet.docs[0].password);
 				if (error) {
 					console.log("Something went wrong!");
 				} else {
