@@ -79,39 +79,41 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('logInUser', function(data, callback) {
-        userSelector.selector._id = data.username;
-		
-        databaseEmpol.find(userSelector, function(error, resultSet) {
-			console.log("resulselt: "+resultSet);
-            if (error) {
-                console.log("Something went wrong!");
-            } else {
-				bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
-					if(!(err)){
-						if(res){
-							socket.username = data.username;
-							userList[socket.username] = socket;
-							callback(true);							
-							if(socket.username != undefined){
-								io.emit('logInUserEmit', {
-								timezone : new Date(),
-								username : socket.username
-								});
+		if(!(data.password)){
+			userSelector.selector._id = data.username;
+			
+			databaseEmpol.find(userSelector, function(error, resultSet) {
+				console.log("resulselt: "+resultSet);
+				if (error) {
+					console.log("Something went wrong!");
+				} else {
+					bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
+						if(!(err)){
+							if(res){
+								socket.username = data.username;
+								userList[socket.username] = socket;
+								callback(true);							
+								if(socket.username != undefined){
+									io.emit('logInUserEmit', {
+									timezone : new Date(),
+									username : socket.username
+									});
+								}
+								roomUserlist[socket.username] = home;
+								if(socket.username != undefined){
+									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+								}	
+							} else if(res == false) {
+								callback(false);
+								console.log("Passwort falsch");
 							}
-							roomUserlist[socket.username] = home;
-							if(socket.username != undefined){
-								io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-							}	
-						} else if(res == false) {
-							callback(false);
-							console.log("Passwort falsch");
+						} else {
+							console.log('Fehler: ' + hash);
 						}
-					} else {
-						console.log('Fehler: ' + hash);
-					}
-				});
-            }
-        });	
+					});
+				}
+			});	
+		} else { console.log("password ist anscheinend undefined: " +data.password)}
 	});
 	
 	/**
