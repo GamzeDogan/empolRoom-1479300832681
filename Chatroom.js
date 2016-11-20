@@ -50,7 +50,6 @@ app.get('/', function(request, respond) {
 io.on('connection', function(socket) {
 	
 	socket.on('signInUser', function(data, callback){
-		//DATABASE INSERT
 		databaseEmpol.find(userSelector, function(error, resultSet) {
 			if (error) {
                 console.log("Something went wrong");
@@ -83,28 +82,32 @@ io.on('connection', function(socket) {
         userSelector.selector._id = data.username;
 		
         databaseEmpol.find(userSelector, function(error, resultSet) {
-			console.log(resultSet);
+			console.log("resulselt: "+resultSet);
             if (error) {
                 console.log("Something went wrong!");
             } else {
 				bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
-					if(res == true){
-						socket.username = data.username;
-						userList[socket.username] = socket;
-						callback(true);							
-						if(socket.username != undefined){
-							io.emit('logInUserEmit', {
-							timezone : new Date(),
-							username : socket.username
-							});
+					if(!(err)){
+						if(res){
+							socket.username = data.username;
+							userList[socket.username] = socket;
+							callback(true);							
+							if(socket.username != undefined){
+								io.emit('logInUserEmit', {
+								timezone : new Date(),
+								username : socket.username
+								});
+							}
+							roomUserlist[socket.username] = home;
+							if(socket.username != undefined){
+								io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+							}	
+						} else {
+							callback(false);
+							console.log("Passwort falsch");
 						}
-						roomUserlist[socket.username] = home;
-						if(socket.username != undefined){
-							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-						}	
 					} else {
-						callback(false);
-						console.log("Passwort falsch");
+						console.log('Fehler: ' + hash);
 					}
 				});
             }
@@ -243,20 +246,18 @@ io.on('connection', function(socket) {
 function init() {
     if (process.env.VCAP_SERVICES) {
         services = JSON.parse(process.env.VCAP_SERVICES);
-
         var cloudantService = services['cloudantNoSQLDB'];
         for (var service in cloudantService) {
             if (cloudantService[service].name === 'datenbankEmpolService') {
                 cloudant = Cloudant(cloudantService[service].credentials.url);
             }
         }
- 
     } else {
-        console.log("ERROR: Cloudant Service was not bound! Are you running in local mode?");
+        console.log("Cloudant Service was not bound");
     }
         databaseEmpol = cloudant.db.use('datenbankempol');
         if (databaseEmpol === undefined) {
-            console.log("ERROR: The database with the name 'datenbankempol' is not defined. You have to define it before you can use the database.")
+            console.log("The database is not defined!");
         }
 }
 
