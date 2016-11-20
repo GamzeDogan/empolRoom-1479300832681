@@ -81,6 +81,7 @@ io.on('connection', function(socket) {
 	
 	socket.on('logInUser', function(data, callback) {
         userSelector.selector._id = data.username;
+		
         databaseEmpol.find(userSelector, function(error, resultSet) {
             if (error) {
                 console.log("Something went wrong!");
@@ -89,21 +90,29 @@ io.on('connection', function(socket) {
 					//Wenn Username nicht stimmt
                     callback(false);
                 } else {
-                    if (resultSet.docs[0].password === data.password) {
-                        socket.username = data.username;
-						userList[socket.username] = socket;
-						callback(true);
+						// Load hash from your password DB. 
+						bcrypt.compare(resultSet.docs[0].password, hash, function(err, res) {
+							if(res == true){
+								if (resultSet.docs[0].password === data.password) {
+									socket.username = data.username;
+									userList[socket.username] = socket;
+									callback(true);
 							
-						if(socket.username != undefined){
-							io.emit('logInUserEmit', {
-								timezone : new Date(),
-								username : socket.username
-							});
-						}	
-                    } else {
-                        //Password not correct
-						callback(false);
-                    }
+									if(socket.username != undefined){
+										io.emit('logInUserEmit', {
+										timezone : new Date(),
+										username : socket.username
+										});
+									}	
+								} else {
+									//Password not correct
+									callback(false);
+								}
+							} else {
+								callback(false);
+							}
+						});
+						
 					roomUserlist[socket.username] = home;
 					if(socket.username != undefined){
 						io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
