@@ -54,7 +54,6 @@ io.on('connection', function(socket) {
 			if (error) {
                 console.log("Something went wrong");
             } else {
-                if (resultSet.docs.length == 0) {
 					bcrypt.genSalt(10, function(err, salt) {
 						bcrypt.hash(data.password, salt, function(err, hash) {
 							//data.password = hash; 
@@ -72,10 +71,6 @@ io.on('connection', function(socket) {
 							});
 						});
 					});
-				} else {
-					callback(false);
-					console.log("SignUp: length > 0");
-				}
 			}
         });  
 	});
