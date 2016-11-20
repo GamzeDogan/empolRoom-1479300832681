@@ -58,8 +58,7 @@ io.on('connection', function(socket) {
                 if (resultSet.docs.length == 0) {
 					bcrypt.genSalt(10, function(err, salt) {
 						bcrypt.hash(data.password, salt, function(err, hash) {
-							data.password = hash;
-							// Store hash in your password DB. 
+							data.password = hash; 
 							databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
 							if (!error) {
 								callback(true);
@@ -74,6 +73,7 @@ io.on('connection', function(socket) {
 					});
 				} else {
 					callback(false);
+					console.log("SignUp: length > 0");
 				}
 			}
         });  
@@ -103,17 +103,16 @@ io.on('connection', function(socket) {
 									timezone : new Date(),
 									username : socket.username
 									});
+								}
+								roomUserlist[socket.username] = home;
+								if(socket.username != undefined){
+									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 								}	
 							} else {
 								callback(false);
 								console.log("Passwort falsch");
 							}
 						});
-						
-					roomUserlist[socket.username] = home;
-					if(socket.username != undefined){
-						io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-					}
                 }   
             }
         });	
