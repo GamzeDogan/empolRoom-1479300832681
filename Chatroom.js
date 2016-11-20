@@ -87,34 +87,26 @@ io.on('connection', function(socket) {
             if (error) {
                 console.log("Something went wrong!");
             } else {
-                if (resultSet.docs.length == 0) {
-					//Wenn Username nicht stimmt
-					console.log(resultSet.docs.length+" Username stimmt nicht");
-                    callback(false);
-                } else {
-						// Load hash from your password DB. 
-						bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
-							if(res == true){
-								socket.username = data.username;
-								userList[socket.username] = socket;
-								callback(true);
-							
-								if(socket.username != undefined){
-									io.emit('logInUserEmit', {
-									timezone : new Date(),
-									username : socket.username
-									});
-								}
-								roomUserlist[socket.username] = home;
-								if(socket.username != undefined){
-									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-								}	
-							} else {
-								callback(false);
-								console.log("Passwort falsch");
-							}
-						});
-                }   
+				bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
+					if(res == true){
+						socket.username = data.username;
+						userList[socket.username] = socket;
+						callback(true);							
+						if(socket.username != undefined){
+							io.emit('logInUserEmit', {
+							timezone : new Date(),
+							username : socket.username
+							});
+						}
+						roomUserlist[socket.username] = home;
+						if(socket.username != undefined){
+							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+						}	
+					} else {
+						callback(false);
+						console.log("Passwort falsch");
+					}
+				});
             }
         });	
 	});
