@@ -57,7 +57,7 @@ io.on('connection', function(socket) {
                 if (resultSet.docs.length == 0) {
 					bcrypt.genSalt(10, function(err, salt) {
 						bcrypt.hash(data.password, salt, function(err, hash) {
-							data.password = hash; 
+							//data.password = hash; 
 							databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
 							if (!error) {
 								callback(true);
@@ -81,6 +81,7 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('logInUser', function(data, callback) {
+		//socket.password = data.password;
 		if(!(data.password)){
 			userSelector.selector._id = data.username;
 			
