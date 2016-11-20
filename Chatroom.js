@@ -9,6 +9,7 @@ var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 var Cloudant = require('cloudant');
+var bcrypt = require('bcryptjs');
 //var Watson = require('watson-developer-cloud/visual-recognition/v3');
 //var fs = require('fs');
 
@@ -55,15 +56,21 @@ io.on('connection', function(socket) {
                 console.log("Something went wrong");
             } else {
                 if (resultSet.docs.length == 0) {
-                    databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
-                        if (!error) {
-                            callback(true);
-							socket.username = data.username;
-							socket.password = data.password;
-							io.emit('signInSuccessfully');
-                        } else {
+					bcrypt.genSalt(10, function(err, salt) {
+						bcrypt.hash(data.password, salt, function(err, hash) {
+							data.password = hash;
+							// Store hash in your password DB. 
+							databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
+							if (!error) {
+								callback(true);
+								socket.username = data.username;
+								socket.password = data.password;
+								io.emit('signInSuccessfully');
+							} else {
                             console.log("Could not store the values!");
-                        }
+							}
+							});
+						});
 					});
 				} else {
 					callback(false);
