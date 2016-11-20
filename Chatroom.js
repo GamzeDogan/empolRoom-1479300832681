@@ -91,7 +91,7 @@ io.on('connection', function(socket) {
                     callback(false);
                 } else {
 						// Load hash from your password DB. 
-						bcrypt.compare(resultSet.docs[0].password, hash, function(err, res) {
+						bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
 							if(res == true){
 								if (resultSet.docs[0].password === data.password) {
 									socket.username = data.username;
