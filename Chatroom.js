@@ -65,7 +65,9 @@ io.on('connection', function(socket) {
 								socket.password = data.password;
 								io.emit('signInSuccessfully');
 							} else {
-                            console.log("Could not store the values!");
+								//Diesen Username gibt es schon! 
+								callback(false);
+								console.log("Could not store the values!");
 							}
 							});
 						});
@@ -257,6 +259,10 @@ function init() {
                 cloudant = Cloudant(cloudantService[service].credentials.url);
             }
         }
+		
+		//Hier kommt noch Watson rein
+		
+		
     } else {
         console.log("Cloudant Service was not bound");
     }
