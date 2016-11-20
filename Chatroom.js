@@ -103,7 +103,7 @@ io.on('connection', function(socket) {
 								if(socket.username != undefined){
 									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 								}	
-							} else if(res == false) {
+							} else  {
 								callback(false);
 								console.log("Passwort falsch");
 							}
@@ -113,7 +113,10 @@ io.on('connection', function(socket) {
 					});
 				}
 			});	
-		} else { console.log("password ist anscheinend undefined: " +data.password)}
+		} else { 
+			console.log("password ist anscheinend undefined: " +data.password)};
+			//falsches Passwort
+			callback(false);
 	});
 	
 	/**
