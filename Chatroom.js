@@ -73,40 +73,37 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('logInUser', function(data, callback) {
-		  if (isServiceAvailable(cloudant)) {
-            userSelector.selector._id = data.username;
-        
-            database.find(userSelector, function(error, resultSet) {
-                if (error) {
-                    console.log("Something went wrong!");
+        userSelector.selector._id = data.username;
+        database.find(userSelector, function(error, resultSet) {
+            if (error) {
+                console.log("Something went wrong!");
+            } else {
+                if (resultSet.docs.length == 0) {
+					//Wenn Username nicht stimmt
+                    callback(false);
                 } else {
-                    if (resultSet.docs.length == 0) {
-						//Wenn Username nicht stimmt
-                        callback(false);
-                    } else {
-                        if (resultSet.docs[0].password === data.password) {
-                            socket.username = data.username;
-							userList[socket.username] = socket;
-							callback(true);
+                    if (resultSet.docs[0].password === data.password) {
+                        socket.username = data.username;
+						userList[socket.username] = socket;
+						callback(true);
 							
-							if(socket.username != undefined){
-								io.emit('logInUserEmit', {
-									timezone : new Date(),
-									username : socket.username
-								});
-							}	
-                        } else {
-                            //Password not correct
-							callback(false);
-                        }
-						roomUserlist[socket.username] = home;
 						if(socket.username != undefined){
-							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-						}
-                    }   
-                }
-            });
-		  }		
+							io.emit('logInUserEmit', {
+								timezone : new Date(),
+								username : socket.username
+							});
+						}	
+                    } else {
+                        //Password not correct
+						callback(false);
+                    }
+					roomUserlist[socket.username] = home;
+					if(socket.username != undefined){
+						io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+					}
+                }   
+            }
+        });	
 	});
 	
 	/**
