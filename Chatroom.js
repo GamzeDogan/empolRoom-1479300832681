@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
             } else {
 					bcrypt.genSalt(10, function(err, salt) {
 						bcrypt.hash(data.password, salt, function(err, hash) {
-							//data.password = hash; 
+							data.password = hash; 
 							databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
 							if (!error) {
 								callback(true);
