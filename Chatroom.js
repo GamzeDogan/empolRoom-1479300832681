@@ -9,6 +9,13 @@ var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 var Cloudant = require('cloudant');
+//var Watson = require('watson-developer-cloud/visual-recognition/v3');
+//var fs = require('fs');
+
+//var visual_recognition = new VisualRecognitionV3({
+  //api_key: '<api_key>',
+  //version_date: '2016-05-19'
+//});
 
 var userList = {};
 var home = 'home';
@@ -41,20 +48,15 @@ app.get('/', function(request, respond) {
  * After the response of the server, the client will be connected. 
  */
 io.on('connection', function(socket) {
-	/**
-	 * After the client clicked on the sign in button the user name will be
-	 * transferred to the sever. It goes through the list and checks if the
-	 * user name is already taken or not. If the user name is not in the list then
-	 * it will be added to the list. After that, the list with the objects will be
-	 * sent to the client side. Log in works like the sign in function.
-	 */
+	
 	socket.on('signInUser', function(data, callback){
 		if(data.username in passwordUserList){
 			callback(false);
 		} else {
+			//DATABASE INSERT
 			databaseEmpol.find(userSelector, function(error, resultSet) {
                 if (error) {
-                    console.log("ERROR: Something went wrong during query procession: " + error);
+                    console.log("Something went wrong during query procession: " + error);
                 } else {
                     if (resultSet.docs.length == 0) {
                         databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
@@ -65,7 +67,7 @@ io.on('connection', function(socket) {
 											passwordUserList[socket.username] = socket.password;
 											io.emit('signInSuccessfully');
                             } else {
-                                console.log("ERROR: Could not store the values " + error);
+                                console.log("Could not store the values " + error);
                             }
 						});
 					}
@@ -75,29 +77,44 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('logInUser', function(data, callback) {
-			if (!(data.username in passwordUserList)) {
-				callback(false);
-			} else {
-				if(passwordUserList[data.username] == data.password){
-					socket.username = data.username;
-					userList[socket.username] = socket;
-					callback(true);
-					
-					if(socket.username != undefined){
-						io.emit('logInUserEmit', {
-							timezone : new Date(),
-							username : socket.username
-						});
-					}
-					
-				} else {
-					callback(false);
-				}
-				roomUserlist[socket.username] = home;
-				if(socket.username != undefined){
-					io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-				}
-			}		
+		if(!(data.username in passwordUserList)){
+			callback(false);
+		} else {
+		  if (isServiceAvailable(cloudant)) {
+            userSelector.selector._id = data.username;
+        
+            database.find(userSelector, function(error, resultSet) {
+                if (error) {
+                    console.log("Something went wrong!");
+                } else {
+                    if (resultSet.docs.length == 0) {
+						//Wenn Username nicht stimmt
+                        callback(false);
+                    } else {
+                        if (resultSet.docs[0].password === data.password && passwordUserList[data.username] == data.password) {
+                            socket.username = data.username;
+							userList[socket.username] = socket;
+							callback(true);
+							
+							if(socket.username != undefined){
+								io.emit('logInUserEmit', {
+									timezone : new Date(),
+									username : socket.username
+								});
+							}	
+                        } else {
+                            //Password not correct
+							callback(false);
+                        }
+						roomUserlist[socket.username] = home;
+						if(socket.username != undefined){
+							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+						}
+                    }   
+                }
+            });
+		  }
+		}		
 	});
 	
 	/**
