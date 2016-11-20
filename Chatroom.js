@@ -82,7 +82,7 @@ io.on('connection', function(socket) {
 	
 	socket.on('logInUser', function(data, callback) {
 		//socket.password = data.password;
-		if(!(data.password)){
+		if(data.password != undefined){
 			userSelector.selector._id = data.username;
 			
 			databaseEmpol.find(userSelector, function(error, resultSet) {
