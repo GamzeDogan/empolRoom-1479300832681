@@ -22,7 +22,6 @@ var home = 'home';
 var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
-var passwordUserList = {};
 
 var services;
 var cloudant;
@@ -50,36 +49,30 @@ app.get('/', function(request, respond) {
 io.on('connection', function(socket) {
 	
 	socket.on('signInUser', function(data, callback){
-		if(data.username in passwordUserList){
-			callback(false);
-		} else {
-			//DATABASE INSERT
-			databaseEmpol.find(userSelector, function(error, resultSet) {
-                if (error) {
-                    console.log("Something went wrong during query procession: " + error);
-                } else {
-                    if (resultSet.docs.length == 0) {
-                        databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
-                            if (!error) {
-                                			callback(true);
-											socket.username = data.username;
-											socket.password = data.password;
-											passwordUserList[socket.username] = socket.password;
-											io.emit('signInSuccessfully');
-                            } else {
-                                console.log("Could not store the values " + error);
-                            }
-						});
-					}
+		//DATABASE INSERT
+		databaseEmpol.find(userSelector, function(error, resultSet) {
+			if (error) {
+                console.log("Something went wrong");
+            } else {
+                if (resultSet.docs.length == 0) {
+                    databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
+                        if (!error) {
+                            callback(true);
+							socket.username = data.username;
+							socket.password = data.password;
+							io.emit('signInSuccessfully');
+                        } else {
+                            console.log("Could not store the values!");
+                        }
+					});
+				} else {
+					callback(false);
 				}
-            });  
-		}
+			}
+        });  
 	});
 	
 	socket.on('logInUser', function(data, callback) {
-		if(!(data.username in passwordUserList)){
-			callback(false);
-		} else {
 		  if (isServiceAvailable(cloudant)) {
             userSelector.selector._id = data.username;
         
@@ -91,7 +84,7 @@ io.on('connection', function(socket) {
 						//Wenn Username nicht stimmt
                         callback(false);
                     } else {
-                        if (resultSet.docs[0].password === data.password && passwordUserList[data.username] == data.password) {
+                        if (resultSet.docs[0].password === data.password) {
                             socket.username = data.username;
 							userList[socket.username] = socket;
 							callback(true);
@@ -113,8 +106,7 @@ io.on('connection', function(socket) {
                     }   
                 }
             });
-		  }
-		}		
+		  }		
 	});
 	
 	/**
