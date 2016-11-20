@@ -106,6 +106,7 @@ io.on('connection', function(socket) {
 									}	
 								} else {
 									//Password not correct
+									console.log("Passwort falsch");
 									callback(false);
 								}
 							} else {
