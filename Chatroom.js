@@ -74,7 +74,7 @@ io.on('connection', function(socket) {
 	
 	socket.on('logInUser', function(data, callback) {
         userSelector.selector._id = data.username;
-        database.find(userSelector, function(error, resultSet) {
+        databaseEmpol.find(userSelector, function(error, resultSet) {
             if (error) {
                 console.log("Something went wrong!");
             } else {
