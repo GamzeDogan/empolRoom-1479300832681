@@ -117,7 +117,6 @@ io.on('connection', function(socket) {
 		} else { 
 			console.log("password ist anscheinend undefined: " +data.password)};
 			//falsches Passwort
-			callback(false);
 	});
 	
 	/**
