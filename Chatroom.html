@@ -148,7 +148,19 @@ margin-right:auto;
 }
 </style>
 </head>
-<body>
+
+<body onload="hideLoadingLayer();">
+ <div style="display:none;" id="hide_loading_site" style="position:absolute;z-index:1000;width:100%;height:100%;background-color:#ffffff;left:0;top:0;">wird geladen...</div>
+ <script type="text/javascript">
+   <!--
+   document.getElementById('hide_loading_site').style.display = 'block';
+   function hideLoadingLayer() {
+     document.getElementById('hide_loading_site').style.display = 'none';
+   }
+   //-->
+  </script>
+  
+  
 	<div class="serverPW">
 		<label>Server password</label>
 		<form id ServerLogin>
@@ -201,7 +213,7 @@ margin-right:auto;
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
 	<script>
-$(document).load(function () {
+
     if (document.location.protocol == "https:"){
         document.location='http://empolchat.mybluemix.net/'; 
 	}
@@ -664,7 +676,6 @@ $(document).load(function () {
 				});
 			}
 		}); 
-});
 	</script>
 </body>
 </html>
