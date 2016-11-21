@@ -12,6 +12,17 @@ body {
 	font: 13px Arial;
 	background: #C6C6C6;
 }
+
+.serverPW{
+font: 18px Arial;
+}
+
+#serverPassword{
+
+	width: 10%;
+	background: #2EBFB5;
+	height: 35px;
+}
 .box {
 	background: #000;
 	padding: 3px;
@@ -131,12 +142,12 @@ body {
 </style>
 </head>
 <body>
-<div class="ServerPW">
-<label>Server password</label>
-<form id ServerLogin>
-<input id= "serverPassword" type="password" class= "serverPwClass" placeholder="Password">
-</form>
-</div>
+	<div class="serverPW">
+		<label>Server password</label>
+		<form id ServerLogin>
+			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder="Password">
+		</form>
+	</div>
 	<div class="sideDiv">
 		<h1>
 			<center>Empol</center>
@@ -191,7 +202,7 @@ body {
 		declaration of global variables
 		 */
 		var socket = io();
-		$('#sideDiv').hide();
+		$('.sideDiv').hide();
 		$('.box').hide();
 		$('#messages').hide();
 		$('#usernameError').hide();
