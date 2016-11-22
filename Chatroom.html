@@ -254,14 +254,24 @@ body {
 			<input id= "serverPwButton" type="submit" class="buttonServerPwClass" value= "Send"/>
 		</form>
 	</div>
+<<<<<<< HEAD
 	<div class = "loginPW" hidden="true">
 		<label id="loginLabel">Login</label>
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /> <p>
 			<input id= "password" type="password" class="pwClass" placeholder="Password"/>
+=======
+	<div hidden="true" class="sideDiv">
+		<h1 hidden="true">
+			<center>Empol</center>
+		</h1>
+		<input id="username" hidden="true" type="text" class="usClass" eholder=" Username" />
+		<input id= "password" hidd en="true"type="password" class="pwClass" placeholder="Password"/>
+		<form id="loginEvent" action="">
+>>>>>>> origin/master
 			<input id="login" type="submit" value="LogIn" />
-			<label id="credUnvalidError" style="font: 15px Arial; color: red; margin-top: 5px">These credentials are invalid!</label>
-			<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
+			<label id="credUnvalidError" hidden="true" style="font: 15px Arial; color: red; margin-top: 5px">These credentials are invalid!</label>
+			<label id="accountError" hidden="true" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 		</form>
 	</div>
 	<div class="sideDiv" hidden="true">
@@ -270,29 +280,41 @@ body {
 		</h1>	
 		<form id= "signinEvent" action="">
 		<input id="signUp" type="submit" value="Sign Up" />
-		<label id="usernameError" style="font: 15px Arial; color: red; margin-top: 5px">Username is already taken.</label>
-		<label id="unvalidError" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
-		<label id="successfullyNotification" style="font: 15px Arial; color: red; margin-top: 5px">You are signed in successfully! Please Login.</label>
+		<label id="usernameError" hidden="true" style="font: 15px Arial; color: red; margin-top: 5px">Username is already taken.</label>
+		<label id="unvalidError" hidden="true" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
+		<label id="successfullyNotification" hidden="true" style="font: 15px Arial; color: red; margin-top: 5px">You are signed in successfully! Please Login.</label>
 		</form>
-		<div id="onlineUser"></div>
+		<div hidden="true" id="onlineUser"></div>
 	</div>
 
+<<<<<<< HEAD
 	<div id="upload" hidden="true">
+=======
+	<div hidden="true" id="upload">
+>>>>>>> origin/master
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
-			<label id="uploadLabel" for="media" class="btn">Upload File</label> <input
-				id="media" type="file" disabled="disabled" value="Datei Upload"
+			<label hidden="true" id="uploadLabel" for="media" class="btn">Upload File</label> <input
+				id="media" hidden="true" type="file" disabled="disabled" value="Datei Upload"
 				style="visibility: hidden" />
 		</form>
 	</div>
 
+<<<<<<< HEAD
 	<div id="messagesDiv" hidden="true">
 		<ul id="messages"></ul>
 	</div>
 	
 	<div class="box" hidden="true">
+=======
+	<div hidden="true" id="messagesDiv">
+		<ul hidden="true" id="messages"></ul>
+	</div>
+	
+	<div hidden="true" class=box>
+>>>>>>> origin/master
 		<form id="sendEvent" action="">
-			<input id="message" class="msgClass" placeholder="write something..." />
-			<button id="send" disabled="disabled">Send</button>
+			<input hidden="true" id="message" class="msgClass" placeholder="write something..." />
+			<button hidden="true" id="send" disabled="disabled">Send</button>
 		</form>
 	</div>
 
