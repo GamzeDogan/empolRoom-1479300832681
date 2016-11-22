@@ -149,13 +149,6 @@ margin-right:auto;
 </style>
 </head>
 <body>
-
-	<div class="serverPW">
-		<label>Server password</label>
-		<form id ServerLogin>
-			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder="Password">
-		</form>
-	</div>
 	<div class="sideDiv">
 		<h1>
 			<center>Empol</center>
@@ -217,7 +210,7 @@ margin-right:auto;
 		declaration of global variables
 		 */
 		var socket = io();
-		$('.sideDiv').hide();
+		//$('.sideDiv').hide();
 		$('.box').hide();
 		$('#messages').hide();
 		$('#usernameError').hide();
