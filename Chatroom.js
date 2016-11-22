@@ -48,11 +48,13 @@ app.get('/', function(request, respond) {
  * After the response of the server, the client will be connected. 
  */
 io.on('connection', function(socket) {
+	
 	socket.on('pwdForServerEmpolChatRoom', function(data){
 		var serverPwd = data.password;
 		
 		if(serverPwd != undefined){
 			userSelector.selector._id = "ServerEmpolChatRoom";
+			
 			databaseEmpol.find(userSelector, function(error, resultSet) {
 				if (!(error)) {
 					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
@@ -69,7 +71,10 @@ io.on('connection', function(socket) {
 				} else {
 					console.log("ERROR: pwdForServerEmpolChatRoom");
 				}
-			)};		
+			)};	
+			
+		} else {
+			console.log("serverPwd ist undefined" + serverPwd);
 		}
 	});
 	
