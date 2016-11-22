@@ -320,6 +320,7 @@ body {
 		});
 		
 		socket.on('loginInServer',function(data){
+			console.log("bin in loginInServer");
 			$('.serverPW').hide();
 			$('.loginPW').show();
 		});
