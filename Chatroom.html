@@ -314,7 +314,7 @@ body {
 		
 		$('#serverLogin').submit(function(){
 			if($('#serverPwClass').val() != ""){
-				var password = $('#serverPwClass').val();
+				var password = $('#serverPassword').val();
 				socket.emit('pwdForServerEmpolChatRoom', {password: password});
 			}
 		});
