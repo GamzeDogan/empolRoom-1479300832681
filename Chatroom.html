@@ -53,7 +53,6 @@ body {
   transform: translateX(-50%) translateY(-50%);
   max-width: 400px;
   }
-  
  
  .loginPW{
 	background: #eee;
@@ -69,6 +68,7 @@ body {
    -webkit-border-radius: 9px;
    -moz-border-radius: 9px;
     border-radius: 9px;
+	display: none;
 }
 .box {
 	background: #000;
@@ -196,7 +196,7 @@ body {
 			<input id= "serverPwButton" type="submit" class="buttonServerPwClass" value= "Send"/>
 		</form>
 	</div>
-	<div class = "loginPW" type="hidden">
+	<div class = "loginPW">
 		<label id="loginLabel">Login</label>
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /> <p>
@@ -264,7 +264,7 @@ body {
 			console.log("bin in loginInServer");
 			$('.serverPW').hide();
 			//$('.loginPW').show();
-			$(".loginPW").val(false);
+			$(".loginPW").attr('hidden', false);
 		});
 
 		
