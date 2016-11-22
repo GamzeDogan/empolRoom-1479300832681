@@ -196,18 +196,26 @@ body {
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 		
-   // if (document.location.protocol == "https:"){
-     //   document.location='http://empolchat.mybluemix.net/'; 
-	//}
-		/*
-		declaration of global variables
-		 */
-
+    if (document.location.protocol == "https:"){
+       document.location='http://empolchat.mybluemix.net/'; 
+	}
+	
 		$('#serverLogin').submit(function(){
+			
 			if($('.serverPwClass').val() != ""){
+				
 				var password = $('#serverPassword').val();
-				socket.emit('pwdForServerEmpolChatRoom', {password: password});
+				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
+					if(data == true){
+						$('.serverPW').hide();
+						$('.loginPW').show();
+					} else {
+						console.log("Falsches PWD");
+					}
+				});
+				
 			}
+			
 		});
 		
 		socket.on('loginInServer', function(data){

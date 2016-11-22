@@ -49,7 +49,7 @@ app.get('/', function(request, respond) {
  */
 io.on('connection', function(socket) {
 	
-	socket.on('pwdForServerEmpolChatRoom', function(data){
+	socket.on('pwdForServerEmpolChatRoom', function(data, callback){
 		var serverPwd = data.password;
 		io.emit('loginInServer');
 		if(serverPwd != undefined){
@@ -59,10 +59,11 @@ io.on('connection', function(socket) {
 					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
 							if(res == true){
-								//io.emit('loginInServer');
+								callback(true);
 								console.log("Passworteingabe vom Server richtig!");			
 							} else  {
-								io.emit('wrongCredentials');
+								callback(false);
+								//io.emit('wrongCredentials');
 								console.log("Passworteingabe vom Server falsch!");
 							}
 						} else {
