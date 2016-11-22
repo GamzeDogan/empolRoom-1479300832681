@@ -49,7 +49,35 @@ app.get('/', function(request, respond) {
  */
 io.on('connection', function(socket) {
 	
-
+	socket.on('pwdForServerEmpolChatRoom', function(data){
+		var serverPwd = data.password;
+		
+		if(serverPwd != undefined){
+			userSelector.selector._id = "ServerEmpolChatRoom";
+			
+			databaseEmpol.find(userSelector, function(error, resultSet) {
+				if (!(error)) {
+					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
+						if(!(err)){
+							if(res == true){
+								console.log("Passworteingabe vom Server richtig!");			
+							} else  {
+								console.log("Passworteingabe vom Server falsch!");
+							}
+						} else {
+							console.log('ERROR: ' + hash);
+						}
+					});
+				} else {
+					console.log("ERROR: pwdForServerEmpolChatRoom");
+				}
+			});	
+			
+		} else {
+			console.log("serverPwd ist undefined" + serverPwd);
+		}
+		
+	});
 	
 	
 	socket.on('signInUser', function(data, callback){
