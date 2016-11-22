@@ -11,26 +11,33 @@
 body {
 	font: 13px Arial;
 	background: #C6C6C6;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .serverPW{
-background: #eee;
-width: 30%;
-height: 35%;
-font: 18px Arial;
-font-color: black;
- position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  max-width: 400px;
- 
+	background: #eee;
+	width: 30%;
+	height: 35%;
+	font: 18px Arial;
+	font-color: black;
+ 	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 400px;
+   -webkit-border-radius: 9px;
+   -moz-border-radius: 9px;
+    border-radius: 9px;
 }
 
 #serverPwButton {
 	-moz-box-shadow:inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow:inset 0px 1px 3px 0px #91b8b3;
 	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	
+	
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44b395), color-stop(1, #6c7c7c));
 	background:-moz-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
 	background:-webkit-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
@@ -39,9 +46,13 @@ font-color: black;
 	background:linear-gradient(to bottom, #44b395 5%, #6c7c7c 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#44b395', endColorstr='#6c7c7c',GradientType=0);
 	background-color:#44b395;
+	
+	
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
+	
+	
 	border:1px solid #566963;
 	display:inline-block;
 	cursor:pointer;
@@ -52,12 +63,16 @@ font-color: black;
 	padding:11px 23px;
 	text-decoration:none;
 	text-shadow:0px -1px 0px #2b8a7c;
- position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  max-width: 400px;
-  witdh:70%;
+	
+	
+    position: absolute;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+    
+    margin-top: 35%;
+  
 	
 }
 #serverPwButton:hover {
@@ -77,12 +92,17 @@ font-color: black;
 
 
 #serverPassword{
-height: 37px;
- position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  max-width: 400px;
+	height: 18%;
+	width: 50%;
+ 	position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 400px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    
 }
 #labelServerPw{
  position: absolute;
@@ -211,8 +231,8 @@ height: 37px;
 </head>
 <body>
 	<div class="serverPW">
-		<label id="labelServerPw">Server password</label>
-		<form id ="serverLogin">
+		<label id="labelServerPw">Server password:</label>
+		<form id ="serverLogin" action="">
 			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder="Password"> <p>
 			<input id= "serverPwButton" type="submit" class="buttonServerPwClass" value= "Send"/>
 		</form>
