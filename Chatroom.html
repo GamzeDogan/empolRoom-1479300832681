@@ -136,6 +136,9 @@ body {
 #messages li:nth-child(odd) {
 	background: #eee;
 }
+.serverPW{
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -193,6 +196,7 @@ body {
 
 	<script>
 	var socket = io();
+	$('.serverPW').show();
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 		
