@@ -23,6 +23,7 @@ body {
 	bottom: 0;
 	width: 100%;
 	float: left;
+	display: none;
 }
 .box input {
 	border: 0;
@@ -175,8 +176,7 @@ body {
 	<div id="upload">
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
 			<label id="uploadLabel" for="media" class="btn">Upload File</label> <input
-				id="media" type="file" disabled="disabled" value="Datei Upload"
-				style="visibility: hidden" />
+				id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden" />
 		</form>
 	</div>
 
@@ -204,7 +204,7 @@ body {
        document.location='http://empolchat.mybluemix.net/'; 
 	}
 	
-		$('#serverLogin').submit(function(){
+		$('#serverLogin').click(function(){
 			
 			if($('.serverPwClass').val() != ""){
 				
