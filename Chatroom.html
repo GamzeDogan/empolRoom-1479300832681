@@ -16,58 +16,10 @@ body {
     border-radius: 5px;
 }
 
-.serverPW{
-	background: #eee;
-	width: 35%;
-	height: 45%;
-	font: 18px Arial;
-	font-color: black;
- 	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    max-width: 400px;
-   -webkit-border-radius: 9px;
-   -moz-border-radius: 9px;
-    border-radius: 9px;
-}
 
 
-#serverPassword{
-	height: 16%;
-	width: 50%;
- 	position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    max-width: 400px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    
-}
-#labelServerPw{
- position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  max-width: 400px;
-  }
- 
  .loginPW{
-	background: #eee;
-	width: 35%;
-	height: 45%;
-	font: 18px Arial;
-	font-color: black;
- 	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    max-width: 400px;
-   -webkit-border-radius: 9px;
-   -moz-border-radius: 9px;
-    border-radius: 9px;
+
 	display: none;
 }
 .box {
@@ -263,8 +215,8 @@ body {
 		socket.on('loginInServer', function(data){
 			console.log("bin in loginInServer");
 			$('.serverPW').hide();
-			//$('.loginPW').show();
-			$(".loginPW").attr('hidden', false);
+			$('.loginPW').show();
+			//$(".loginPW").attr('hidden', false);
 		});
 
 		
