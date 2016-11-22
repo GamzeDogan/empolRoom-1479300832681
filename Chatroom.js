@@ -58,10 +58,10 @@ io.on('connection', function(socket) {
 					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
 							if(res == true){
-								socket.emit('loginInServer');
+								io.emit('loginInServer');
 								console.log("Passworteingabe vom Server richtig!");			
 							} else  {
-								socket.emit('wrongCredentials');
+								io.emit('wrongCredentials');
 								console.log("Passworteingabe vom Server falsch!");
 							}
 						} else {
