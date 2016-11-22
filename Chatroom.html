@@ -196,7 +196,7 @@ body {
 			<input id= "serverPwButton" type="submit" class="buttonServerPwClass" value= "Send"/>
 		</form>
 	</div>
-	<div class = "loginPW" hidden="true">
+	<div class = "loginPW" type="hidden">
 		<label id="loginLabel">Login</label>
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /> <p>
@@ -263,8 +263,8 @@ body {
 		socket.on('loginInServer', function(data){
 			console.log("bin in loginInServer");
 			$('.serverPW').hide();
-			$('.loginPW').show();
-			//$(".loginPW").val(false);
+			//$('.loginPW').show();
+			$(".loginPW").val(false);
 		});
 
 		
