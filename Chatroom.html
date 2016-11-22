@@ -302,6 +302,7 @@ body {
 	<script>
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
+	$('.loginPW').hide();
 		
     if (document.location.protocol == "https:"){
         document.location='http://empolchat.mybluemix.net/'; 
@@ -322,6 +323,7 @@ body {
 			console.log("bin in loginInServer");
 			$('.serverPW').hide();
 			$('.loginPW').show();
+			//$(".loginPW").attr("value", false);
 		});
 
 		
