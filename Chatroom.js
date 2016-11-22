@@ -59,6 +59,7 @@ io.on('connection', function(socket) {
 						if(!(err)){
 							if(res == true){
 								io.emit('loginInServer');
+								io.emit('signInSuccessfully');
 								console.log("Passworteingabe vom Server richtig!");			
 							} else  {
 								io.emit('wrongCredentials');
