@@ -27,6 +27,7 @@ body {
 .box input {
 	border: 0;
 	padding: 10px;
+	display: none;
 }
 .sideDiv {
 	background: #C6C6C6;
@@ -40,6 +41,7 @@ body {
 	margin-right: 3px;
 	position: fixed;
 	right: 0;
+	display: none;
 }
 #onlineUser {
 	overflow-y: auto;
@@ -109,6 +111,7 @@ body {
 	border-left: 3px solid;
 	border-top: 3px solid;
 	border-right: 3px solid;
+	display: none;
 }
 #upload:hover {
 	background-color: #eee;
@@ -125,6 +128,7 @@ body {
 	overflow: auto;
 	top: 0;
 	margin-bottom: 6%;
+	display: none;
 }
 #messages li {
 	padding: 5px;
@@ -152,7 +156,7 @@ body {
 			<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 		</form>
 	</div>
-	<div class="sideDiv" hidden="true">
+	<div class="sideDiv">
 		<h1>
 			<center>Empol</center>
 		</h1>	
@@ -165,7 +169,7 @@ body {
 		<div id="onlineUser"></div>
 	</div>
 
-	<div id="upload" hidden="true">
+	<div id="upload">
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
 			<label id="uploadLabel" for="media" class="btn">Upload File</label> <input
 				id="media" type="file" disabled="disabled" value="Datei Upload"
@@ -173,11 +177,11 @@ body {
 		</form>
 	</div>
 
-	<div id="messagesDiv" hidden="true">
+	<div id="messagesDiv" >
 		<ul id="messages"></ul>
 	</div>
 	
-	<div class="box" hidden="true">
+	<div class="box" >
 		<form id="sendEvent" action="">
 			<input  class="msgClass" placeholder="write something..." />
 			<button id="send" disabled="disabled">Send</button>
