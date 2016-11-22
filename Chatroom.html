@@ -231,7 +231,11 @@ body {
 </head>
 <body>
 	<div class="serverPW">
+<<<<<<< HEAD
 		<label id="labelServerPw">Server password:</label>
+=======
+		<label id="labelServerPw">Server password</label>
+>>>>>>> origin/master
 		<form id ="serverLogin" action="">
 			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder="Password"> <p>
 			<input id= "serverPwButton" type="submit" class="buttonServerPwClass" value= "Send"/>
@@ -306,7 +310,7 @@ body {
 			if($('#serverPwClass').val() != ""){
 				var password = $('#serverPwClass').val();
 				socket.emit('pwdForServerEmpolChatRoom', {password: password});
-			}
+			} 
 		});
 
 		

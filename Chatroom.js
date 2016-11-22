@@ -48,9 +48,9 @@ app.get('/', function(request, respond) {
  * After the response of the server, the client will be connected. 
  */
 io.on('connection', function(socket) {
-	socket.on('pwdForServerEmpolChatRoom' function(data){
+	
+	socket.on('pwdForServerEmpolChatRoom', function(data){
 		var serverPwd = data.password;
-		
 		if(serverPwd != undefined){
 			userSelector.selector._id = "ServerEmpolChatRoom";
 			databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -58,20 +58,21 @@ io.on('connection', function(socket) {
 					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
 							if(res == true){
-								callback(true);							
-								// Paar sachen nicht mehr hiden und pwd eingabe vom server hiden -> socket.emit('SeiteWechseln')
+								console.log("Passworteingabe vom Server richtig!");			
 							} else  {
-								callback(false);
-								console.log("Passwort falsch");
+								console.log("Passworteingabe vom Server falsch!");
 							}
 						} else {
-							console.log('Fehler: ' + hash);
+							console.log('ERROR: ' + hash);
 						}
 					});
-			});
-			
+				} else {
+					console.log("ERROR: pwdForServerEmpolChatRoom");
+				}
+			});	
+		} else {
+			console.log("serverPwd ist undefined" + serverPwd);
 		}
-		
 	});
 	
 	
