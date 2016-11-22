@@ -141,7 +141,7 @@ body {
 <body>
 	<div class="serverPW">
 		<label id="labelServerPw">Server password:</label>
-		<form id ="serverLogin" action="">
+		<form id="serverLogin" action="">
 			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder=" Password"> <p>
 			<input id= "serverPwButton" type="submit" class="buttonServerPwClass" value= "Send"/>
 		</form>
@@ -192,6 +192,7 @@ body {
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
 	<script>
+	var socket = io();
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 		
@@ -201,7 +202,6 @@ body {
 		/*
 		declaration of global variables
 		 */
-		var socket = io();
 
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){

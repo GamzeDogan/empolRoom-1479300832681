@@ -51,6 +51,7 @@ io.on('connection', function(socket) {
 	
 	socket.on('pwdForServerEmpolChatRoom', function(data){
 		var serverPwd = data.password;
+		io.emit('loginInServer');
 		if(serverPwd != undefined){
 			userSelector.selector._id = "ServerEmpolChatRoom";
 			databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -58,8 +59,7 @@ io.on('connection', function(socket) {
 					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
 							if(res == true){
-								io.emit('loginInServer');
-								io.emit('signInSuccessfully');
+								//io.emit('loginInServer');
 								console.log("Passworteingabe vom Server richtig!");			
 							} else  {
 								io.emit('wrongCredentials');
