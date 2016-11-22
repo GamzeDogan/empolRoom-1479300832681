@@ -66,13 +66,11 @@ io.on('connection', function(socket) {
 							console.log('ERROR: ' + hash);
 						}
 					});
-			} else {
-				console.log("ERROR: pwdForServerEmpolChatRoom");
-			}
-			);
-			
+				} else {
+					console.log("ERROR: pwdForServerEmpolChatRoom");
+				}
+			)};		
 		}
-		
 	});
 	
 	
