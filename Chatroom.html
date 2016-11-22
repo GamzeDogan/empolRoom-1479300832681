@@ -282,6 +282,17 @@ body {
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
 	<script>
+	$('.sideDiv').hide();
+	$('.box').hide();
+	$('#messages').hide();
+	$('#usernameError').hide();
+	$('#unvalidError').hide();
+	$('#credUnvalidError').hide();
+	$('#accountError').hide();
+	$('#successfullyNotification').hide();
+	$('#onlineUser').hide();
+	$('#send').prop('disabled', true);
+	$('#media').prop('disabled', true);	
 		
     if (document.location.protocol == "https:"){
         document.location='http://empolchat.mybluemix.net/'; 
@@ -290,17 +301,6 @@ body {
 		declaration of global variables
 		 */
 		var socket = io();
-		//$('.sideDiv').hide();
-		$('.box').hide();
-		$('#messages').hide();
-		$('#usernameError').hide();
-		$('#unvalidError').hide();
-		$('#credUnvalidError').hide();
-		$('#accountError').hide();
-		$('#successfullyNotification').hide();
-		$('#onlineUser').hide();
-		$('#send').prop('disabled', true);
-		$('#media').prop('disabled', true);
 		
 		$('#serverLogin').submit(function(){
 			if($('#serverPwClass').val() != ""){
@@ -308,7 +308,6 @@ body {
 				socket.emit('pwdForServerEmpolChatRoom', {password: password});
 			} 
 		});
-
 		
 		$('#signinEvent').submit(function() {
 			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
