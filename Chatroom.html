@@ -337,7 +337,6 @@ body {
 	background: #eee;
 }
 
-.hallo{}
 </style>
 
 <body>
@@ -349,9 +348,7 @@ body {
 			<!-- Falsche Eingabe Notification hinzufügen-->
 		</form>
 	</div>
-	<div class="hallo">
 		<label id="serverWrongPWD">Wrong credentials! Please try again.</label>
-	</div>
 	<div class = "loginPW">
 		<label id="loginLabel"><b>Login</b></label>
 		<form id ="loginEvent" action="">
@@ -407,7 +404,6 @@ body {
 						$('.serverPW').hide();
 						$('.loginPW').show();
 					} else {
-						$('.hallo').slideDown("slow");
 						console.log("Falsches PWD");
 					}
 				});	
