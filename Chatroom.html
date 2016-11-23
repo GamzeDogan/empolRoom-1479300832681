@@ -328,14 +328,14 @@ body {
 
 <body>
 	<div class="serverPW">
-		<label id="labelServerPw"><b>Server password:</b></label>
+		<label id="labelServerPw"><b>Server password</b></label>
 		<form id="serverLogin" action="">
 			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder=" Password"/><p/>
 			<input id= "serverPwButton" type="submit" value= "Send"/>
 		</form>
 	</div>
 	<div class = "loginPW">
-		<label id="loginLabel"><b>Login:</b></label>
+		<label id="loginLabel"><b>Login</b></label>
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /><p/>
 			<input id= "password" type="password" class="pwClass" placeholder=" Password"/>
@@ -394,15 +394,7 @@ body {
 			}
 			return false;
 		});
-		
-		socket.on('loginInServer', function(data){
-			console.log("bin in loginInServer");
-			$('.serverPW').hide();
-			$('.loginPW').show();
-			//$(".loginPW").attr('hidden', false);
-		});
 
-		
 		$('#signinEvent').submit(function() {
 			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
 				$('#unvalidError').show();
