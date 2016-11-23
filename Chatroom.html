@@ -493,6 +493,11 @@ body {
 	outline: none;
 }
 
+.upoloadAvatarDiv{
+	width: 100px;
+	height: 100px;
+}
+
 </style>
 
 <body>
@@ -520,9 +525,19 @@ body {
 	</div>
 	<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 	
+	<div class="upoloadAvatar">
+		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
+			<label id="uploadLabel" for="media" class="btn">Choose an Icon</label> <input
+				id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden" />
+		</form>
+	</div>
+	
+	<div class="upoloadAvatarDiv">
+		<img id="avatar" width="100" height="100" src="image/avatar.jpg"/>
+	</div>
+	
 	<div class="signUpDiv">
 		<label id="signUpLabel"><b>Sign Up</b></label>
-		<img id="avatar" width="100" height="100" src="image/avatar.jpg"/>
 		<form id ="signUpEvent" action="">
 			<input id="usernameSignUp" type="text" class="usernameSignUpClass" placeholder=" Username" />
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
@@ -634,6 +649,23 @@ body {
 						});
 					}
 			return false;			
+		});
+		
+		$('#uploadAvatarIcon').on('change', function(e) {
+			var media = e.originalEvent.target.files[0];
+			var reader = new FileReader();
+			reader.onload = function(evt) {
+				socket.emit('avatarUpload', {
+					result : evt.target.result
+				});
+			};
+			// Read in the image file as a data URL.
+			reader.readAsDataURL(media);
+		});
+		
+		socket.on('avatarUploaded', function(image) {
+		$('.upoloadAvatarDiv').html(empty);
+		$('.upoloadAvatarDiv').append('<img width="100" height="100" src="' + image.result + '"/>');
 		});
 		
 		socket.on('signInSuccessfully', function(data) {

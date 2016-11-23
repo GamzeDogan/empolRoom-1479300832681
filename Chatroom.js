@@ -48,7 +48,6 @@ app.get('/', function(request, respond) {
  * After the response of the server, the client will be connected. 
  */
 io.on('connection', function(socket) {
-	
 	socket.on('pwdForServerEmpolChatRoom', function(data, callback){
 		var serverPwd = data.password;
 		io.emit('loginInServer');
@@ -260,6 +259,10 @@ io.on('connection', function(socket) {
 				timezone : new Date()
 			});
 		}
+	});
+	
+	socket.on('avatarUpload', function(data) {
+			io.emit('avatarUploaded', {result : data.result});
 	});
 
 	/**
