@@ -221,6 +221,9 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
+	font: 15px Arial; 
+	color: red; 
+	margin-top: 5px
 }
 
 .box {
@@ -344,7 +347,7 @@ body {
 			<!-- Falsche Eingabe Notification hinzufügen-->
 		</form>
 	</div>
-	<label id="serverWrongPWD" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
+	<label id="serverWrongPWD">Wrong credentials! Please try again.</label>
 	<div class = "loginPW">
 		<label id="loginLabel"><b>Login</b></label>
 		<form id ="loginEvent" action="">
@@ -400,6 +403,7 @@ body {
 						$('.serverPW').hide();
 						$('.loginPW').show();
 					} else {
+						$('#serverWrongPWD').slideToggle();
 						console.log("Falsches PWD");
 					}
 				});	
