@@ -212,6 +212,15 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
+	display: none;
+}
+
+#serverWrongPWD {
+	position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
 }
 
 .box {
@@ -335,6 +344,7 @@ body {
 			<!-- Falsche Eingabe Notification hinzufügen-->
 		</form>
 	</div>
+	<label id="serverWrongPWD" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 	<div class = "loginPW">
 		<label id="loginLabel"><b>Login</b></label>
 		<form id ="loginEvent" action="">
