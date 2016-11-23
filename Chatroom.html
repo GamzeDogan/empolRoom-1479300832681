@@ -591,7 +591,8 @@ body {
 						$('.serverPW').hide();
 						$('.loginPW').show();
 					} else {
-						//$('serverWrongPWD').show();
+						
+						$('#serverWrongPWD').show();
 						console.log("Falsches PWD");
 					}
 				});	
@@ -599,10 +600,7 @@ body {
 			return false;
 		});
 		
-		socket.on('wrongCredentials', function(data) {
-			$('serverWrongPWD').show();
-		});
-		
+
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
 			var password = $('#password').val();
