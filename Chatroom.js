@@ -79,29 +79,27 @@ io.on('connection', function(socket) {
 		}
 	});
 	
-	
 	socket.on('signInUser', function(data, callback){
 		databaseEmpol.find(userSelector, function(error, resultSet) {
 			if (error) {
                 console.log("Something went wrong");
             } else {
-					bcrypt.genSalt(10, function(err, salt) {
-						bcrypt.hash(data.password, salt, function(err, hash) {
-							data.password = hash; 
-							databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
-							if (!error) {
-								callback(true);
-								socket.username = data.username;
-								socket.password = data.password;
-								io.emit('signInSuccessfully');
-							} else {
-								//Diesen Username gibt es schon! 
-								callback(false);
-								console.log("Could not store the values!");
-							}
-							});
+				bcrypt.genSalt(10, function(err, salt) {
+					bcrypt.hash(data.password, salt, function(err, hash) {
+						data.password = hash; 
+						databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
+						if (!error) {								callback(true);
+							socket.username = data.username;
+							socket.password = data.password;
+							io.emit('signInSuccessfully');
+						} else {
+							//Diesen Username gibt es schon! 
+							callback(false);
+							console.log("Could not store the values!");
+						}
 						});
 					});
+				});
 			}
         });  
 	});
