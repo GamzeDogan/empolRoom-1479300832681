@@ -332,6 +332,7 @@ body {
 		<form id="serverLogin" action="">
 			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder=" Password"/>
 			<input id= "serverPwButton" type="submit" value= "Send"/>
+			<!-- Falsche Eingabe Notification hinzufügen-->
 		</form>
 	</div>
 	<div class = "loginPW">
@@ -340,6 +341,7 @@ body {
 			<input id="username" type="text" class="usClass" placeholder=" Username" /><p/>
 			<input id= "password" type="password" class="pwClass" placeholder=" Password"/>
 			<input id="login" type="submit" value="LogIn" /><p/>
+			<!-- Link um sich zu registrieren -->
 			<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 		</form>
 	</div>
@@ -394,6 +396,29 @@ body {
 			}
 			return false;
 		});
+		
+		$('#loginEvent').submit(function() {
+			var username = $('#username').val();
+			var password = $('#password').val();
+			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
+				$('#accountError').show();
+			} else {
+				socket.emit('logInUser',{username : username, password : password}, function(data) {
+					if (data == false) {
+						$('#accountError').show();				
+					} else {
+						socket.username = username;
+						socket.password = password;
+						$('#accountError').hide();
+						$('#messages').show();
+						$('#onlineUser').show();
+						$('#send').prop('disabled',false);
+						$('#media').prop('disabled',false);
+					}
+				});
+			}
+			return false;
+		});
 
 		$('#signinEvent').submit(function() {
 			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
@@ -418,43 +443,6 @@ body {
 			$('#successfullyNotification').show();
 		});
 		
-
-		$('#loginEvent')
-				.submit(
-						function() {
-							if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
-								$('#credUnvalidError').show();
-							} else {
-								socket.emit('logInUser',{username : $('#username').val(), password : $('#password').val()},
-												function(data) {
-													if (data == false) {
-														$('#accountError').show();
-														
-													} else {
-														socket.username = $('#username').val();
-														socket.password = $('#password').val();
-														$('#sideDiv').append($('<label>').text('label'));
-														$('#messages').show();
-														$('#credUnvalidError').hide();
-														$('#accountError').hide();
-														$('#onlineUser').show();
-														$('#signinEvent').hide();
-														$('#send').prop(
-																'disabled',
-																false);
-														$('#media').prop(
-																'disabled',
-																false);
-													}
-												});
-							}
-							return false;
-						});
-		
-		/*
-		This method listens to the server and appends the message with the current date,
-		that a user has joined the chatroom into the messages div.
-		 */
 		socket.on('logInUserEmit', function(logIn) {
 			var time = new Date(logIn.timezone);
 			$('#messages').append(
