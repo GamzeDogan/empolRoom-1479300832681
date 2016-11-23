@@ -346,16 +346,17 @@ body {
 
 #credUnvalidError {
 	position: absolute;
-    top: 90%;
-    left: 50%;
+      top: 90%;
+    left: 67%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
+	display: none;
 }
 
 #accountError {
 	position: absolute;
     top: 90%;
-    left: 50%;
+    left: 67%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
 	display: none;
@@ -574,6 +575,7 @@ body {
 						$('.serverPW').hide();
 						$('.loginPW').show();
 					} else {
+						$('serverWrongPWD').show();
 						console.log("Falsches PWD");
 					}
 				});	
