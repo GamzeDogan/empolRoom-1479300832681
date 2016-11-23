@@ -371,8 +371,8 @@ body {
 
 .signUpDiv{
 	background: #eee;
-	width: 35%;
-	height: 45%;
+	width: 45%;
+	height: 55%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -503,6 +503,8 @@ body {
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
 			$('.signUpDiv').show();	
+			
+			return false;
 		});
 		
 		$('#signinEvent').submit(function() {
