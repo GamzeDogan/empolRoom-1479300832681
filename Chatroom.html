@@ -575,12 +575,16 @@ body {
 						$('.serverPW').hide();
 						$('.loginPW').show();
 					} else {
-						$('serverWrongPWD').show();
+						//$('serverWrongPWD').show();
 						console.log("Falsches PWD");
 					}
 				});	
 			}
 			return false;
+		});
+		
+		socket.on('wrongCredentials', function(data) {
+			$('serverWrongPWD').show();
 		});
 		
 		$('#loginEvent').submit(function() {
