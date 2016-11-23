@@ -169,11 +169,40 @@ body {
 	outline: none;
 }
 
+#usernameSignUp {
+	height: 16%;
+	width: 50%;
+ 	position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 400px;  
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+	border-radius: 5px;	
+	outline: none;
+}
+
+
 #password{
 	height: 16%;
 	width: 50%;
  	position: absolute;
     top: 60%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 400px;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: none;
+}
+
+#passwordSignUp{
+	height: 16%;
+	width: 50%;
+ 	position: absolute;
+    top: 65%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     max-width: 400px;
@@ -494,8 +523,8 @@ body {
 		<label id="yourPictureLabel">Your Picture:</label><br/>
 		<img id="avatar" width="100" height="100" src="image/avatar.jpg"/>
 		<form id ="signUpEvent" action="">
-			<input id="username" type="text" class="usernameSignUpClass" placeholder=" Username" />
-			<input id= "password" type="password" class="pwdSignUpClass" placeholder=" Password"/>
+			<input id="usernameSignUp" type="text" class="usernameSignUpClass" placeholder=" Username" />
+			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
 			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
 		</form>
