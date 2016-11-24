@@ -103,8 +103,8 @@ body {
   
 .loginPW{
 	background: #eee;
-	width: 35%;
-	height: 45%;
+	width: 60%;
+	height: 70%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -148,7 +148,7 @@ body {
 }
 
 #username {
-	height: 16%;
+	height: 9%;
 	width: 50%;
  	position: absolute;
     top: 40%;
@@ -177,7 +177,7 @@ body {
 
 
 #password{
-	height: 16%;
+	height: 9%;
 	width: 50%;
  	position: absolute;
     top: 60%;
@@ -296,11 +296,11 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
-    margin-top: 97%;
 	-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 	border-radius: 5px;
 	outline: none;
+	margin-top: 98%;
 }
 
 #signUp:hover {
@@ -469,8 +469,8 @@ body {
 
 .signUpDiv{
 	background: #eee;
-	width: 60%;
-	height: 70%;
+	width: 89%;
+	height: 80%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -485,6 +485,7 @@ body {
 	outline: none;
 }
 
+<<<<<<< HEAD
 .upoloadAvatarDiv{
 	width: 60%;
 	height: 70%;
@@ -494,22 +495,37 @@ body {
 	-webkit-border-radius: 9px;
     -moz-border-radius: 9px;
 	border-radius: 9px;
+=======
+.uploadAvatarDiv{
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	top: 13%;
+	left: 10%;
+	border: 2px;
+	background: black;
+	-webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+	border-radius: 20px;
+	display: none;
+>>>>>>> origin/master
 }
 
 #mediaAvatar{
 	position: fixed;
-	top: 49%;
-	left: 43%;
+	top: 16%;
+	left: 45%;
 }
 #takePicture{
 	position: fixed;
-	top: 51%;
-	left: 43%;
+	top: 25%;
+	left: 45%;
 }
-.upoloadAvatar{
+
+.uploadAvatar{
 	position: fixed;
-	top: 49%;
-	left: 43%;
+	top: 16%;
+	left: 45%;
 	display: none;
 }
 
@@ -540,28 +556,28 @@ body {
 		</form>
 	</div>
 	<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
-	
-	<div class="upoloadAvatar">
-		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
-			<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
-			<input id="mediaAvatar" type="file" value="Datei Upload"/>
-			<input id="takePicture" type="submit" value="Take picture" />
-		</form>
-	</div>
-	
-	<div class="upoloadAvatarDiv">
-		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
-	</div>
-	
+
 	<div class="signUpDiv">
 		<label id="signUpLabel"><b>Sign Up</b></label>
-
 		<form id ="signUpEvent" action="">
 			<input id="usernameSignUp" type="text" class="usernameSignUpClass" placeholder=" Username" />
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
 			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
 		</form>
+		<div class="uploadAvatarDiv">
+		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
+		</div>
+		<div class="uploadAvatar">
+			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
+				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
+				<input id="mediaAvatar" type="file" value="Datei Upload"/>
+			</form>
+			<form id="takePictureEvent" method="">
+				<input id="takePicture" type="submit" value="Take picture" />
+			</form>
+		</div>
+	
 	</div>
 	
 	<div class="sideDiv">
@@ -606,6 +622,7 @@ body {
 				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
 					if(data == true){
 						$('.serverPW').hide();
+						$('#accountError').hide();
 						$('.loginPW').show();
 					} else {
 						
@@ -616,7 +633,6 @@ body {
 			}
 			return false;
 		});
-		
 
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
@@ -644,8 +660,8 @@ body {
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
 			$('.signUpDiv').show();	
-			$('.upoloadAvatarDiv').show();
-			$('.upoloadAvatar').show();
+			$('.uploadAvatarDiv').show();
+			$('.uploadAvatar').show();
 			
 			return false;
 		});
@@ -669,6 +685,10 @@ body {
 			return false;			
 		});
 		
+		$('#takePictureEvent').submit(function(){
+			
+		});
+		
 		$('#uploadAvatarIcon').on('change', function(e) {
 			var media = e.originalEvent.target.files[0];
 			var reader = new FileReader();
@@ -684,9 +704,10 @@ body {
 		socket.on('avatarUploaded', function(image) {
 		console.log("avatarUploaded Client");
 		var empty = "";
-		$('.upoloadAvatarDiv').html(empty);
-		$('.upoloadAvatarDiv').append('<img width="100" height="100" src="' + image.result + '"/>');
+		$('.uploadAvatarDiv').html(empty);
+		$('.uploadAvatarDiv').append('<img width="100" height="100" src="' + image.result + '"/>');
 		});
+		
 		
 		socket.on('signInSuccessfully', function(data) {
 			$('#successfullyNotification').show();
