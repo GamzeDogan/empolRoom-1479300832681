@@ -679,6 +679,7 @@ body {
 		
 		socket.on('avatarUploaded', function(image) {
 		console.log("avatarUploaded Client");
+		var emptry = "";
 		$('.upoloadAvatarDiv').html(empty);
 		$('.upoloadAvatarDiv').append('<img width="100" height="100" src="' + image.result + '"/>');
 		});
