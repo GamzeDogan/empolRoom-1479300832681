@@ -594,6 +594,7 @@ position: fixed;
 	display: none;
 	outline: none;
 	max-width: 1000px;
+	margin-top: 10%;
 }
 
 
@@ -638,7 +639,7 @@ position: fixed;
 		<div class="uploadAvatar">
 			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
-				<input id="mediaAvatar" type="file"  accept=".png, .jpg, .jpeg" value="Datei Upload"/>
+				<input id="mediaAvatar" type="file" accept=".png, .jpg, .jpeg" value="Datei Upload"/>
 			</form>
 			<form id="takePictureEvent" method="">
 				<input id="takePicture" type="submit" value="Take a picture" />
@@ -651,6 +652,9 @@ position: fixed;
 			<center><video id="video" width="250" height="200"></video><p/>
 			<a href="#" id="capture">Take a photo</a><p/>
 			<canvas id="canvas" width="250" height="200"></canvas></center>
+		</form>
+		<form id="savePictureEvent" action="">
+			<input id="savePicture" type="submit" value="Save this picture"/>
 		</form>
 	</div>
 	
@@ -795,9 +799,14 @@ position: fixed;
 				context.drawImage(video, 0, 0, 250, 200);
 			});
 			
+			//var image = context.save()
+			
 			return false;
 		});
 		
+		$('#savePicture').submit(function(){
+			
+		});
 		
 		$('#uploadAvatarIcon').on('change', function(e) {
 			var media = e.originalEvent.target.files[0];
