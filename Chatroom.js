@@ -41,8 +41,8 @@ init();
  * respond with the URL to the client.
  */
 app.get('/', function(request, respond) {
-	//respond.sendFile(__dirname + '/Chatroom.html');
-	respond.redirect('https://' + request.headers.host + request.url);
+	respond.sendFile(__dirname + '/Chatroom.html');
+	//respond.redirect('https://' + request.headers.host + request.url);
 	
 	
 });
