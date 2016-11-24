@@ -304,7 +304,7 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
-    margin-top: 85%;
+    margin-top: 110%;
 	-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 	border-radius: 5px;
@@ -446,6 +446,8 @@ body {
 	border-top: 3px solid;
 	border-right: 3px solid;
 	display: none;
+	top: 40%;
+	left: 40%;
 }
 
 #upload:hover {
@@ -530,17 +532,21 @@ body {
 	
 	<div class="upoloadAvatar">
 		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
-			<label id="uploadLabel" for="media" class="btn">Choose an Icon</label> <input
-				id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden" />
+			<label id="uploadLabel" for="media" class="btn">Choose an Icon</label> 
+			<input id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden" />
 		</form>
 	</div>
 	
 	<div class="upoloadAvatarDiv">
-		<img id="avatar" width="100" height="100" src="image/avatar.jpg"/>
+		<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>
 	</div>
 	
 	<div class="signUpDiv">
 		<label id="signUpLabel"><b>Sign Up</b></label>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 		<form id ="signUpEvent" action="">
 			<input id="usernameSignUp" type="text" class="usernameSignUpClass" placeholder=" Username" />
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
@@ -562,7 +568,7 @@ body {
 	<div id="upload">
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
 			<label id="uploadLabel" for="media" class="btn">Upload File</label> <input
-				id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden" />
+				id="media" type="file" value="Datei Upload" />
 		</form>
 	</div>
 
@@ -593,7 +599,8 @@ body {
 						$('.serverPW').hide();
 						$('.loginPW').show();
 					} else {
-						//$('serverWrongPWD').show();
+						
+						$('#serverWrongPWD').show();
 						console.log("Falsches PWD");
 					}
 				});	
@@ -601,10 +608,7 @@ body {
 			return false;
 		});
 		
-		socket.on('wrongCredentials', function(data) {
-			$('serverWrongPWD').show();
-		});
-		
+
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
 			var password = $('#password').val();

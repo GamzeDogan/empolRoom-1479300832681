@@ -62,7 +62,6 @@ io.on('connection', function(socket) {
 								console.log("Passworteingabe vom Server richtig!");			
 							} else  {
 								callback(false);
-								io.emit('wrongCredentials');
 								console.log("Passworteingabe vom Server falsch!");
 							}
 						} else {
