@@ -137,20 +137,12 @@ body {
 	max-width: 400px;
 }
 
-#yourPictureLabel {
-	font: 13px;
-	position: absolute;
-	top: 15%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	max-width: 400px;
-}
 
 #avatar {
 	font: 16px;
 	position: absolute;
-	top: 30%;
-	left: 50%;
+	top: 10%;
+	left: 10%;
 	transform: translateX(-50%) translateY(-50%);
 	max-width: 400px;
 }
@@ -304,7 +296,7 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
-    margin-top: 110%;
+    margin-top: 97%;
 	-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 	border-radius: 5px;
@@ -446,8 +438,6 @@ body {
 	border-top: 3px solid;
 	border-right: 3px solid;
 	display: none;
-	top: 40%;
-	left: 40%;
 }
 
 #upload:hover {
@@ -502,6 +492,21 @@ body {
 	top: 50%;
 	left: 50%;
 }
+#uploadLabelAvatar{
+	position: fixed;
+	top: 20%;
+	left: 70%
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+}
+#mediaAvatar{
+	position: fixed;
+	top: 20%;
+	left: 73%
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+}
+
 
 </style>
 
@@ -532,8 +537,13 @@ body {
 	
 	<div class="upoloadAvatar">
 		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
 			<label id="uploadLabel" for="media" class="btn">Choose an Icon</label> 
 			<input id="media" type="file" value="Datei Upload" ="visibility: hidden" />
+=======
+			<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
+			<input id="mediaAvatar" type="file" value="Datei Upload"/>
+>>>>>>> origin/master
 		</form>
 	</div>
 	
@@ -565,7 +575,7 @@ body {
 	<div id="upload">
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
 			<label id="uploadLabel" for="media" class="btn">Upload File</label> <input
-				id="media" type="file" value="Datei Upload" />
+				id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden"/>
 		</form>
 	</div>
 
@@ -632,6 +642,8 @@ body {
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
 			$('.signUpDiv').show();	
+			$('.upoloadAvatarDiv').show();
+			$('.upoloadAvatar').show();
 			
 			return false;
 		});
