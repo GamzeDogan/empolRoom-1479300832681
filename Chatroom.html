@@ -149,8 +149,8 @@ body {
 #avatar {
 	font: 16px;
 	position: absolute;
-	top: 10%;
-	left: 30%;
+	top: 50%;
+	left: 20%;
 	transform: translateX(-50%) translateY(-50%);
 	max-width: 400px;
 }
@@ -500,15 +500,21 @@ body {
 	top: 50%;
 	left: 50%;
 }
-.upoloadAvatar{
-	width: 100px;
-	height: 100px;
+#uploadLabelAvatar{
 	position: absolute;
-	top: 10%;
-	left: 35%
+	top: 20%;
+	left: 70%
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
 }
+#mediaAvatar{
+	position: absolute;
+	top: 20%;
+	left: 73%
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+}
+
 
 </style>
 
@@ -539,8 +545,8 @@ body {
 	
 	<div class="upoloadAvatar">
 		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
-			<label id="uploadLabel" for="media" class="btn">Choose an Icon</label> 
-			<input id="media" type="file" value="Datei Upload"/>
+			<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
+			<input id="mediaAvatar" type="file" value="Datei Upload"/>
 		</form>
 	</div>
 	
