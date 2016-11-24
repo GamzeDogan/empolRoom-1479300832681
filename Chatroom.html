@@ -470,14 +470,14 @@ body {
 .signUpDiv{
 	background: #eee;
 	width: 92%;
-	height: 80%;
+	height: 90%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    max-width: 500px;
+    max-width: 600px;
 	-webkit-border-radius: 9px;
     -moz-border-radius: 9px;
 	border-radius: 9px;
@@ -502,7 +502,7 @@ body {
 #mediaAvatar{
 	position: fixed;
 	top: 17%;
-	left: 45%;
+	left: 40%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -519,7 +519,7 @@ body {
 	cursor: pointer;
 	color: #ffffff;
 	font-family: Arial;
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: bold;
 	text-decoration: none;
 	text-shadow: 0px -1px 0px #2b8a7c;
@@ -532,7 +532,7 @@ body {
 #takePicture{
 	position: fixed;
 	top: 25%;
-	left: 45%;
+	left: 40%;
 	
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -568,7 +568,7 @@ body {
 font: 13px Arial;
 position: fixed;
 	top: 14%;
-	left: 45%;
+	left: 40%;
 }
 
 .uploadAvatar{
@@ -580,8 +580,13 @@ position: fixed;
 
 .takePictureDiv{
 	background: #eee;
+<<<<<<< HEAD
+	width: 90%;
+	height: 80%;
+=======
 	width: 60%;
 	height: 90%;
+>>>>>>> origin/master
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -614,7 +619,9 @@ position: fixed;
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /><p/>
 			<input id= "password" type="password" class="pwClass" placeholder=" Password"/>
-			<input id="login" type="submit" value="Log In" />	
+			<input id="login" type="submit" value="Log In" />
+			<!-- Link um sich zu registrieren -->
+			
 		</form>
 		<form id="signUpLinkForm" action="">
 			<button id ="signUpLink">Sign up?</button>
@@ -636,7 +643,7 @@ position: fixed;
 		<div class="uploadAvatar">
 			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
-				<input id="mediaAvatar" type="file" accept=".png, .jpg, .jpeg" value="Datei Upload"/>
+				<input id="mediaAvatar" type="file"  accept=".png, .jpg, .jpeg" value="Datei Upload"/>
 			</form>
 			<form id="takePictureEvent" method="">
 				<input id="takePicture" type="submit" value="Take a picture" />
@@ -792,10 +799,8 @@ position: fixed;
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
 			});
-			return false;
 			
-			//An den Server schicken
-			//io.emit('saveAvatar', {context: })
+			return false;
 		});
 		
 		
