@@ -42,7 +42,7 @@ init();
  */
 app.get('/', function(request, respond) {
 	//respond.sendFile(__dirname + '/Chatroom.html');
-	respond.redirect('https://empolchat.mybluemix.net/'+request.url)
+	respond.redirect('https://empolchat.mybluemix.net/');
 });
 
 /**
