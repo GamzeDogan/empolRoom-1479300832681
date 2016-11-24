@@ -712,7 +712,7 @@ position: fixed;
 			$('.uploadAvatar').hide();
 			$('.takePictureDiv').show();
 			
-			var video = $('#video');
+			var video = document.getElementById("video");
 			var vendorUrl = window.URL || window.webkitURL;
 
 			navigator.getMedia = 	navigator.getUserMedia || 
@@ -728,6 +728,7 @@ position: fixed;
 					video.play();
 				}, 
 				function(error){
+					console.log("Error: Video stream");
 				}
 			);
 			
