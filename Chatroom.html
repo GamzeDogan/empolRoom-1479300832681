@@ -485,17 +485,7 @@ body {
 	outline: none;
 }
 
-<<<<<<< HEAD
-.upoloadAvatarDiv{
-	width: 60%;
-	height: 70%;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-border-radius: 9px;
-    -moz-border-radius: 9px;
-	border-radius: 9px;
-=======
+
 .uploadAvatarDiv{
 	width: 120px;
 	height: 120px;
@@ -508,7 +498,6 @@ body {
     -moz-border-radius: 20px;
 	border-radius: 20px;
 	display: none;
->>>>>>> origin/master
 }
 
 #mediaAvatar{
@@ -527,6 +516,24 @@ body {
 	top: 16%;
 	left: 45%;
 	display: none;
+}
+
+.takePictureDiv{
+	background: #eee;
+	width: 89%;
+	height: 80%;
+	font: 18px Arial;
+	font-color: black;
+ 	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 400px;
+	-webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+	border-radius: 9px;
+	display: none;
+	outline: none;
 }
 
 
@@ -577,7 +584,10 @@ body {
 				<input id="takePicture" type="submit" value="Take picture" />
 			</form>
 		</div>
+	</div>
 	
+	<div class="takePictureDiv">
+		<video id="video" width="400" height="300"></video>
 	</div>
 	
 	<div class="sideDiv">
@@ -689,6 +699,28 @@ body {
 			$('.signUpDiv').hide();
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
+			$('.takePictureDiv').show();
+			
+			var video = $('#video');
+			var vendorUrl = window.URL || window.webkitURL;
+
+			navigator.getMedia = 	navigator.getUserMedia || 
+									navigator.webkitGetUserMedia || 
+									navigator.mozGetUserMedia ||
+									navigator.msGetUserMedia;
+									
+			navigator.getMedia({
+				video: true;
+				audio: false}, 
+				function(stream){
+					video.src = vendorUrl.createObjectURL(stream);
+					video.play();
+				}, 
+				function(error){
+				}
+			);
+			
+			return false;
 		});
 		
 		$('#uploadAvatarIcon').on('change', function(e) {
