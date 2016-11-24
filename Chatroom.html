@@ -483,19 +483,19 @@ body {
 	border-radius: 9px;
 	display: none;
 	outline: none;
-	z-index: 2;
 }
 
 .uploadAvatarDiv{
-	width: 60%;
-	height: 70%;
+	width: 100px;
+	height: 100px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	background-color: black;
-	-webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-	border-radius: 15px;
+	-webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+	border-radius: 30px;
+	display: none;
 }
 
 #mediaAvatar{
@@ -508,12 +508,12 @@ body {
 	top: 51%;
 	left: 43%;
 }
+
 .uploadAvatar{
 	position: fixed;
 	top: 49%;
 	left: 43%;
 	display: none;
-	z-index: 1;
 }
 
 
@@ -543,28 +543,26 @@ body {
 		</form>
 	</div>
 	<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
-	
-	<div class="uploadAvatar">
-		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
-			<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
-			<input id="mediaAvatar" type="file" value="Datei Upload"/>
-			<input id="takePicture" type="submit" value="Take picture" />
-		</form>
-	</div>
-	
-	<div class="uploadAvatarDiv">
-		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
-	</div>
-	
+
 	<div class="signUpDiv">
 		<label id="signUpLabel"><b>Sign Up</b></label>
-
 		<form id ="signUpEvent" action="">
 			<input id="usernameSignUp" type="text" class="usernameSignUpClass" placeholder=" Username" />
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
 			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
 		</form>
+		<div class="uploadAvatarDiv">
+		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
+		</div>
+		<div class="uploadAvatar">
+			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
+				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
+				<input id="mediaAvatar" type="file" value="Datei Upload"/>
+				<input id="takePicture" type="submit" value="Take picture" />
+			</form>
+	</div>
+	
 	</div>
 	
 	<div class="sideDiv">
