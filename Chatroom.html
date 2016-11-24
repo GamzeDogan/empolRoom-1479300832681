@@ -627,11 +627,11 @@ position: fixed;
 
 	<script>
 	
-	//window.location = "https://empolchat.mybluemix.net/";
-	
     if (document.location.protocol == "https:"){
         document.location='http://empolchat.mybluemix.net/'; 
 	}
+	
+	window.location = "https://empolchat.mybluemix.net/";
 	
 	var socket = io();
 	$('.serverPW').show();
