@@ -646,7 +646,11 @@ position: fixed;
 	</div>
 	
 	<div class="takePictureDiv">
-		<video id="video" width="350" height="250"></video>
+		<form id="takePictureEvent" action="">
+			<center><video id="video" width="350" height="250"></video></center>
+			<a href="#" id="capture">Take a photo</a>
+			<canvas id="canvas" width="350" height="250"></canvas>
+		</form>
 	</div>
 	
 	<div class="sideDiv">
@@ -685,10 +689,7 @@ position: fixed;
         document.location='https://empolchat.mybluemix.net/'; 
 	}
 	
-	//window.location = "https://empolchat.mybluemix.net/";
-	
-	var socket = io();
-	$('.serverPW').show();
+	serverPW').show();
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 		
@@ -766,7 +767,9 @@ position: fixed;
 			$('.uploadAvatar').hide();
 			$('.takePictureDiv').show();
 			
-			var video = document.getElementById("video");
+			var video = document.getElementById('video');
+			var canvas = document.getElementById('canvas'),
+			var context = canvas.getContext('2d'),
 			var vendorUrl = window.URL || window.webkitURL;
 
 			navigator.getMedia = 	navigator.getUserMedia || 
@@ -786,8 +789,13 @@ position: fixed;
 				}
 			);
 			
+			canvas.addEventListener('click', function(){
+				context.drawImage(video, 0, 0, 350, 250);
+			});
+			
 			return false;
 		});
+		
 		
 		$('#uploadAvatarIcon').on('change', function(e) {
 			var media = e.originalEvent.target.files[0];
