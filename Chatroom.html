@@ -525,8 +525,8 @@ position: fixed;
 
 .takePictureDiv{
 	background: #eee;
-	width: 89%;
-	height: 80%;
+	width: 100%;
+	height: 70%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -583,7 +583,7 @@ position: fixed;
 		<div class="uploadAvatar">
 			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
-				<input id="mediaAvatar" type="file" value="Datei Upload"/>
+				<input id="mediaAvatar" type="file"  accept=".png, .jpg, .jpeg" value="Datei Upload"/>
 			</form>
 			<form id="takePictureEvent" method="">
 				<input id="takePicture" type="submit" value="Take picture" />
