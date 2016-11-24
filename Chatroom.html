@@ -580,7 +580,7 @@ position: fixed;
 
 .takePictureDiv{
 	background: #eee;
-	width: 90%;
+	width: 70%;
 	height: 80%;
 	font: 18px Arial;
 	font-color: black;
@@ -614,9 +614,7 @@ position: fixed;
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /><p/>
 			<input id= "password" type="password" class="pwClass" placeholder=" Password"/>
-			<input id="login" type="submit" value="Log In" />
-			<!-- Link um sich zu registrieren -->
-			
+			<input id="login" type="submit" value="Log In" />	
 		</form>
 		<form id="signUpLinkForm" action="">
 			<button id ="signUpLink">Sign up?</button>
@@ -638,7 +636,7 @@ position: fixed;
 		<div class="uploadAvatar">
 			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
-				<input id="mediaAvatar" type="file"  accept=".png, .jpg, .jpeg" value="Datei Upload"/>
+				<input id="mediaAvatar" type="file" accept=".png, .jpg, .jpeg" value="Datei Upload"/>
 			</form>
 			<form id="takePictureEvent" method="">
 				<input id="takePicture" type="submit" value="Take picture" />
@@ -647,11 +645,10 @@ position: fixed;
 	</div>
 	
 	<div class="takePictureDiv">
-		<video id="video" width="400" height="300"></video>
 		<form id="takePictureEvent" action="">
-			<center><video id="video" width="300" height="300"></video></center>
-			<center><a href="#" id="capture">Take a photo
-			<canvas id="canvas" width="300" height="300"></canvas></a></center>
+			<center><video id="video" width="300" height="300"></video>
+			<a href="#" id="capture">Take a photo</a>
+			<canvas id="canvas" width="300" height="300"></canvas></center>
 		</form>
 	</div>
 	
