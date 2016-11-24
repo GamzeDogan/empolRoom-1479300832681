@@ -42,7 +42,7 @@ init();
  */
 app.get('/', function(request, respond) {
 	//respond.sendFile(__dirname + '/Chatroom.html');
-	respond.redirect('https://' + req.headers.host + req.url);
+	respond.redirect('https://' + request.headers.host + request.url);
 	
 	
 });
