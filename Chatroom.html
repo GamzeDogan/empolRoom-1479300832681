@@ -137,20 +137,12 @@ body {
 	max-width: 400px;
 }
 
-#yourPictureLabel {
-	font: 13px;
-	position: absolute;
-	top: 15%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	max-width: 400px;
-}
 
 #avatar {
 	font: 16px;
 	position: absolute;
-	top: 50%;
-	left: 20%;
+	top: 10%;
+	left: 10%;
 	transform: translateX(-50%) translateY(-50%);
 	max-width: 400px;
 }
@@ -501,14 +493,14 @@ body {
 	left: 50%;
 }
 #uploadLabelAvatar{
-	position: absolute;
+	position: fixed;
 	top: 20%;
 	left: 70%
     transform: translateX(-50%) translateY(-50%);
     width: 50%;
 }
 #mediaAvatar{
-	position: absolute;
+	position: fixed;
 	top: 20%;
 	left: 73%
     transform: translateX(-50%) translateY(-50%);
@@ -645,6 +637,8 @@ body {
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
 			$('.signUpDiv').show();	
+			$('.upoloadAvatarDiv').show();
+			$('.upoloadAvatar').show();
 			
 			return false;
 		});
