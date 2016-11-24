@@ -591,6 +591,7 @@ position: fixed;
 	border-radius: 9px;
 	display: none;
 	outline: none;
+	max-width: 1000px;
 }
 
 
@@ -644,15 +645,12 @@ position: fixed;
 	</div>
 	
 	<div class="takePictureDiv">
-<<<<<<< HEAD
 		<video id="video" width="400" height="300"></video>
-=======
 		<form id="takePictureEvent" action="">
-			<center><video id="video" width="350" height="250"></video></center>
-			<center><a href="#" id="capture">Take a photo</a>
-			<canvas id="canvas" width="350" height="250"></canvas></center>
+			<center><video id="video" width="300" height="300"></video></center>
+			<center><a href="#" id="capture">Take a photo
+			<canvas id="canvas" width="300" height="300"></canvas></a></center>
 		</form>
->>>>>>> origin/master
 	</div>
 	
 	<div class="sideDiv">
@@ -793,7 +791,7 @@ position: fixed;
 			);
 			
 			canvas.addEventListener('click', function(){
-				context.drawImage(video, 0, 0, 350, 250);
+				context.drawImage(video, 0, 0, 300, 300);
 			});
 			
 			return false;
