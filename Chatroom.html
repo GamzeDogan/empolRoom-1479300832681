@@ -141,8 +141,8 @@ body {
 #avatar {
 	font: 16px;
 	position: fixed;
-	top: 20%;
-	left: 60%;
+	top: 270%;
+	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	max-width: 400px;
 }
@@ -492,21 +492,28 @@ body {
 	top: 50%;
 	left: 50%;
 }
-#uploadLabelAvatar{
-	position: fixed;
-	top: 20%;
-	left: 70%
-    transform: translateX(-50%) translateY(-50%);
-    width: 50%;
+.upoloadAvatarDiv{
+	width: 60%;
+	height: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
 }
+
 #mediaAvatar{
 	position: fixed;
-	top: 20%;
-	left: 73%
-    transform: translateX(-50%) translateY(-50%);
-    width: 50%;
+	top: 49%;
+	left: 43%;
+}
+#takePicture{
+	position: fixed;
+	top: 51%;
+	left: 43%;
 }
 .upoloadAvatar{
+	position: fixed;
+	top: 49%;
+	left: 43%;
 	display: none;
 }
 
@@ -542,6 +549,7 @@ body {
 		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 			<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
 			<input id="mediaAvatar" type="file" value="Datei Upload"/>
+			<input id="takePicture" type="submit" value="Take picture" />
 		</form>
 	</div>
 	
