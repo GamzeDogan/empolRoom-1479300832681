@@ -485,14 +485,7 @@ body {
 	outline: none;
 }
 
-.upoloadAvatarDiv{
-	<!--width: 60%;
-	height: 70%;-->
-	position: absolute;
-	top: 50%;
-	left: 50%;
-}
-.upoloadAvatarDiv{
+.uploadAvatarDiv{
 	width: 60%;
 	height: 70%;
 	position: absolute;
@@ -510,7 +503,7 @@ body {
 	top: 51%;
 	left: 43%;
 }
-.upoloadAvatar{
+.uploadAvatar{
 	position: fixed;
 	top: 49%;
 	left: 43%;
@@ -545,7 +538,7 @@ body {
 	</div>
 	<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 	
-	<div class="upoloadAvatar">
+	<div class="uploadAvatar">
 		<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 			<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
 			<input id="mediaAvatar" type="file" value="Datei Upload"/>
@@ -553,7 +546,7 @@ body {
 		</form>
 	</div>
 	
-	<div class="upoloadAvatarDiv">
+	<div class="uploadAvatarDiv">
 		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
 	</div>
 	
@@ -648,7 +641,7 @@ body {
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
 			$('.signUpDiv').show();	
-			$('.upoloadAvatarDiv').show();
+			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
 			
 			return false;
