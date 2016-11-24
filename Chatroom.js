@@ -10,13 +10,13 @@ var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
-//var Watson = require('watson-developer-cloud/visual-recognition/v3');
+var Watson = require('watson-developer-cloud/visual-recognition/v3');
 //var fs = require('fs');
 
-//var visual_recognition = new VisualRecognitionV3({
-  //api_key: '<api_key>',
-  //version_date: '2016-05-19'
-//});
+var visual_recognition = new VisualRecognitionV3({
+  api_key: '<api_key>',
+  version_date: '2016-05-19'
+});
 
 var userList = {};
 var home = 'home';
@@ -261,7 +261,8 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('avatarUpload', function(data) {
-			io.emit('avatarUploaded', {result : data.result});
+		console.log("avatarUplad Serverside");
+		io.emit('avatarUploaded', {result : data.result});
 	});
 
 	/**
