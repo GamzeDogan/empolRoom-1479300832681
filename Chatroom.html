@@ -610,6 +610,7 @@ body {
 				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
 					if(data == true){
 						$('.serverPW').hide();
+						$('#accountError').hide();
 						$('.loginPW').show();
 					} else {
 						
@@ -620,7 +621,6 @@ body {
 			}
 			return false;
 		});
-		
 
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
