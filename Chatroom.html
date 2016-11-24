@@ -580,8 +580,13 @@ position: fixed;
 
 .takePictureDiv{
 	background: #eee;
+<<<<<<< HEAD
 	width: 90%;
 	height: 80%;
+=======
+	width: 60%;
+	height: 90%;
+>>>>>>> origin/master
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -649,9 +654,15 @@ position: fixed;
 	<div class="takePictureDiv">
 		<video id="video" width="400" height="300"></video>
 		<form id="takePictureEvent" action="">
+<<<<<<< HEAD
 			<center><video id="video" width="300" height="300"></video></center>
 			<center><a href="#" id="capture">Take a photo
 			<canvas id="canvas" width="300" height="300"></canvas></a></center>
+=======
+			<center><video id="video" width="250" height="200"></video>
+			<a href="#" id="capture">Take a photo</a>
+			<canvas id="canvas" width="250" height="200"></canvas></center>
+>>>>>>> origin/master
 		</form>
 	</div>
 	
@@ -792,8 +803,13 @@ position: fixed;
 				}
 			);
 			
+<<<<<<< HEAD
 			canvas.addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 300, 300);
+=======
+			document.getElementById('capture').addEventListener('click', function(){
+				context.drawImage(video, 0, 0, 250, 200);
+>>>>>>> origin/master
 			});
 			
 			return false;
