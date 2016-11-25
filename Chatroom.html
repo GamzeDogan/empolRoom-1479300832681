@@ -93,10 +93,8 @@ body {
 }
 
 #labelServerPw {
-	position: absolute;		
- 	top: 20%;		
- 	left: 50%;
-	font: 50px;
+	font: 80px;
+	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	max-width: 400px;
   }
@@ -863,8 +861,8 @@ border: 3px solid;
 		});*/
 		
 		$('#signUpEvent').submit(function(){
-			if(($('.usernameSignUpClass').val() == "" && $('.pwdSignUpClass').val() == "" && $('.pwdVfcSignUpClass').val() == "")
-			| ($('.usernameSignUpClass').val() == "" || $('.pwdSignUpClass').val() == "" || $('.pwdVfcSignUpClass').val() == "")){				
+			if(($('.usernameSignUpClass').val() != "" && $('.pwdSignUpClass').val() != "" && $('.pwdVfcSignUpClass').val() != "")
+			| ($('.usernameSignUpClass').val() != "" || $('.pwdSignUpClass').val() != "" || $('.pwdVfcSignUpClass').val() != "")){				
 				var username = $('#usernameSignUp').val();
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
