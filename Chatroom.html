@@ -694,6 +694,7 @@ position: fixed;
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 	var imageURL;
+	var vendorUrl;
 		
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
@@ -771,7 +772,7 @@ position: fixed;
 			var video = document.getElementById('video');
 			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
-			var vendorUrl = window.URL || window.webkitURL;
+			vendorUrl = window.URL || window.webkitURL;
 
 			navigator.getMedia = 	navigator.getUserMedia || 
 									navigator.webkitGetUserMedia || 
@@ -816,6 +817,8 @@ position: fixed;
 		$('#savePictureEvent').submit(function(){
 			var video = document.getElementById('video');
 			video.pause();
+			
+			vendorUrl = "";
 			
 			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
