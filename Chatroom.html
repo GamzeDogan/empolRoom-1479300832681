@@ -851,6 +851,8 @@ position: fixed;
 			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
 			var vendorUrl = window.URL || window.webkitURL;
+			
+			context.clearRect(0, 0, canvas.width, canvas.height);
 
 			navigator.getMedia = 	navigator.getUserMedia || 
 									navigator.webkitGetUserMedia || 
@@ -900,6 +902,8 @@ position: fixed;
 
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
+			
+			
 			//Wenn kein Bild ausgewählt dann default avatar
 			$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
 			
