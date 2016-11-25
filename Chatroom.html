@@ -801,7 +801,6 @@ position: fixed;
 				context.drawImage(video, 0, 0, 250, 200);
 				imageURL = canvas.toDataURL();
 
-				io.emit();
 				//$('.takePictureDiv').append('<img width="220" height="190" src="' + imageURL + '"/>');
 							
 			});
@@ -816,7 +815,7 @@ position: fixed;
 				var username = $('#usernameSignUp').val();
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
-				var image = image
+				//var image = image
 				
 				socket.emit('signInUser', {username: username, password: password, passwordVerification: passwordVerification});
 				
