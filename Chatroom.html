@@ -887,7 +887,7 @@ position: fixed;
 									navigator.msGetUserMedia;
 									
 			navigator.getMedia({
-				video: false,
+				video: true,
 				audio: false}, 
 				function(stream){
 					video.src = vendorUrl.createObjectURL(stream);
