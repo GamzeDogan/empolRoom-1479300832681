@@ -483,7 +483,20 @@ body {
 	outline: none;
 }
 
-.uploadAvatarDiv{
+.uploadAvatarDiv {
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	top: 20%;
+	left: 14%;
+	border-style: solid;
+	border-width: 2px;
+	display: none;
+	max-height: 120px;
+	max-width: 120px;
+}
+
+.chatAvatar{
 	width: 120px;
 	height: 120px;
 	position: absolute;
@@ -749,11 +762,13 @@ border: 3px solid;
 	
 	<div class="sideDiv">
 		<h1><center>Empol</center></h1>	
-		<form id= "signinEvent" action="">
+		<!--<form id= "signinEvent" action="">
 			<label id="usernameError" style="font: 15px Arial; color: red; margin-top: 5px">Username is already taken.</label>
 			<label id="unvalidError" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
 			<label id="successfullyNotification" style="font: 15px Arial; color: red; margin-top: 5px">You are signed in successfully! Please Login.</label>
-		</form>
+		</form>-->
+		<div class="chatAvatar"></div>
+		
 		<div id="onlineUser"></div>
 	</div>
 
@@ -838,7 +853,7 @@ border: 3px solid;
 			return false;
 		});
 		
-		$('#signinEvent').submit(function() {
+	/*$('#signinEvent').submit(function() {
 			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
 				$('#unvalidError').show();
 			} else {
@@ -855,6 +870,33 @@ border: 3px solid;
 						});
 					}
 			return false;			
+		});*/
+		
+		$('#signUpEvent').submit(function(){
+			if(($('.usernameSignUpClass').val() == "" && ('.pwdSignUpClass').val() == "" && ('.pwdVfcSignUpClass').val())
+			| ($('.usernameSignUpClass').val() == "" || ('.pwdSignUpClass').val() == "" || ('.pwdVfcSignUpClass').val())){				
+				var username = $('#usernameSignUp').val();
+				var password = $('#passwordSignUp').val();
+				var passwordVerification = $('#passwordVerification').val();
+				var image = e.originalEvent.target.files[0]
+				
+				var reader = new FileReader();
+				reader.onload = function(evt){
+					socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : evt.target.result}, function(data){
+						if(data){
+							socket.username = $('#usernameSignUp').val();
+							socket.password = $('#passwordSignUp').val();
+						} else {
+							console.log("ERROR: cant upload image")
+							//Error Message
+						}
+					});	
+				}
+				reader.readAsDataURL(image);
+			} else {
+				//Alle Zeilen ausfüllen! erstn dann Sign up
+			}
+			return false;
 		});
 		
 		$('#takePictureEvent').submit(function(){
@@ -895,22 +937,6 @@ border: 3px solid;
 			return false;
 		});
 		
-		$('#signUpEvent').submit(function(){
-			if(($('.usernameSignUpClass').val() == "" && ('.pwdSignUpClass').val() == "" && ('.pwdVfcSignUpClass').val())
-			| ($('.usernameSignUpClass').val() == "" || ('.pwdSignUpClass').val() == "" || ('.pwdVfcSignUpClass').val())){
-				//Hiden und zurück auf die Seite SIGN Up
-				
-				var username = $('#usernameSignUp').val();
-				var password = $('#passwordSignUp').val();
-				var passwordVerification = $('#passwordVerification').val();
-				//var image = image
-				
-				socket.emit('signInUser', {username: username, password: password, passwordVerification: passwordVerification});
-				
-			}
-			return false;
-		});
-		
 		$('#savePictureEvent').submit(function(){
 			var vid = $('#video').get(0);
 			vid.pause();
@@ -918,11 +944,7 @@ border: 3px solid;
 
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
-			
-			
-			//Wenn kein Bild ausgewählt dann default avatar
 			$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
-			
 			$('.signUpDiv').show();
 			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
@@ -949,12 +971,24 @@ border: 3px solid;
 		$('.uploadAvatarDiv').append('<img width="100" height="100" src="' + image.result + '"/>');
 		});
 		
-		
 		socket.on('signInSuccessfully', function(data) {
-			$('#successfullyNotification').show();
+			$('.loginPW').show();
+			$('.signUpDiv').hide();	
+			$('.uploadAvatarDiv').hide();
+			$('.uploadAvatar').hide();
+			//$('#successfullyNotification').show();
 		});
 		
 		socket.on('logInUserEmit', function(logIn) {
+			$('.loginPW').hide();
+			$('.sideDiv').show();
+			$('#upload').show();
+			$('#messagesDiv').show();
+			$('.box').show();
+			$('.chatAvatar').show();
+			
+			$('.chatAvatar').append('<img width="100" height="100" src="' + logIn.image + '"/>');
+			
 			var time = new Date(logIn.timezone);
 			$('#messages').append(
 					$('<li>').append(

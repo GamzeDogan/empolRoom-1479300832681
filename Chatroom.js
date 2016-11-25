@@ -80,29 +80,36 @@ io.on('connection', function(socket) {
 		}
 	});
 	
-	socket.on('signInUser', function(data, callback){
-		databaseEmpol.find(userSelector, function(error, resultSet) {
-			if (error) {
-                console.log("Something went wrong");
-            } else {
-				bcrypt.genSalt(10, function(err, salt) {
-					bcrypt.hash(data.password, salt, function(err, hash) {
-						data.password = hash; 
-						databaseEmpol.insert({_id: data.username, password: data.password}, function(error, body) {
-						if (!error) {								callback(true);
-							socket.username = data.username;
-							socket.password = data.password;
-							io.emit('signInSuccessfully');
-						} else {
-							//Diesen Username gibt es schon! 
-							callback(false);
-							console.log("Could not store the values!");
-						}
+	socket.on('signUpUser', function(data, callback){
+		if(data.password === data.passwordVerification){
+			databaseEmpol.find(userSelector, function(error, resultSet) {
+				if (error) {
+					console.log("Something went wrong");
+				} else {
+					bcrypt.genSalt(10, function(err, salt) {
+						bcrypt.hash(data.password, salt, function(err, hash) {
+							data.password = hash; 
+							databaseEmpol.insert({_id: data.username, password: data.password, image: data.image}, function(error, body) {
+							if (!error) {								
+								callback(true);
+								socket.username = data.username;
+								socket.password = data.password;
+								socket.image = data.image;
+								io.emit('signInSuccessfully');
+							} else {
+								//Diesen Username gibt es schon! 
+								callback(false);
+								console.log("Could not store the values!");
+							}
+							});
 						});
 					});
-				});
-			}
-        });  
+				}
+			}); 
+		} else {
+			//ERROR Message kommt hier noch
+			console.log("Passwörter stimmen nicht überein");
+		}	
 	});
 	
 	socket.on('logInUser', function(data, callback) {
@@ -127,7 +134,8 @@ io.on('connection', function(socket) {
 								if(socket.username != undefined){
 									io.emit('logInUserEmit', {
 									timezone : new Date(),
-									username : socket.username
+									username : socket.username,
+									image : resultSet.docs[0].image
 									});
 								}
 								roomUserlist[socket.username] = home;
