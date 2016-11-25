@@ -791,7 +791,7 @@ position: fixed;
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 	var imageURL;
-	var vendorUrl;
+	var stream;
 		
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
@@ -869,7 +869,7 @@ position: fixed;
 			var video = document.getElementById('video');
 			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
-			vendorUrl = window.URL || window.webkitURL;
+			var vendorUrl = window.URL || window.webkitURL;
 
 			navigator.getMedia = 	navigator.getUserMedia || 
 									navigator.webkitGetUserMedia || 
@@ -880,6 +880,7 @@ position: fixed;
 				video: true,
 				audio: false}, 
 				function(stream){
+					stream = stream;
 					video.src = vendorUrl.createObjectURL(stream);
 					video.play();
 				}, 
@@ -913,31 +914,11 @@ position: fixed;
 		
 		$('#savePictureEvent').submit(function(){
 			var video = document.getElementById('video');
-			vendorUrl = window.URL || window.webkitURL;
+			var track = stream.getVideoTracks()[0].stop();
 
-			navigator.getMedia = 	navigator.getUserMedia || 
-									navigator.webkitGetUserMedia || 
-									navigator.mozGetUserMedia ||
-									navigator.msGetUserMedia;
-									
-			navigator.getMedia({
-				video: true,
-				audio: false}, 
-				function(stream){
-					video.src = vendorUrl.createObjectURL(stream);
-					video.pause();
-				}, 
-				function(error){
-					console.log("Error: Video stream");
-				}
-			);
-			
-			var canvas = document.getElementById('canvas');
-			var context = canvas.getContext('2d');
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
+			//Wenn kein Bild ausgewählt dann default avatar
 			$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
 			
 			$('.signUpDiv').show();
