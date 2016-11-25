@@ -697,6 +697,7 @@ position: fixed;
 	$('.serverPW').show();
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
+	var imageURL;
 		
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
@@ -795,18 +796,41 @@ position: fixed;
 			);
 			
 			document.getElementById('capture').addEventListener('click', function(){
-				//context.drawImage(video, 0, 0, 250, 200);
-				var imageURL = canvas.toDataURL();
+				context.drawImage(video, 0, 0, 250, 200);
+				imageURL = canvas.toDataURL();
 
-				$('.takePictureDiv').append('<img width="220" height="190" src="' + imageURL + '"/>');
+				io.emit();
+				//$('.takePictureDiv').append('<img width="220" height="190" src="' + imageURL + '"/>');
 							
 			});
-			
 			return false;
 		});
 		
-		$('#savePicture').submit(function(){
+		$('#signUpEvent').submit(function(){
+			if(($('.usernameSignUpClass').val() == "" && ('.pwdSignUpClass').val() == "" && ('.pwdVfcSignUpClass').val())
+			| ($('.usernameSignUpClass').val() == "" || ('.pwdSignUpClass').val() == "" || ('.pwdVfcSignUpClass').val())){
+				//Hiden und zurück auf die Seite SIGN Up
+				
+				var username = $('#usernameSignUp').val();
+				var password = $('#passwordSignUp').val();
+				var passwordVerification = $('#passwordVerification').val();
+				var image = image
+				
+				socket.emit('signInUser', {username: username, password: password, passwordVerification: passwordVerification});
+				
+			}
+			return false;
+		});
+		
+		$('#savePictureEvent').submit(function(){
+			var empty = "";
+			$('.uploadAvatarDiv').html(empty);
+			$('.uploadAvatarDiv').append('<img width="100" height="100" src="' + imageURL + '"/>');
 			
+			$('.signUpDiv').show();
+			$('.uploadAvatarDiv').show();
+			$('.uploadAvatar').show();
+			$('.takePictureDiv').hide();
 		});
 		
 		$('#uploadAvatarIcon').on('change', function(e) {
@@ -822,7 +846,6 @@ position: fixed;
 		});
 		
 		socket.on('avatarUploaded', function(image) {
-		console.log("avatarUploaded Client");
 		var empty = "";
 		$('.uploadAvatarDiv').html(empty);
 		$('.uploadAvatarDiv').append('<img width="100" height="100" src="' + image.result + '"/>');
