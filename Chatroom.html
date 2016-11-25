@@ -816,9 +816,24 @@ position: fixed;
 		
 		$('#savePictureEvent').submit(function(){
 			var video = document.getElementById('video');
-			video.pause();
-			
-			vendorUrl = "";
+			vendorUrl = window.URL || window.webkitURL;
+
+			navigator.getMedia = 	navigator.getUserMedia || 
+									navigator.webkitGetUserMedia || 
+									navigator.mozGetUserMedia ||
+									navigator.msGetUserMedia;
+									
+			navigator.getMedia({
+				video: false,
+				audio: false}, 
+				function(stream){
+					video.src = vendorUrl.createObjectURL(stream);
+					video.pause();
+				}, 
+				function(error){
+					console.log("Error: Video stream");
+				}
+			);
 			
 			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
