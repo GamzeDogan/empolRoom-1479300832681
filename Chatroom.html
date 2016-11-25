@@ -492,7 +492,7 @@ body {
 	top: 13%;
 	left: 10%;
 	border: 2px;
-	background-image: url('/image/avatar.jpg');
+	background: black;
 	-webkit-border-radius: 20px;
     -moz-border-radius: 20px;
 	border-radius: 20px;
@@ -638,7 +638,6 @@ position: fixed;
 		</div>
 		<div class="uploadAvatar">
 			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
-				<label id="uploadLabelAvatar" for="media" class="btn">Choose an Icon</label> 
 				<input id="mediaAvatar" type="file" accept=".png, .jpg, .jpeg" value="Datei Upload"/>
 			</form>
 			<form id="takePictureEvent" method="">
@@ -799,7 +798,8 @@ position: fixed;
 				context.drawImage(video, 0, 0, 250, 200);
 			});
 			
-			//var image = context.save()
+			var imageURL = canvas.toDataURL();
+			console.log(canvas.toDataURL());
 			
 			return false;
 		});
