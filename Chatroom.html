@@ -796,10 +796,9 @@ position: fixed;
 			
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
+				var imageURL = canvas.toDataURL();
+				console.log(canvas.toDataURL());
 			});
-			
-			var imageURL = canvas.toDataURL();
-			console.log(canvas.toDataURL());
 			
 			return false;
 		});
