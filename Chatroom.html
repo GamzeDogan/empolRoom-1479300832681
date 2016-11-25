@@ -544,7 +544,7 @@ body {
 	position: fixed;
 	top: 28%;
 	left: 40%;
-	witdh: 30%;
+	witdh: 50%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -672,11 +672,22 @@ position: fixed;
 	 width: 40%;
 }
 
+#canvas, #video{
+border: 3px solid;
+}
+
+#header{
+padding:5px;
+background-color: grey;
+}
+
 </style>
 
 <body>
 	<div class="serverPW">
-		<label id="labelServerPw"><b>Server password</b></label>
+	<div id="header">
+		<h1 id="labelServerPw"><b>Server password</b></h1>
+	</div>
 		<form id="serverLogin" action="">
 			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder=" Password"/>
 			<input id= "serverPwButton" type="submit" value= "Send"/>
