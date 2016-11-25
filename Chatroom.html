@@ -899,7 +899,7 @@ position: fixed;
 		$('#savePictureEvent').submit(function(){
 			var streamer = stream;
 			var video = document.getElementById('video');
-			var track = streamer.getVideoTracks()[0].stop();
+			var track = streamer.getTracks()[0].stop();
 
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
