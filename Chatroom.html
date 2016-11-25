@@ -773,7 +773,7 @@ position: fixed;
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 	var imageURL;
-	var stream;
+	var streamer;
 		
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
@@ -862,7 +862,7 @@ position: fixed;
 				video: true,
 				audio: false}, 
 				function(stream){
-					stream = stream;
+					streamer = stream;
 					video.src = vendorUrl.createObjectURL(stream);
 					video.play();
 				}, 
@@ -895,8 +895,9 @@ position: fixed;
 		});
 		
 		$('#savePictureEvent').submit(function(){
-			var stream = MediaStream.getVideoTracks();
-			stream.stop();
+			var vid = $('#video').get(0);
+			vid.pause();
+			streamer.getVideoTracks()[0].stop();
 
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
