@@ -497,6 +497,8 @@ body {
     -moz-border-radius: 20px;
 	border-radius: 20px;
 	display: none;
+	max-width: 120px;
+	max-height: 120px;
 }
 
 #mediaAvatar{
@@ -825,7 +827,7 @@ position: fixed;
 		$('#savePictureEvent').submit(function(){
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
-			$('.uploadAvatarDiv').append('<img src="' + imageURL + '"/>');
+			$('.uploadAvatarDiv').append('<img src=" width="120" height="120"' + imageURL + '"/>');
 			
 			$('.signUpDiv').show();
 			$('.uploadAvatarDiv').show();
