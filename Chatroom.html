@@ -873,8 +873,8 @@ border: 3px solid;
 		});*/
 		
 		$('#signUpEvent').submit(function(){
-			if(($('.usernameSignUpClass').val() == "" && ('.pwdSignUpClass').val() == "" && ('.pwdVfcSignUpClass').val())
-			| ($('.usernameSignUpClass').val() == "" || ('.pwdSignUpClass').val() == "" || ('.pwdVfcSignUpClass').val())){				
+			if(($('.usernameSignUpClass').val() == "" && ('.pwdSignUpClass').val() == "" && ('.pwdVfcSignUpClass').val() == "")
+			| ($('.usernameSignUpClass').val() == "" || ('.pwdSignUpClass').val() == "" || ('.pwdVfcSignUpClass').val() == "")){				
 				var username = $('#usernameSignUp').val();
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
