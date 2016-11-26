@@ -10,7 +10,8 @@
 	"socket.io": "^1.5.0",
     "cfenv":  "^1.0.3",
 	"cloudant": "^1.6.2",
-	"bcryptjs": "^2.3.0"
+	"bcryptjs": "^2.3.0",
+	"watson-developer-cloud": "^2.9.0"
 	},
   "repository": {},
   "engines": {
