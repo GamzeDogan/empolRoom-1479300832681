@@ -13,11 +13,6 @@ var bcrypt = require('bcryptjs');
 var Watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
 
-var visual_recognition = new VisualRecognitionV3({
-  api_key: '<api_key>',
-  version_date: '2016-05-19'
-});
-
 var userList = {};
 var home = 'home';
 var chatroomList = [home];
@@ -27,6 +22,7 @@ var passwordRoomList = {};
 var services;
 var cloudant;
 var databaseEmpol;
+var visual_recognition;
 
 var userSelector = {
     "selector": {
@@ -327,9 +323,9 @@ function init() {
 		var visualRecognitionService = services['watson_vision_combined'];
         for (var service in visualRecognitionService) {
             if (visualRecognitionService[service].name === 'VisualRecognition') {
-                visualRecognition = new VisualRecognitionV3({
+                visualRecognition = new Watson({
                     api_key: visualRecognitionService[service].credentials.api_key,
-                    version_date: '2016-05-20'
+                    version_date: '2016-05-19'
                 });
             }
         }	
