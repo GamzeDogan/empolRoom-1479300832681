@@ -913,23 +913,22 @@ border: 3px solid;
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
 				
-				
+				//Schauen ob hochgeladen oder aufgenommen und ob es leer ist oder nicht
 				var imageUploaded = imageAvatarUploaded;
-				//var image = $('.uploadAvatarDiv').val();
+				var imageAvatar = imageURL;
 				
-				//var reader = new FileReader();
-				//reader.onload = function(evt){
-					socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageUploaded}, function(data){
-						if(data){
-							socket.username = $('#usernameSignUp').val();
-							socket.password = $('#passwordSignUp').val();
-						} else {
-							console.log("ERROR: cant upload image")
-							//Error Message
-						}
-					});	
-				//}
-				//reader.readAsDataURL(image);
+				console.log("imageUrL "+ imageURL);
+				console.log("imageUploaded "+ imageUploaded);
+				
+				socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageUploaded}, function(data){
+					if(data){
+						socket.username = $('#usernameSignUp').val();
+						socket.password = $('#passwordSignUp').val();
+					} else {
+						console.log("ERROR: cant upload image")
+						//Error Message
+					}
+				});	
 			} else {
 				console.log("Alle Zeilen ausfüllen");
 				//Alle Zeilen ausfüllen! erstn dann Sign up
