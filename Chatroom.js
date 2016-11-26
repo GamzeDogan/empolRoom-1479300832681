@@ -10,8 +10,8 @@ var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
-//var Watson = require('watson-developer-cloud/visual-recognition/v3');
-//var fs = require('fs');
+var Watson = require('watson-developer-cloud/visual-recognition/v3');
+var fs = require('fs');
 
 //var visual_recognition = new VisualRecognitionV3({
   //api_key: '<api_key>',
@@ -86,25 +86,47 @@ io.on('connection', function(socket) {
 				if (error) {
 					console.log("Something went wrong");
 				} else {
-					bcrypt.genSalt(10, function(err, salt) {
-						bcrypt.hash(data.password, salt, function(err, hash) {
-							data.password = hash; 
-							databaseEmpol.insert({_id: data.username, password: data.password, image: data.image}, function(error, body) {
-							if (!error) {								
-								callback(true);
-								socket.username = data.username;
-								socket.password = data.password;
-								socket.image = data.image;
-								console.log("sign Up fkt!");
-								io.emit('signInSuccessfully');
-							} else {
-								//Diesen Username gibt es schon! 
-								callback(false);
-								console.log("Could not store the values!");
-							}
-							});
-						});
-					});
+					visualRecognition.detectFaces(params, function(err, result) {
+                        if (err) {
+                            console.log(err);   
+                        } else {
+                            var hasMatch = false;
+                            for (var i = 0; i < result.images.length; i++) {
+                                var image =  result.images[i];
+                                for (var j = 0; j < image.faces.length; j++) {
+                                    var face = image.faces[j];
+                                    var gender = face.gender.gender;
+                                    if (gender === 'MALE' || gender === 'FEMALE') {
+                                        hasMatch = true;    
+                                    }
+                                }
+                            }
+                            if (hasMatch) {
+                            //Wenn es true ist inserten wir es in die DB 
+								bcrypt.genSalt(10, function(err, salt) {
+									bcrypt.hash(data.password, salt, function(err, hash) {
+										data.password = hash; 
+										databaseEmpol.insert({_id: data.username, password: data.password, image: data.image}, function(error, body) {
+										if (!error) {								
+											callback(true);
+											socket.username = data.username;
+											socket.password = data.password;
+											socket.image = data.image;
+											console.log("sign Up fkt!");
+											io.emit('signInSuccessfully');
+										} else {
+											//Diesen Username gibt es schon! 
+											callback(false);
+											console.log("Could not store the values!");
+										}
+										});
+									});
+								});
+                            } else {
+								console.log("no match");
+                            }  
+                        }
+                    }); 
 				}
 			}); 
 		} else {
@@ -301,9 +323,16 @@ function init() {
                 cloudant = Cloudant(cloudantService[service].credentials.url);
             }
         }
-		
-		//Hier kommt noch Watson rein
-		
+			
+		var visualRecognitionService = services['watson_vision_combined'];
+        for (var service in visualRecognitionService) {
+            if (visualRecognitionService[service].name === 'VisualRecognition') {
+                visualRecognition = new VisualRecognitionV3({
+                    api_key: visualRecognitionService[service].credentials.api_key,
+                    version_date: '2016-05-20'
+                });
+            }
+        }	
 		
     } else {
         console.log("Cloudant Service was not bound");
