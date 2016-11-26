@@ -160,6 +160,7 @@ body {
     -moz-border-radius: 5px;
 	border-radius: 5px;	
 	outline: none;
+	margin-top: 5%;
 }
 
 
@@ -477,7 +478,7 @@ body {
 	height: 120px;
 	position: absolute;
 	top: 20%;
-	left: 20%;
+	left: 24%;
 	border-style: solid;
 	border-width: 2px;
 	display: none;
@@ -501,7 +502,7 @@ body {
 #mediaAvatar{
 	position: fixed;
 	top: 20%;
-	left: 42%;
+	left: 46%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -527,7 +528,7 @@ body {
 	border-radius: 5px;
 	outline: none;
 	padding: 5px;
-	width:30%
+	width:26%
 }
 
 #mediaAvatar:hover {
@@ -544,8 +545,8 @@ body {
 #takePicture{
 	position: fixed;
 	top: 28%;
-	left: 42%;
-	width: 32%;
+	left: 46%;
+	width: 28%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -723,6 +724,15 @@ border: 3px solid;
 #captureLabel{
 
 }
+
+#signUpError{
+display: none;
+}
+
+#signUpPWDError{
+display: none;
+}
+
 </style>
 <body>
 	<div class="serverPW">
@@ -756,6 +766,9 @@ border: 3px solid;
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
 			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
+			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 5px"><center>Please fill in the form completely!</center></label>
+			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 5px"><center>Passwords are not similar. Try again!</center></label>
+
 		</form>
 		<div class="uploadAvatarDiv">
 		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
@@ -932,10 +945,13 @@ border: 3px solid;
 				} else {
 					//Re enter password
 					console.log("Passwort Re enter falsch");
+					$('#signUpPWDError').show();
+					
 				}
 			} else {
 				console.log("Alle Zeilen ausfüllen");
 				//Alle Zeilen ausfüllen! erstn dann Sign up
+				$('#signUpError').show();
 			}
 			return false;
 		});
