@@ -686,11 +686,7 @@ position: fixed;
 #canvas, #video{
 border: 3px solid;
 }
-
-
-
 </style>
-
 <body>
 	<div class="serverPW">
 		<label id="labelServerPw"><b>Server password</b></label>
@@ -861,17 +857,20 @@ border: 3px solid;
 			return false;			
 		});*/
 		
-		$('#signUpEvent').submit(function(){
+		$('#signUpEvent').submit(function(e){
 			if(($('.usernameSignUpClass').val() != "" && $('.pwdSignUpClass').val() != "" && $('.pwdVfcSignUpClass').val() != "")
 			| ($('.usernameSignUpClass').val() != "" || $('.pwdSignUpClass').val() != "" || $('.pwdVfcSignUpClass').val() != "")){				
 				var username = $('#usernameSignUp').val();
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
-				var image = e.originalEvent.target.files[0]
+				
+				
+				var imageUploaded = e.originalEvent.target.files[0]
+				var image = $('#uploadAvatarDiv').val();
 				
 				var reader = new FileReader();
 				reader.onload = function(evt){
-					socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : evt.target.result}, function(data){
+					socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, imageUploaded : evt.target.result}, function(data){
 						if(data){
 							socket.username = $('#usernameSignUp').val();
 							socket.password = $('#passwordSignUp').val();
