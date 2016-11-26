@@ -94,9 +94,9 @@ body {
 
 #labelServerPw {
 	position: absolute;
-	top: 10%
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 	font-size: 20px;
   }
   
@@ -476,7 +476,7 @@ body {
 	height: 120px;
 	position: absolute;
 	top: 20%;
-	left: 19%;
+	left: 18%;
 	border-style: solid;
 	border-width: 2px;
 	display: none;
@@ -544,7 +544,7 @@ body {
 	position: fixed;
 	top: 28%;
 	left: 40%;
-	width: 30%;
+	width: 32%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -599,7 +599,7 @@ position: fixed;
 .takePictureDiv{
 	background: #eee;
 	width: 40%;
-	height: 80%;
+	height: 90%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -611,14 +611,14 @@ position: fixed;
 	border-radius: 9px;
 	display: none;
 	outline: none;
-	max-width: 1000px;
+	max-width: 2000px;
 	padding: 20px;
 }
 
 #savePicture{
 	top: 50%;
 	left: 50%;
-	width: 40%;
+	width: 50%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -659,9 +659,9 @@ position: fixed;
 
 
 #backtoSignUpId{
-	top: 52%;
+	top: 51%;
 	left: 50%;
-	width: 40%;
+	width: 50%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -770,10 +770,10 @@ border: 3px solid;
 	</div>
 	
 	<div class="takePictureDiv">
-		<label id="captureLabel"><b> Capture a photo </b> </label>
+		<label id="captureLabel"><b><center> Capture a photo </center></b> </label>
 		<form id="takePictureEvent" action="">
 			<center><video id="video" width="250" height="200"></video><p/>
-			<a href="#" id="capture">Take a photo</a><p/> 
+			<a href="#" id="capture">Take a photo</a> <br> 
 			<canvas id="canvas" width="250" height="200"></canvas></center>
 		</form>
 		<form id="savePictureEvent" action=""> 
