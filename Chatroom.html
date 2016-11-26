@@ -911,7 +911,15 @@ border: 3px solid;
 				console.log("imageUrL "+ imageURL);
 				console.log("imageUploaded "+ imageUploaded);
 				
-				socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageUploaded}, function(data){
+				var imageChat;
+				if(imageURL != undefined){
+					imageChat = imageURL;
+				}
+				if else(imageUploaded != undefined) {
+					imageChat = imageUploaded;
+				}
+				
+				socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
 					if(data){
 						socket.username = $('#usernameSignUp').val();
 						socket.password = $('#passwordSignUp').val();
