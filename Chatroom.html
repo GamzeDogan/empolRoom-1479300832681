@@ -906,30 +906,31 @@ border: 3px solid;
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
 				
-				//Schauen ob hochgeladen oder aufgenommen und ob es leer ist oder nicht
-				var imageUploaded = imageAvatarUploaded;
-				var imageAvatar = imageURL;
-				
-				console.log("imageUrL "+ imageURL);
-				console.log("imageUploaded "+ imageUploaded);
-				
-				var imageChat;
-				if(imageURL != undefined){
-					imageChat = imageURL;
-				}
-				else if(imageUploaded != undefined) {
-					imageChat = imageUploaded;
-				}
-				
-				socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
-					if(data){
-						socket.username = $('#usernameSignUp').val();
-						socket.password = $('#passwordSignUp').val();
-					} else {
-						console.log("ERROR: cant upload image")
-						//Error Message
+				if(password == passwordVerification){
+					//Schauen ob hochgeladen oder aufgenommen und ob es leer ist oder nicht
+					var imageUploaded = imageAvatarUploaded;
+					var imageAvatar = imageURL;			
+					var imageChat;
+					
+					if(imageURL != undefined){
+						imageChat = imageURL;
 					}
-				});	
+					else if(imageUploaded != undefined) {
+						imageChat = imageUploaded;
+					}
+					
+					socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
+						if(data){
+							socket.username = $('#usernameSignUp').val();
+							socket.password = $('#passwordSignUp').val();
+						} else {
+							console.log("ERROR: cant upload image")
+							//Error Message
+						}
+					});	
+				} else {
+					console.log("Passwort Re enter falsch");
+				}
 			} else {
 				console.log("Alle Zeilen ausfüllen");
 				//Alle Zeilen ausfüllen! erstn dann Sign up
