@@ -95,6 +95,7 @@ io.on('connection', function(socket) {
 								socket.username = data.username;
 								socket.password = data.password;
 								socket.image = data.image;
+								console.log("sign Up fkt!");
 								io.emit('signInSuccessfully');
 							} else {
 								//Diesen Username gibt es schon! 

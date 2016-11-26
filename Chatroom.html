@@ -735,7 +735,6 @@ border: 3px solid;
 	
 	<div class="takePictureDiv">
 		<form id="takePictureEvent" action="">
-		<!-- uberschrift-->
 			<center><video id="video" width="250" height="200"></video><p/>
 			<a href="#" id="capture">Take a photo</a><p/> 
 			<canvas id="canvas" width="250" height="200"></canvas></center>
@@ -866,7 +865,7 @@ border: 3px solid;
 				
 				
 				var imageUploaded = e.originalEvent.target.files[0]
-				var image = $('#uploadAvatarDiv').val();
+				var image = $('.uploadAvatarDiv').val();
 				
 				var reader = new FileReader();
 				reader.onload = function(evt){
