@@ -78,6 +78,9 @@ io.on('connection', function(socket) {
 	
 	socket.on('signUp', function(data, callback){
 		var image = data.image;
+		var username = data.username;
+		var password = data.password;
+		console.log("usernameee " + username);
 		var detected = false;
 		var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
@@ -106,12 +109,12 @@ io.on('connection', function(socket) {
 							bcrypt.genSalt(10, function(err, salt) {
 								bcrypt.hash(data.password, salt, function(err, hash) {
 									data.password = hash; 
-									databaseEmpol.insert({_id: data.username, password: data.password, image: data.image}, function(error, body) {
+									databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
 										if (!error) {								
 											callback(true);
-											socket.username = data.username;
-											socket.password = data.password;
-											socket.image = data.image;
+											socket.username = username;
+											socket.password = password;
+											socket.image = image;
 											console.log("sign Up fkt!");
 											io.emit('signInSuccessfully');
 										} else {
