@@ -852,10 +852,12 @@ display: none;
 				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
 					if(data == true){
 						$('.serverPW').hide();
+						$('.serverPW').val() = "";
 						$('#accountError').hide();
 						$('.loginPW').show();
 					} else {
 						$('#serverWrongPWD').show();
+						$('.serverPW').val() = "";
 						console.log("Falsches PWD");
 					}
 				});	
@@ -893,25 +895,6 @@ display: none;
 			$('.uploadAvatar').show();
 			return false;
 		});
-		
-	/*$('#signinEvent').submit(function() {
-			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
-				$('#unvalidError').show();
-			} else {
-				socket.emit('signInUser',{username : $('#username').val(), password : $('#password').val()},
-						function(data) {
-							if (data == false) {
-								$('#usernameError').show();
-							} else {
-								socket.username = $('#username').val();
-								socket.password = $('#password').val();
-								$('#unvalidError').hide();
-								$('#usernameError').hide();
-							}
-						});
-					}
-			return false;			
-		});*/
 		
 		$('#signUpEvent').submit(function(e){
 			if(($('.usernameSignUpClass').val() != "" && $('.pwdSignUpClass').val() != "" && $('.pwdVfcSignUpClass').val() != "")
