@@ -80,6 +80,8 @@ io.on('connection', function(socket) {
 		var image = data.image;
 		var detected = false;
 		
+		console.log(data.image);
+		
 		var params = {
 			images_file: fs.createReadStream('./image/obama.jpg')
 		};
