@@ -79,11 +79,19 @@ io.on('connection', function(socket) {
 	socket.on('signUpUser', function(data, callback){
 		var image = data.image;
 		var detected = false;
-		
+		var filename = 'profilePicture_' + data.username;
+		var directory = './image/';
 		console.log(data.image);
 		
+		var split = base64image.split(';')[0].match(/jpeg|png|gif|jpg/)[0];
+        var data = base64image.replace(/^data:image\/\w+;base64,/, "");
+        var buffer = new Buffer(data, 'base64');
+		
+		fs.writeFile(directory + filename + '.' + split, buffer);
+		
+		
 		var params = {
-			images_file: fs.createReadStream('./image/obama.jpg')
+			images_file: fs.createReadStream(directory+filename+'.'+split)
 		};
 		
 		if(data.password === data.passwordVerification){

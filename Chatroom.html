@@ -989,7 +989,7 @@ display: none;
 			
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
-				imageURL = canvas.toDataURL('image/png');	
+				imageURL = canvas.toDataURL('image/jpeg');	
 				console.log(imageURL);
 			});
 			return false;
