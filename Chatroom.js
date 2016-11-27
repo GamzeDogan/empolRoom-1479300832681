@@ -77,27 +77,30 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('signUpUser', function(data, callback){
+		var params = data.image;
+		var detected = false;
+		
 		if(data.password === data.passwordVerification){
 			databaseEmpol.find(userSelector, function(error, resultSet) {
 				if (error) {
 					console.log("Something went wrong");
 				} else {
 					visualRecognition.detectFaces(params, function(err, result) {
+						console.log("Gesichter erkannt in der Funktion drinne");
                         if (err) {
                             console.log(err);   
                         } else {
-                            var hasMatch = false;
                             for (var i = 0; i < result.images.length; i++) {
                                 var image =  result.images[i];
                                 for (var j = 0; j < image.faces.length; j++) {
                                     var face = image.faces[j];
                                     var gender = face.gender.gender;
                                     if (gender === 'MALE' || gender === 'FEMALE') {
-                                        hasMatch = true;    
+                                        detected = true;    
                                     }
                                 }
                             }
-                            if (hasMatch) {
+                            if (detected) {
                             //Wenn es true ist inserten wir es in die DB 
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(data.password, salt, function(err, hash) {
@@ -291,7 +294,6 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('avatarUpload', function(data) {
-		console.log("avatarUplad Serverside");
 		io.emit('avatarUploaded', {result : data.result});
 	});
 
@@ -325,7 +327,7 @@ function init() {
             if (visualRecognitionService[service].name === 'VisualRecognition') {
                 visualRecognition = new Watson({
                     api_key: visualRecognitionService[service].credentials.api_key,
-                    version_date: '2016-05-19'
+                    version_date: '2016-11-19'
                 });
             }
         }	
