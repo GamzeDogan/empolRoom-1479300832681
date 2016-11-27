@@ -885,6 +885,11 @@ display: none;
 					}
 				});
 			}
+			
+			//sign up values deleted not login
+			$('#usernameSignUp').val('');
+			$('#passwordSignUp').val('');
+			$('#passwordVerification').val('');
 			return false;
 		});
 		
@@ -916,6 +921,9 @@ display: none;
 					else if(imageUploaded != undefined) {
 						imageChat = imageUploaded;
 					}
+					console.log("username client side: " + username);
+					console.log("pwd client side: " + password);
+					console.log("pwd veri client side: " + passwordVerification);
 					
 					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
 						if(data){
@@ -936,11 +944,6 @@ display: none;
 				//Alle Zeilen ausfüllen! erstn dann Sign up
 				$('#signUpError').show();
 			}
-			
-			$('#usernameSignUp').val('');
-			$('#passwordSignUp').val('');
-			$('#passwordVerification').val('');
-			
 			return false;
 		});
 		
