@@ -83,15 +83,21 @@ io.on('connection', function(socket) {
 		var directory = './image/';
 		console.log(data.image);
 		
-		var split = base64image.split(';')[0].match(/jpeg|png|gif|jpg/)[0];
-        var data = base64image.replace(/^data:image\/\w+;base64,/, "");
+		//var sliceImage = image.slice(10);
+		//if(sliceImage.slice(0,5) === '/jpeg' || sliceImage.slice(0,4) === '/png' || sliceImage.slice(0,4) === '/jpg'){
+		//	var buffer = new Buffer(data, 'base64');
+			
+		//}
+		
+		var ext = image.split(';')[0].match(/jpeg|png|jpg/)[0];
+        var data = image.replace(/^data:image\/\w+;base64,/, "");
         var buffer = new Buffer(data, 'base64');
 		
-		fs.writeFile(directory + filename + '.' + split, buffer);
+		fs.writeFile(directory + filename + '.' + ext, buffer);
 		
 		
 		var params = {
-			images_file: fs.createReadStream(directory+filename+'.'+split)
+			images_file: fs.createReadStream(directory+filename+'.'+ext)
 		};
 		
 		if(data.password === data.passwordVerification){
