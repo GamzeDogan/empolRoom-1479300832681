@@ -85,7 +85,7 @@ io.on('connection', function(socket) {
 		//var ext = 
 		
 		var params = {
-			images_file: fs.createReadStream('./image/obama.jpg');
+			images_file: fs.createReadStream('./image/obama.jpg')
 		};
 		
 		if(data.password === data.passwordVerification){
