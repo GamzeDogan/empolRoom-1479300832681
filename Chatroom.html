@@ -989,7 +989,8 @@ display: none;
 			
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
-				imageURL = canvas.toDataURL();						
+				imageURL = canvas.toDataURL();	
+				console.log(imageURL);
 			});
 			return false;
 		});
