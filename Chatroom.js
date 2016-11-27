@@ -98,12 +98,11 @@ io.on('connection', function(socket) {
 				if (error) {
 					console.log("Something went wrong");
 				} else {
-					visualRecognition.detectFaces(params, function(err, response) {
-						if (err){
-							console.log("ERROR: " + err);
+					visualRecognition.detectFaces(params, function(error, response) {
+						if (error){
+							console.log("ERROR: " + error);
 						} else {
 							console.log(JSON.stringify(response, null, 2));
-							//Wenn es true ist inserten wir es in die DB 
 							bcrypt.genSalt(10, function(err, salt) {
 								bcrypt.hash(data.password, salt, function(err, hash) {
 									data.password = hash; 

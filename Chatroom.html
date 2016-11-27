@@ -852,12 +852,10 @@ display: none;
 				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
 					if(data == true){
 						$('.serverPW').hide();
-						$('#serverPassword').val() = "";
 						$('#accountError').hide();
 						$('.loginPW').show();
 					} else {
 						$('#serverWrongPWD').show();
-						$('#serverPassword').val() = "";
 						console.log("Falsches PWD");
 					}
 				});	
@@ -936,6 +934,11 @@ display: none;
 				//Alle Zeilen ausfüllen! erstn dann Sign up
 				$('#signUpError').show();
 			}
+			
+			$('#usernameSignUp').val() = "";
+			$('#passwordSignUp').val() = "";
+			$('#passwordVerification').val() = "";
+			
 			return false;
 		});
 		
