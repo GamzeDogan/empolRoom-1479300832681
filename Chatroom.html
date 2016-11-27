@@ -876,7 +876,7 @@ display: none;
 				socket.emit('logInUser',{username : username, password : password}, function(data) {
 					if (data == false) {
 						$('#accountError').show();				
-					} else {
+					} else if(data == true) {
 						socket.username = username;
 						socket.password = password;
 						$('#accountError').hide();

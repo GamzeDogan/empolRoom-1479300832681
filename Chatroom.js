@@ -87,6 +87,9 @@ io.on('connection', function(socket) {
         var data = image.replace(/^data:image\/\w+;base64,/, "");
         var buffer = new Buffer(data, 'base64');
 		
+		console.log("username: "+username);
+		console.log("pwd: "+password);
+		
 		fs.writeFile(directory + filename + '.' + ext, buffer);
 		
 		var params = {
@@ -164,7 +167,9 @@ io.on('connection', function(socket) {
 								roomUserlist[socket.username] = home;
 								if(socket.username != undefined){
 									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-								} else { console.log("socket username ist undefined");}	
+								} else { 
+									console.log("socket username ist undefined");
+								}	
 							} else  {
 								callback(false);
 								console.log("Passwort falsch");
