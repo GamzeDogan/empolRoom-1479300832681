@@ -18,6 +18,7 @@ var home = 'home';
 var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
+var image;
 
 var services;
 var cloudant;
@@ -28,6 +29,10 @@ var userSelector = {
     "selector": {
         "_id": ""
     }  
+};
+
+var params = {
+	images_file: fs.createReadStream(image)
 };
 
 init();
@@ -77,7 +82,7 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('signUpUser', function(data, callback){
-		var params = data.image;
+		image = data.image;
 		var detected = false;
 		
 		if(data.password === data.passwordVerification){
@@ -86,16 +91,18 @@ io.on('connection', function(socket) {
 					console.log("Something went wrong");
 				} else {
 					visualRecognition.detectFaces(params, function(err, result) {
-						console.log("Gesichter erkannt in der Funktion drinne");
+						console.log("In der Funktion drinne");
                         if (err) {
                             console.log(err);   
                         } else {
+							console.log("nach else");
                             for (var i = 0; i < result.images.length; i++) {
                                 var image =  result.images[i];
                                 for (var j = 0; j < image.faces.length; j++) {
                                     var face = image.faces[j];
                                     var gender = face.gender.gender;
                                     if (gender === 'MALE' || gender === 'FEMALE') {
+										console.log("gender " + gender);
                                         detected = true;    
                                     }
                                 }
