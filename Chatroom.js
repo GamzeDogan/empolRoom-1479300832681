@@ -108,25 +108,30 @@ io.on('connection', function(socket) {
 							console.log("ERROR: " + error);
 						} else {
 							console.log(JSON.stringify(response, null, 2));
-							bcrypt.genSalt(10, function(err, salt) {
-								bcrypt.hash(password, salt, function(err, hash) {
-									password = hash; 
-									databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
-										if (!error) {								
-											callback(true);
-											socket.username = username;
-											socket.password = password;
-											socket.image = image;
-											console.log("sign Up fkt!");
-											io.emit('signInSuccessfully');
-										} else {
-											//Diesen Username gibt es schon! 
-											callback(false);
-											console.log("Could not store the values!");
-										}
+							if(response.gender == 'FEMALE' || response.gender == 'MALE'){	
+								bcrypt.genSalt(10, function(err, salt) {
+									bcrypt.hash(password, salt, function(err, hash) {
+										password = hash; 
+										databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
+											if (!error) {								
+												callback(true);
+												socket.username = username;
+												socket.password = password;
+												socket.image = image;
+												console.log("sign Up fkt!");
+												io.emit('signInSuccessfully');
+											} else {
+												//Diesen Username gibt es schon! 
+												callback(false);
+												console.log("Could not store the values!");
+											}
+										});
 									});
 								});
-							});
+							} else {
+								//Kein Mensch
+								console.log("Doesnt contain a human face");
+							}
 						}
 					});
                 }
