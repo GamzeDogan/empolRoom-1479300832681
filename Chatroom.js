@@ -80,7 +80,6 @@ io.on('connection', function(socket) {
 		var image = data.image;
 		var username = data.username;
 		var password = data.password;
-		console.log("usernameee " + username);
 		var detected = false;
 		var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
@@ -95,8 +94,6 @@ io.on('connection', function(socket) {
 		};
 		
 		if(data.password === data.passwordVerification){
-			console.log("name: " + data.username);
-			console.log("pwd: " + data.password);
 			databaseEmpol.find(userSelector, function(error, resultSet) {
 				if (error) {
 					console.log("Something went wrong");
@@ -136,22 +133,25 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('logInUser', function(data, callback) {
-		//socket.password = data.password;
-		if(data.password != undefined){
-			userSelector.selector._id = data.username;
+		var username = data.username;
+		var password = data.password;
+		console.log("username " + username);
+		console.log("pwd " + password);
+		
+		if(password != undefined){
+			userSelector.selector._id = username;
 			
 			databaseEmpol.find(userSelector, function(error, resultSet) {
-				console.log("login pwd eingabe: " + data.password);
+				console.log("login pwd eingabe: " + password);
 				console.log("login pwd eingabe resultset: " + resultSet.docs[0].password);
 				if (error) {
 					console.log("Something went wrong!");
 				} else {
-					bcrypt.compare(data.password, resultSet.docs[0].password, function(err, res) {
-						console.log("Bin hieeer");
+					bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
 							console.log("Bin hieeer2");
 							if(res == true){
-								socket.username = data.username;
+								socket.username = username;
 								userList[socket.username] = socket;
 								callback(true);							
 								if(socket.username != undefined){
