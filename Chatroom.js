@@ -108,7 +108,7 @@ io.on('connection', function(socket) {
 							console.log("ERROR: " + error);
 						} else {
 							console.log(JSON.stringify(response, null, 2));
-							if(response.gender == 'FEMALE' || response.gender == 'MALE'){	
+							if(gender == 'FEMALE' || gender == 'MALE'){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
