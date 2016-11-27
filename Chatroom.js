@@ -108,8 +108,7 @@ io.on('connection', function(socket) {
 							console.log("ERROR: " + error);
 						} else {
 							console.log(JSON.stringify(response, null, 2));
-							console.log("gender: "+response.gender);
-							if(response.gender == 'FEMALE' || response.gender == 'MALE'){	
+							if(response.images.faces.gender == 'FEMALE' || response.gender == 'MALE'){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
@@ -131,7 +130,7 @@ io.on('connection', function(socket) {
 								});
 							} else {
 								//Kein Mensch
-								console.log("Doesnt contain a human face");
+								console.log("Doesnt contain a human face " + gender);
 							}
 						}
 					});
