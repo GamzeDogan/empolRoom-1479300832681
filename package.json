@@ -11,7 +11,8 @@
     "cfenv":  "^1.0.3",
 	"cloudant": "^1.6.2",
 	"bcryptjs": "^2.3.0",
-	"watson-developer-cloud": "^2.9.0"
+	"watson-developer-cloud": "^2.9.0",
+	"fs": "^0.0.1-security"
 	},
   "repository": {},
   "engines": {
