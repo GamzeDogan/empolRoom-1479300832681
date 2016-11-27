@@ -852,10 +852,12 @@ display: none;
 				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
 					if(data == true){
 						$('.serverPW').hide();
+						$('#serverPassword').val('');
 						$('#accountError').hide();
 						$('.loginPW').show();
 					} else {
 						$('#serverWrongPWD').show();
+						$('#serverPassword').val('');
 						console.log("Falsches PWD");
 					}
 				});	
@@ -888,8 +890,8 @@ display: none;
 		
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
-			$('#username').val() = "";
-			$('#password').val() = "";
+			$('#username').val('');
+			$('#password').val('');
 			$('.signUpDiv').show();	
 			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
@@ -935,9 +937,9 @@ display: none;
 				$('#signUpError').show();
 			}
 			
-			$('#usernameSignUp').val() = "";
-			$('#passwordSignUp').val() = "";
-			$('#passwordVerification').val() = "";
+			$('#usernameSignUp').val('');
+			$('#passwordSignUp').val('');
+			$('#passwordVerification').val('');
 			
 			return false;
 		});
