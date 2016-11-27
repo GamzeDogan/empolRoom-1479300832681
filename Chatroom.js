@@ -80,6 +80,8 @@ io.on('connection', function(socket) {
 		var image = data.image;
 		var username = data.username;
 		var password = data.password;
+		var passwordVerification = data.passwordVerification;
+		
 		var detected = false;
 		var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
@@ -96,7 +98,7 @@ io.on('connection', function(socket) {
 			images_file: fs.createReadStream(directory+filename+'.'+ext)
 		};
 		
-		if(data.password === data.passwordVerification){
+		if(password === passwordVerification){
 			databaseEmpol.find(userSelector, function(error, resultSet) {
 				if (error) {
 					console.log("Something went wrong");
@@ -107,8 +109,8 @@ io.on('connection', function(socket) {
 						} else {
 							console.log(JSON.stringify(response, null, 2));
 							bcrypt.genSalt(10, function(err, salt) {
-								bcrypt.hash(data.password, salt, function(err, hash) {
-									data.password = hash; 
+								bcrypt.hash(password, salt, function(err, hash) {
+									password = hash; 
 									databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
 										if (!error) {								
 											callback(true);
