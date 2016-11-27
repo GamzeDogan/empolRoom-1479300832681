@@ -852,12 +852,12 @@ display: none;
 				socket.emit('pwdForServerEmpolChatRoom', {password: password}, function(data){
 					if(data == true){
 						$('.serverPW').hide();
-						$('.serverPW').val() = "";
+						$('#serverPassword').val() = "";
 						$('#accountError').hide();
 						$('.loginPW').show();
 					} else {
 						$('#serverWrongPWD').show();
-						$('.serverPW').val() = "";
+						$('#serverPassword').val() = "";
 						console.log("Falsches PWD");
 					}
 				});	
@@ -890,6 +890,8 @@ display: none;
 		
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
+			$('#username').val() = "";
+			$('#password').val() = "";
 			$('.signUpDiv').show();	
 			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
@@ -904,9 +906,8 @@ display: none;
 				var passwordVerification = $('#passwordVerification').val();
 				
 				if(password == passwordVerification){
-					//Schauen ob hochgeladen oder aufgenommen und ob es leer ist oder nicht
+					//Schauen die Div Klasse leer ist oder nicht (Bild vorhanden oder nicht)
 					var imageUploaded = imageAvatarUploaded;
-					var imageAvatar = imageURL;			
 					var imageChat;
 					
 					if(imageURL != undefined){
@@ -916,17 +917,16 @@ display: none;
 						imageChat = imageUploaded;
 					}
 					
-					socket.emit('signUpUser', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
+					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
 						if(data){
 							socket.username = $('#usernameSignUp').val();
 							socket.password = $('#passwordSignUp').val();
 						} else {
-							console.log("ERROR: cant upload image")
+							console.log("ERROR client-side");
 							//Error Message
 						}
 					});	
 				} else {
-					//Re enter password
 					console.log("Passwort Re enter falsch");
 					$('#signUpPWDError').show();
 					

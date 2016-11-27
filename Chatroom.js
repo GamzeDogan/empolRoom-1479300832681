@@ -49,7 +49,7 @@ app.get('/', function(request, respond) {
 io.on('connection', function(socket) {
 	socket.on('pwdForServerEmpolChatRoom', function(data, callback){
 		var serverPwd = data.password;
-		io.emit('loginInServer');
+		//io.emit('loginInServer');
 		if(serverPwd != undefined){
 			userSelector.selector._id = "ServerEmpolChatRoom";
 			databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -58,57 +58,49 @@ io.on('connection', function(socket) {
 						if(!(err)){
 							if(res == true){
 								callback(true);
-								console.log("Passworteingabe vom Server richtig!");			
+								console.log("Server pwd right!");			
 							} else  {
 								callback(false);
-								console.log("Passworteingabe vom Server falsch!");
+								console.log("Server pwd false!");
 							}
 						} else {
 							console.log('ERROR: ' + hash);
 						}
 					});
 				} else {
-					console.log("ERROR: pwdForServerEmpolChatRoom");
+					console.log("ERROR: " + error.message);
 				}
 			});	
 		} else {
-			console.log("serverPwd ist undefined" + serverPwd);
+			console.log("Server pwd is undefined!");
 		}
 	});
 	
-	socket.on('signUpUser', function(data, callback){
+	socket.on('signUp', function(data, callback){
 		var image = data.image;
 		var detected = false;
 		var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
-		console.log(data.image);
-		
-		//var sliceImage = image.slice(10);
-		//if(sliceImage.slice(0,5) === '/jpeg' || sliceImage.slice(0,4) === '/png' || sliceImage.slice(0,4) === '/jpg'){
-		//	var buffer = new Buffer(data, 'base64');
-			
-		//}
-		
 		var ext = image.split(';')[0].match(/jpeg|png|jpg/)[0];
         var data = image.replace(/^data:image\/\w+;base64,/, "");
         var buffer = new Buffer(data, 'base64');
 		
 		fs.writeFile(directory + filename + '.' + ext, buffer);
 		
-		
 		var params = {
 			images_file: fs.createReadStream(directory+filename+'.'+ext)
 		};
 		
 		if(data.password === data.passwordVerification){
+			console.log("name: " + data.username);
+			console.log("pwd: " + data.password);
 			databaseEmpol.find(userSelector, function(error, resultSet) {
 				if (error) {
 					console.log("Something went wrong");
 				} else {
 					visualRecognition.detectFaces(params, function(err, response) {
-						console.log("In der Funktion drinne");
 						if (err){
-							console.log(err);
+							console.log("ERROR: " + err);
 						} else {
 							console.log(JSON.stringify(response, null, 2));
 							//Wenn es true ist inserten wir es in die DB 
