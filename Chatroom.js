@@ -18,7 +18,6 @@ var home = 'home';
 var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
-var image;
 
 var services;
 var cloudant;
@@ -29,10 +28,6 @@ var userSelector = {
     "selector": {
         "_id": ""
     }  
-};
-
-var params = {
-	images_file: fs.createReadStream(image)
 };
 
 init();
@@ -82,8 +77,16 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('signUpUser', function(data, callback){
-		image = data.image;
+		var image = data.image;
 		var detected = false;
+		
+		//var name = 'profilepicture_' + data.username;
+		//var path = './image/';
+		//var ext = 
+		
+		var params = {
+			images_file: fs.createReadStream('./image/obama.jpg');
+		};
 		
 		if(data.password === data.passwordVerification){
 			databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -96,6 +99,7 @@ io.on('connection', function(socket) {
                             console.log(err);   
                         } else {
 							console.log("nach else");
+							console.log(JSON.stringify(response, null, 2));
                             for (var i = 0; i < result.images.length; i++) {
                                 var image =  result.images[i];
                                 for (var j = 0; j < image.faces.length; j++) {
