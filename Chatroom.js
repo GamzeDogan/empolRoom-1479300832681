@@ -80,10 +80,6 @@ io.on('connection', function(socket) {
 		var image = data.image;
 		var detected = false;
 		
-		//var name = 'profilepicture_' + data.username;
-		//var path = './image/';
-		//var ext = 
-		
 		var params = {
 			images_file: fs.createReadStream('./image/obama.jpg')
 		};
@@ -93,30 +89,17 @@ io.on('connection', function(socket) {
 				if (error) {
 					console.log("Something went wrong");
 				} else {
-					visualRecognition.detectFaces(params, function(err, result) {
+					visualRecognition.detectFaces(params, function(err, response) {
 						console.log("In der Funktion drinne");
-                        if (err) {
-                            console.log(err);   
-                        } else {
-							console.log("nach else");
+						if (err){
+							console.log(err);
+						} else {
 							console.log(JSON.stringify(response, null, 2));
-                            for (var i = 0; i < result.images.length; i++) {
-                                var image =  result.images[i];
-                                for (var j = 0; j < image.faces.length; j++) {
-                                    var face = image.faces[j];
-                                    var gender = face.gender.gender;
-                                    if (gender === 'MALE' || gender === 'FEMALE') {
-										console.log("gender " + gender);
-                                        detected = true;    
-                                    }
-                                }
-                            }
-                            if (detected) {
-                            //Wenn es true ist inserten wir es in die DB 
-								bcrypt.genSalt(10, function(err, salt) {
-									bcrypt.hash(data.password, salt, function(err, hash) {
-										data.password = hash; 
-										databaseEmpol.insert({_id: data.username, password: data.password, image: data.image}, function(error, body) {
+							//Wenn es true ist inserten wir es in die DB 
+							bcrypt.genSalt(10, function(err, salt) {
+								bcrypt.hash(data.password, salt, function(err, hash) {
+									data.password = hash; 
+									databaseEmpol.insert({_id: data.username, password: data.password, image: data.image}, function(error, body) {
 										if (!error) {								
 											callback(true);
 											socket.username = data.username;
@@ -129,16 +112,13 @@ io.on('connection', function(socket) {
 											callback(false);
 											console.log("Could not store the values!");
 										}
-										});
 									});
 								});
-                            } else {
-								console.log("no match");
-                            }  
-                        }
-                    }); 
-				}
-			}); 
+							});
+						}
+					});
+                }
+            }); 
 		} else {
 			//ERROR Message kommt hier noch
 			console.log("Passwörter stimmen nicht überein");
