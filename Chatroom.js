@@ -44,9 +44,8 @@ var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemi
 console.log(line);
 console.log(line.text);
 
-var weather = json.loads(r.text);   
- 
-console.log(json.dumps(weather,indent=1));
+//var weather = json.loads(r.text);   
+//console.log(json.dumps(weather,indent=1));
 
 
 init();
