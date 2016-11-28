@@ -112,7 +112,7 @@ io.on('connection', function(socket) {
 									detected = true;
 								}
 							}	
-							if(detected == true && ){	
+							if(detected == true){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
@@ -124,8 +124,7 @@ io.on('connection', function(socket) {
 												socket.image = image;
 												console.log("sign Up fkt!");
 												io.emit('signInSuccessfully');
-											} else {
-												//Diesen Username gibt es schon! 
+											} else { 
 												callback(false);
 												console.log("Could not store the values!");
 											}
@@ -133,7 +132,7 @@ io.on('connection', function(socket) {
 									});
 								});
 							} else {
-								//Error Message kein Mensch + bild in dem div löschen
+								//ÖZGÜN: Error Message: Kein Mensch auf dem Bild (bild in dem div löschen)
 								console.log("Doesnt contain a human face ");
 							}
 						}
@@ -141,7 +140,7 @@ io.on('connection', function(socket) {
                 }
             }); 
 		} else {
-			//ERROR Message kommt hier noch
+			//ÖZGÜN: ERROR Message : PWD und PWD Verification stimmen nicht überein
 			console.log("Passwörter stimmen nicht überein");
 		}	
 	});
@@ -193,7 +192,6 @@ io.on('connection', function(socket) {
 			});	
 		} else { 
 			console.log("password ist anscheinend undefined: " +data.password)};
-			//falsches Passwort
 	});
 	
 	/**
