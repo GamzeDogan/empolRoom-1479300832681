@@ -725,6 +725,48 @@ top:95%;
 left:50%;
 }
 
+#backtoLoginId{
+	
+	top: 51%;
+	left: 50%;
+	width: 50%;
+	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
+	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
+	box-shadow: inset 0px 1px 3px 0px #91b8b3;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44b395), color-stop(1, #6c7c7c));
+	background: -moz-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: -webkit-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: -o-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: -ms-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: linear-gradient(to bottom, #44b395 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#44b395', endColorstr='#6c7c7c',GradientType=0);
+	background-color: #44b395;
+	border: 1px solid #566963;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	text-shadow: 0px -1px 0px #2b8a7c;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: none;
+	padding: 5px;
+}
+
+#backtoLoginId:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #44b395));
+	background: -moz-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: -webkit-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: -o-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: -ms-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: linear-gradient(to bottom, #6c7c7c 5%, #44b395 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#44b395',GradientType=0);
+	background-color: #6c7c7c;
+}
 </style>
 <body>
 	<div class="serverPW">
@@ -762,6 +804,10 @@ left:50%;
 			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 5px"><center>Passwords are not similar. Try again!</center></label>
 
 		</form>
+		<form id="backToLogin" action="">
+		<center><input id="backtoLoginId" type="submit" value="Back to Login "/></center>
+		</form>
+		
 		<div class="uploadAvatarDiv">
 		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
 		</div>
@@ -787,7 +833,7 @@ left:50%;
 		</form>
 		<br>
 		<form id="backToSignUp" action=""> 
-			<center><input id="backtoSignUpId" type="submit" value="Back to SignUp "/></center>
+			<center><input id="backtoSignUpId" type="submit" value="&#8617; &larrhk; "/></center>
 		</form>
 	
 	</div>
@@ -1017,12 +1063,10 @@ left:50%;
 		});
 		
 		$('#backToSignUp').submit(function() {
-			$('.signUpDiv').hide();
-			$('.uploadAvatarDiv').hide();
-			$('.uploadAvatar').hide();
-			$('.loginPW').show();	
-
-			return false;
+			$('.takePictureDiv').hide();
+			$('.signupDiv').show();
+			$('.uploadAvatarDiv').show();
+			$('.uploadAvatar').show();
 		});
 		
 		
