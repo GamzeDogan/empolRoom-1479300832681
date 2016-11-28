@@ -148,7 +148,7 @@ body {
 	height: 9%;
 	width: 50%;
  	position: absolute;
-    top: 47%;
+    top: 46%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     max-width: 400px;  
@@ -715,12 +715,14 @@ border: 3px solid;
 display: none;
 position: absolute;
 top:90%;
+left:50%;
 }
 
 #signUpPWDError{
 display: none;
 position: absolute;
-top:90%;
+top:95%;
+left:50%;
 }
 
 </style>
@@ -1013,6 +1015,16 @@ top:90%;
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
 		});
+		
+		$('#backToSignUp').submit(function() {
+			$('.signUpDiv').hide();
+			$('.uploadAvatarDiv').hide();
+			$('.uploadAvatar').hide();
+			$('.loginPW').show();	
+
+			return false;
+		});
+		
 		
 		socket.on('logInUserEmit', function(logIn) {
 			$('.loginPW').hide();
@@ -1401,6 +1413,8 @@ top:90%;
 				});
 			}
 		}); 
+		
+		
 	</script>
 </body>
 </html>
