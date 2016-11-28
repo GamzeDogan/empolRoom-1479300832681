@@ -73,10 +73,6 @@ body {
 	background-color: #6c7c7c;
 }
 
-#serverPwButton: active {
-	position: relative;
-	top: 1px;
-}
 
 #serverPassword {
 	height: 16%;
@@ -152,7 +148,7 @@ body {
 	height: 9%;
 	width: 50%;
  	position: absolute;
-    top: 50%;
+    top: 47%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     max-width: 400px;  
@@ -252,11 +248,6 @@ body {
 	background-color: #6c7c7c;
 }
 
-#login:active {
-	position: relative;
-	top: 1px;
-}
-
 #signUp {
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -300,11 +291,6 @@ body {
 	background: linear-gradient(to bottom, #6c7c7c 5%, #44b395 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#44b395',GradientType=0);
 	background-color: #6c7c7c;
-}
-
-#signUp:active {
-	position: relative;
-	top: 1px;
 }
 
 #signUpLink{
@@ -727,10 +713,14 @@ border: 3px solid;
 
 #signUpError{
 display: none;
+position: absolute;
+top:90%;
 }
 
 #signUpPWDError{
 display: none;
+position: absolute;
+top:90%;
 }
 
 </style>
@@ -818,7 +808,6 @@ display: none;
 				id="media" type="file" disabled="disabled" value="Datei Upload" ="visibility: hidden"/>
 		</form>
 	</div>
-
 	<div id="messagesDiv" >
 		<ul id="messages"></ul>
 	</div>
@@ -1023,7 +1012,6 @@ display: none;
 			$('.signUpDiv').hide();	
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
-			//$('#successfullyNotification').show();
 		});
 		
 		socket.on('logInUserEmit', function(logIn) {
