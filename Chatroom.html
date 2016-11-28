@@ -647,9 +647,10 @@ position: fixed;
 
 
 #backtoSignUpId{
-	top: 51%;
-	left: 50%;
-	width: 50%;
+position:absolute;
+	top: 5%;
+	left: 5%;
+	width: 8%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -666,7 +667,7 @@ position: fixed;
 	cursor: pointer;
 	color: #ffffff;
 	font-family: Arial;
-	font-size: 14px;
+	font-size: 25px;
 	font-weight: bold;
 	text-decoration: none;
 	text-shadow: 0px -1px 0px #2b8a7c;
@@ -725,6 +726,48 @@ top:95%;
 left:50%;
 }
 
+#backtoLoginId{
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 8%;
+	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
+	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
+	box-shadow: inset 0px 1px 3px 0px #91b8b3;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44b395), color-stop(1, #6c7c7c));
+	background: -moz-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: -webkit-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: -o-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: -ms-linear-gradient(top, #44b395 5%, #6c7c7c 100%);
+	background: linear-gradient(to bottom, #44b395 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#44b395', endColorstr='#6c7c7c',GradientType=0);
+	background-color: #44b395;
+	border: 1px solid #566963;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 25px;
+	font-weight: bold;
+	text-decoration: none;
+	text-shadow: 0px -1px 0px #2b8a7c;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+	border-radius: 5px;
+	outline: none;
+	padding: 5px;
+}
+
+#backtoLoginId:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #44b395));
+	background: -moz-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: -webkit-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: -o-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: -ms-linear-gradient(top, #6c7c7c 5%, #44b395 100%);
+	background: linear-gradient(to bottom, #6c7c7c 5%, #44b395 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#44b395',GradientType=0);
+	background-color: #6c7c7c;
+}
 </style>
 <body>
 	<div class="serverPW">
@@ -762,6 +805,10 @@ left:50%;
 			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 5px"><center>Passwords are not similar. Try again!</center></label>
 
 		</form>
+		<form id="backToLogin" action="">
+		<center><input id="backtoLoginId" type="submit" value="&larrhk;"/></center>
+		</form>
+		
 		<div class="uploadAvatarDiv">
 		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
 		</div>
@@ -787,7 +834,7 @@ left:50%;
 		</form>
 		<br>
 		<form id="backToSignUp" action=""> 
-			<center><input id="backtoSignUpId" type="submit" value="Back to SignUp "/></center>
+			<center><input id="backtoSignUpId" type="submit" value="&larrhk; "/></center>
 		</form>
 	
 	</div>
@@ -799,9 +846,11 @@ left:50%;
 			<label id="unvalidError" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
 			<label id="successfullyNotification" style="font: 15px Arial; color: red; margin-top: 5px">You are signed in successfully! Please Login.</label>
 		</form>-->
+		<form>
 		<div class="chatAvatar"></div>
 		
 		<div id="onlineUser"></div>
+		</form>
 	</div>
 
 	<div id="upload">
@@ -863,16 +912,15 @@ left:50%;
 			} else {
 				socket.emit('logInUser', {username : username, password : password}, function(data) {
 					if (data == false) {
-						$('#accountError').show();				
+						$('#accountError').show();
 					}
 				});
 			}
-		
-		//sign up values deleted not login
-		$('#usernameSignUp').val('');
-		$('#passwordSignUp').val('');
-		$('#passwordVerification').val('');
-		return false;
+			//sign up values deleted not login
+			$('#usernameSignUp').val('');
+			$('#passwordSignUp').val('');
+			$('#passwordVerification').val('');
+			return false;
 		});
 					
 		socket.on('loginSuccessful', function(data){
@@ -1023,12 +1071,21 @@ left:50%;
 			$('.uploadAvatar').hide();
 		});
 		
-		$('#backToSignUp').submit(function() {
+			$('#backToLogin').submit(function() {
 			$('.signUpDiv').hide();
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
-			$('.loginPW').show();	
-
+			$('.loginPW').show();
+			
+			return false;
+		});
+		
+		$('#backToSignUp').submit(function() {
+			$('.takePictureDiv').hide();
+			$('.signUpDiv').show();
+			$('.uploadAvatarDiv').show();
+			$('.uploadAvatar').show();
+			
 			return false;
 		});
 		

@@ -159,8 +159,7 @@ io.on('connection', function(socket) {
 								if(socket.username != undefined){
 									io.emit('logInUserEmit', {
 									timezone : new Date(),
-									username : socket.username,
-									image : resultSet.docs[0].image
+									username : socket.username
 									});
 									userList[socket.username].emit('loginSuccessful', {username: socket.username, image: resultSet.docs[0].image});
 								}
