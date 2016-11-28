@@ -647,6 +647,7 @@ position: fixed;
 
 
 #backtoSignUpId{
+position:absolute;
 	top: 5%;
 	left: 5%;
 	width: 5%;
@@ -666,7 +667,7 @@ position: fixed;
 	cursor: pointer;
 	color: #ffffff;
 	font-family: Arial;
-	font-size: 30px;
+	font-size: 25px;
 	font-weight: bold;
 	text-decoration: none;
 	text-shadow: 0px -1px 0px #2b8a7c;
@@ -726,7 +727,7 @@ left:50%;
 }
 
 #backtoLoginId{
-	
+	position: absolute;
 	top: 5%;
 	left: 5%;
 	width: 5%;
@@ -746,7 +747,7 @@ left:50%;
 	cursor: pointer;
 	color: #ffffff;
 	font-family: Arial;
-	font-size: 30px;
+	font-size: 25px;
 	font-weight: bold;
 	text-decoration: none;
 	text-shadow: 0px -1px 0px #2b8a7c;
@@ -919,6 +920,7 @@ left:50%;
 						$('#accountError').hide();
 						$('#messages').show();
 						$('#onlineUser').show();
+						$('.box').show();
 						$('#send').prop('disabled',false);
 						$('#media').prop('disabled',false);
 					}
@@ -1063,17 +1065,17 @@ left:50%;
 		});
 		
 			$('#backToLogin').submit(function() {
-			$('.signupDiv').hide();
+			$('.signUpDiv').hide();
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
-			$('.LoginPw').show();
+			$('.loginPw').show();
 			
 			return false;
 		});
 		
 		$('#backToSignUp').submit(function() {
 			$('.takePictureDiv').hide();
-			$('.signupDiv').show();
+			$('.signUpDiv').show();
 			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
 			
