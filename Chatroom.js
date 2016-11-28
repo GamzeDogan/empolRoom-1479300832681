@@ -10,7 +10,7 @@ var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
-var Watson = require('watson-developer-cloud/visual-recognition/v3');
+var watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
 
 var userList = {};
@@ -18,11 +18,9 @@ var home = 'home';
 var chatroomList = [home];
 var roomUserlist = {};
 var passwordRoomList = {};
-
 var services;
 var cloudant;
 var databaseEmpol;
-//var visual_recognition;
 
 var userSelector = {
     "selector": {
@@ -54,11 +52,9 @@ io.on('connection', function(socket) {
 					bcrypt.compare(serverPwd, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
 							if(res == true){
-								callback(true);
-								console.log("Server pwd right!");			
+								callback(true);			
 							} else  {
 								callback(false);
-								console.log("Server pwd false!");
 							}
 						} else {
 							console.log('ERROR: ' + hash);
@@ -148,31 +144,25 @@ io.on('connection', function(socket) {
 	socket.on('logInUser', function(data, callback) {
 		var username = data.username;
 		var password = data.password;
-		console.log("username " + username);
-		console.log("pwd " + password);
 		
 		if(password != undefined){
 			userSelector.selector._id = username;
-			
 			databaseEmpol.find(userSelector, function(error, resultSet) {
-				console.log("login pwd eingabe: " + password);
-				console.log("login pwd eingabe resultset: " + resultSet.docs[0].password);
 				if (error) {
 					console.log("Something went wrong!");
 				} else {
 					bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 						if(!(err)){
-							console.log("Bin hieeer2");
 							if(res == true){
 								socket.username = username;
-								userList[socket.username] = socket;
-								callback(true);							
+								userList[socket.username] = socket;						
 								if(socket.username != undefined){
 									io.emit('logInUserEmit', {
 									timezone : new Date(),
 									username : socket.username,
 									image : resultSet.docs[0].image
 									});
+									userList[socket.username].emit('loginSuccessful', {username: socket.username, image: resultSet.docs[0].image});
 								}
 								roomUserlist[socket.username] = home;
 								if(socket.username != undefined){
@@ -340,7 +330,7 @@ function init() {
 		var visualRecognitionService = services['watson_vision_combined'];
         for (var service in visualRecognitionService) {
             if (visualRecognitionService[service].name === 'VisualRecognition') {
-                visualRecognition = new Watson({
+                visualRecognition = new watson({
                     api_key: visualRecognitionService[service].credentials.api_key,
                     version_date: '2016-11-19'
                 });

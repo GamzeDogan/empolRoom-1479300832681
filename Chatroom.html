@@ -816,7 +816,7 @@ left:50%;
 	
 	<div class="box" >
 		<form id="sendEvent" action="">
-			<input  class="msgClass" placeholder="write something..." />
+			<input class="msgClass" placeholder="write something..." />
 			<button id="send" disabled="disabled">Send</button>
 		</form>
 	</div>
@@ -849,7 +849,6 @@ left:50%;
 					} else {
 						$('#serverWrongPWD').show();
 						$('#serverPassword').val('');
-						console.log("Falsches PWD");
 					}
 				});	
 			}
@@ -862,28 +861,36 @@ left:50%;
 			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
 				$('#accountError').show();
 			} else {
-				console.log("username clientside " + username);
-				console.log("pwd clientside " + password);
-				socket.emit('logInUser',{username : username, password : password}, function(data) {
+				socket.emit('logInUser', {username : username, password : password}, function(data) {
 					if (data == false) {
 						$('#accountError').show();				
-					} else if(data == true) {
-						socket.username = username;
-						socket.password = password;
-						$('#accountError').hide();
-						$('#messages').show();
-						$('#onlineUser').show();
-						$('#send').prop('disabled',false);
-						$('#media').prop('disabled',false);
 					}
 				});
 			}
+		
+		//sign up values deleted not login
+		$('#usernameSignUp').val('');
+		$('#passwordSignUp').val('');
+		$('#passwordVerification').val('');
+		return false;
+		});
+					
+		socket.on('loginSuccessful', function(data){
+			socket.username = username;
+			socket.password = password;
+			$('#accountError').hide();
+			$('.loginPW').hide();
 			
-			//sign up values deleted not login
-			$('#usernameSignUp').val('');
-			$('#passwordSignUp').val('');
-			$('#passwordVerification').val('');
-			return false;
+			$('#onlineUser').show();
+			$('.sideDiv').show();
+			$('#upload').show();
+			$('#messagesDiv').show();
+			$('.box').show();
+			$('.chatAvatar').show();
+			$('#send').prop('disabled', false);
+			$('#media').prop('disabled', false);
+			
+			$('.chatAvatar').append('<img width="120" height="120" src="' + logIn.image + '"/>');
 		});
 		
 		$('#signUpLinkForm').submit(function() {
@@ -1025,17 +1032,7 @@ left:50%;
 			return false;
 		});
 		
-		
 		socket.on('logInUserEmit', function(logIn) {
-			$('.loginPW').hide();
-			$('.sideDiv').show();
-			$('#upload').show();
-			$('#messagesDiv').show();
-			$('.box').show();
-			$('.chatAvatar').show();
-			
-			$('.chatAvatar').append('<img width="100" height="100" src="' + logIn.image + '"/>');
-			
 			var time = new Date(logIn.timezone);
 			$('#messages').append(
 					$('<li>').append(
