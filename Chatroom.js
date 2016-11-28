@@ -22,7 +22,7 @@ var passwordRoomList = {};
 var services;
 var cloudant;
 var databaseEmpol;
-var visual_recognition;
+//var visual_recognition;
 
 var userSelector = {
     "selector": {
@@ -39,8 +39,6 @@ init();
 app.get('/', function(request, respond) {
 	respond.sendFile(__dirname + '/Chatroom.html');
 	//respond.redirect('https://' + request.headers.host + request.url);
-	
-	
 });
 
 /**
@@ -49,7 +47,6 @@ app.get('/', function(request, respond) {
 io.on('connection', function(socket) {
 	socket.on('pwdForServerEmpolChatRoom', function(data, callback){
 		var serverPwd = data.password;
-		//io.emit('loginInServer');
 		if(serverPwd != undefined){
 			userSelector.selector._id = "ServerEmpolChatRoom";
 			databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -107,10 +104,12 @@ io.on('connection', function(socket) {
 						if (error){
 							console.log("ERROR: " + error);
 						} else {
+							var resImage = response.images;
 							console.log(JSON.stringify(response, null, 2));
-							for(var i=0; i<response.images.length; i++){
-								for(var j=0; j<response.images.faces.length; j++){
-									console.log(response.images.faces[i][3]);	
+							for(var i=0; i<resImage.length; i++){
+								var resImage = response.images[i];
+								for(var j=0; j<resImage.faces.length; j++){
+									console.log(resImage.faces[j]);	
 								}
 							}
 							
