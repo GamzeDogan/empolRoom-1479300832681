@@ -9,6 +9,7 @@ body {
 	font: 13px Arial;
 	background: #C6C6C6;
 	box-sizing: border-box;
+	margin-left:0;
 }
 
 .serverPW{
@@ -340,6 +341,7 @@ body {
 }
 
 .box {
+	margin-left: 0;
 	background: #000;
 	padding: 3px;
 	position: fixed;
@@ -393,14 +395,14 @@ ul{
 }
 
 #message{
-	width: 81%;
+	width: 79%;
 	float: left;
 }
 
 #send{
 	height: 35px;
-	width: 15%;
-	float: right;
+	width: 2%;
+	float: left;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -439,7 +441,7 @@ ul{
 }
 
 
-
+<!--
 #upload {
 	position: fixed;
 	bottom: 6.7%;
@@ -448,10 +450,10 @@ ul{
 	float: right;
 	right: 0;
 	display: none;
-}
+}-->
 
 #media{
-	float:right;
+	float:left;
 	position: fixed;
 	margin-top: 0.5%;
 	margin-left: 0;
@@ -920,13 +922,14 @@ left:50%;
 		<div class="chatAvatar" id="chatAvatar"></div>
 		<div id="onlineUser"></div>
 		</form>
-	</div>
-
-	<div id="upload">
+			<div id="upload">
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
 			<input id="media" type="file" disabled="disabled" value="Data Upload"/>
+			</div>
 		</form>
 	</div>
+
+
 	<div id="messagesDiv" >
 		<ul id="messages"></ul>
 	</div>
@@ -999,7 +1002,7 @@ left:50%;
 			
 			$('#onlineUser').show();
 			$('.sideDiv').show();
-			$('#upload').show();
+			//$('#upload').show();
 			$('#messagesDiv').show();
 			$('.box').show();
 			$('.chatAvatar').show();
