@@ -41,7 +41,9 @@ var lon = '-0.116721844';
 var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v1/geocode/'+lat
 			+'/'+lon+'/forecast/intraday/10day.json?&units=m';
 
-var r = requests.get(line);
+console.log(line);
+console.log(line.text);
+
 var weather = json.loads(r.text);   
  
 console.log(json.dumps(weather,indent=1));
