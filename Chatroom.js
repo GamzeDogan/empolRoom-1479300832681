@@ -78,21 +78,20 @@ io.on('connection', function(socket) {
 		var username = data.username;
 		var password = data.password;
 		var passwordVerification = data.passwordVerification;
-		
 		var detected = false;
 		var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
-		var ext = image.split(';')[0].match(/jpeg|png|jpg/)[0];
+		var splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
         var data = image.replace(/^data:image\/\w+;base64,/, "");
         var buffer = new Buffer(data, 'base64');
 		
 		console.log("username: "+username);
 		console.log("pwd: "+password);
 		
-		fs.writeFile(directory + filename + '.' + ext, buffer);
+		fs.writeFile(directory + filename + '.' + splitting, buffer);
 		
 		var params = {
-			images_file: fs.createReadStream(directory+filename+'.'+ext)
+			images_file: fs.createReadStream(directory + filename + '.' + splitting);
 		};
 		
 		if(password === passwordVerification){
@@ -110,10 +109,10 @@ io.on('connection', function(socket) {
 								var resImage = response.images[i];
 								for(var j=0; j<resImage.faces.length; j++){
 									console.log(resImage.faces[j]);	
+									detected = true;
 								}
-							}
-							
-						//	if(response.images.faces.gender == 'FEMALE' || response.images.faces.gender == 'MALE'){	
+							}	
+							if(detected == true){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
@@ -133,10 +132,10 @@ io.on('connection', function(socket) {
 										});
 									});
 								});
-							//} else {
-								//Kein Mensch
-								//console.log("Doesnt contain a human face " + gender);
-							//}
+							} else {
+								//Error Message kein Mensch + bild in dem div löschen
+								console.log("Doesnt contain a human face " + gender);
+							}
 						}
 					});
                 }
