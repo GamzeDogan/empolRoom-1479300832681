@@ -38,11 +38,9 @@ var weather = {
 
 var lat = '51.49999473';
 var lon = '-0.116721844';
-var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v1/geocode/'+lat
-			+'/'+lon+'/forecast/intraday/10day.json?&units=m';
+var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';			+'/'+lon+'/forecast/intraday/10day.json?&units=m';
 
 console.log(line);
-console.log(line.text);
 
 //var weather = json.loads(r.text);   
 //console.log(json.dumps(weather,indent=1));
