@@ -91,7 +91,7 @@ io.on('connection', function(socket) {
 		fs.writeFile(directory + filename + '.' + splitting, buffer);
 		
 		var params = {
-			images_file: fs.createReadStream(directory + filename + '.' + splitting);
+			images_file: fs.createReadStream(directory + filename + '.' + splitting)
 		};
 		
 		if(password === passwordVerification){
