@@ -108,7 +108,13 @@ io.on('connection', function(socket) {
 							console.log("ERROR: " + error);
 						} else {
 							console.log(JSON.stringify(response, null, 2));
-							if(response.images.faces.gender == 'FEMALE' || response.images.faces.gender == 'MALE'){	
+							for(var i=0; i<response.images.length; i++){
+								for(var j=0; j<response.images.faces.length; j++){
+									console.log(response.images.faces[i][3]);	
+								}
+							}
+							
+						//	if(response.images.faces.gender == 'FEMALE' || response.images.faces.gender == 'MALE'){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
@@ -128,10 +134,10 @@ io.on('connection', function(socket) {
 										});
 									});
 								});
-							} else {
+							//} else {
 								//Kein Mensch
-								console.log("Doesnt contain a human face " + gender);
-							}
+								//console.log("Doesnt contain a human face " + gender);
+							//}
 						}
 					});
                 }
