@@ -38,7 +38,7 @@ var weather = {
 
 var lat = '51.49999473';
 var lon = '-0.116721844';
-var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';			+'/'+lon+'/forecast/intraday/10day.json?&units=m';
+var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
 
 console.log(line);
 
@@ -353,9 +353,6 @@ function init() {
                 });
             }
         }
-
-		
-		
     } else {
         console.log("Cloudant Service was not bound");
     }
