@@ -869,6 +869,7 @@ left:50%;
 			<!-- Link um sich zu registrieren -->
 			
 		</form>
+		<div id="load"></div>
 		<form id="signUpLinkForm" action="">
 			<button id ="signUpLink">Sign up?</button>
 		</form>
@@ -987,7 +988,17 @@ left:50%;
 			}
 			return false;
 		});
-
+/* // load button
+		document.onreadystatechange = function () {
+		var state = document.readyState
+		if (state == 'complete') {
+		setTimeout(function(){
+          document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+			  },1000);
+		  }
+		}*/
+		
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
 			var password = $('#password').val();
@@ -1065,12 +1076,12 @@ left:50%;
 					});	
 				} else {
 					console.log("Passwort Re enter falsch");
-					//$('#signUpPWDError').show();
+					
+					$('#signUpPWDError').show();
 					
 				}
 			} else {
 				console.log("Alle Zeilen ausfüllen");
-				//ÖZGÜN: Alle Zeilen ausfüllen! erstn dann Sign up
 				$('#signUpError').show();
 			}
 			return false;
@@ -1155,7 +1166,7 @@ left:50%;
 		socket.on('errorPWDVerification', function(data) {
 		$('#signUpHumanFaceError').hide();
 		$('#signUpPWD').hide();
-		$('#signUpPWDError').hide();
+		
 		$('#signUpPWDError').show();
 		
 		return false;
