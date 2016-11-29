@@ -36,8 +36,6 @@ var weather = {
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
 
-var url= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
-
 app.get('/api/forecast/daily', function(req, res) {
     var geocode = (req.query.geocode || "45.43,-75.68").split(",");
     weatherAPI("/api/weather/v1/geocode/" + geocode[0] + "/" + geocode[1] + "/forecast/daily/10day.json", {
@@ -325,6 +323,8 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('weatherAPI', function(msg){
+		var url= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
+		
 		console.log(request({
 		url : url,
 		method: "GET",
@@ -333,13 +333,12 @@ io.on('connection', function(socket) {
             "Accept": "application/json"
         }}));
 		
-		request(url, function(error, rsponse){
-			if(response.statusCode >= 200 && response.statusCode < 400){
-				//socket.emit('weatherAPI', {});
-			} else {
-				console.log(error);
-			}
-		});
+		// request(url, function(error, rsponse){
+			// if(response.statusCode >= 200 && response.statusCode < 400){
+			// } else {
+				// console.log(error);
+			// }
+		// });
 		
 	});
 	
