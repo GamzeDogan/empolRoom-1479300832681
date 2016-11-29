@@ -340,9 +340,9 @@ io.on('connection', function(socket) {
 				var line;
 				 for(var i=0; i<response.body.length; i++){
 					// console.log("hallo: "+JSON.stringify(response.body.location));
-					var line2 = line + response.body[i]
+					var line2 = line + response.body[i];
 				 }
-				 console.log("hallo3: " + JSON:stringify(line2));
+				 console.log("hallo3: " + JSON.stringify(line2));
 				// console.log("hallo3: "+JSON.stringify(response.body.location));
 				//console.log("response " + JSON.stringify(response.body));
 			} else {
