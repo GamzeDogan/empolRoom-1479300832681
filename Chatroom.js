@@ -341,7 +341,7 @@ io.on('connection', function(socket) {
 			}
 		});
 		
-	)};
+	});
 	
 	/**
 	 * Here you push the user name and the image to the client side.
