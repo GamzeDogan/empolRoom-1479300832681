@@ -35,23 +35,24 @@ var weather = {
   "port": 443,
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
-
+/*
 var lat = '51.49999473';
 var lon = '-0.116721844';
-var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
+var url= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
 
-function weatherAPI(path, qs, done){
-	var url = weather + path;
-	console(url, qs);
-	
+function weatherAPI(){
 	request({
 		url : url,
 		method: "GET",
 		headers: {
             "Content-Type": "application/json;charset=utf-8",
             "Accept": "application/json"
-        },
-		qs: qs}, function(error, req, data){
+        }}
+}
+
+		
+		
+		, function(error, req, data){
 		if(error){
 			console.log(error);
 		} else {
@@ -85,7 +86,7 @@ app.get('/api/forecast/daily', function(req, res) {
         }
     });
 });
-
+*/
 //var weather = json.loads(r.text);   
 //console.log(json.dumps(weather,indent=1));
 
@@ -333,6 +334,12 @@ io.on('connection', function(socket) {
 			} else {
 				var currentRoom = roomUserlist[socket.username];
 				var targetUsers = [];
+				
+				/*var compareLocation;
+				if(msg.text.match(reutlingen)){
+					weatherAPI();
+					
+				}*/
 	
 				for(var key in roomUserlist){
 					if(roomUserlist[key] == currentRoom){
@@ -340,7 +347,9 @@ io.on('connection', function(socket) {
 					}
 				}
 				for(var i = 0; i < targetUsers.length; i++){
+					if(userList[targetUsers[i]] != undefined){
 					userList[targetUsers[i]].emit('chat message', { timezone : new Date(), name : msg.name, text : msg.text});
+					} else { console.log("fehler");}
 				}
 			}
 		}
