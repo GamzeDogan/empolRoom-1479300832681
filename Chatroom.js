@@ -35,41 +35,8 @@ var weather = {
   "port": 443,
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
-/*
-var lat = '51.49999473';
-var lon = '-0.116721844';
+
 var url= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
-
-function weatherAPI(){
-	request({
-		url : url,
-		method: "GET",
-		headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            "Accept": "application/json"
-        }}
-}
-
-		
-		
-		, function(error, req, data){
-		if(error){
-			console.log(error);
-		} else {
-			if (req.statusCode >= 200 && req.statusCode < 400) {
-                try {
-                    done(null, JSON.parse(data));
-                } catch(e) {
-                    console.log(e);
-                    done(e);
-                }
-			} else {
-                console.log(err);
-                done({ message: req.statusCode, data: data });
-            }
-		}
-	});
-}
 
 app.get('/api/forecast/daily', function(req, res) {
     var geocode = (req.query.geocode || "45.43,-75.68").split(",");
@@ -86,7 +53,7 @@ app.get('/api/forecast/daily', function(req, res) {
         }
     });
 });
-*/
+
 //var weather = json.loads(r.text);   
 //console.log(json.dumps(weather,indent=1));
 
@@ -356,6 +323,25 @@ io.on('connection', function(socket) {
 			}
 		}
 	});
+	
+	socket.on('weatherAPI', function(msg){
+		console.log(request({
+		url : url,
+		method: "GET",
+		headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            "Accept": "application/json"
+        }}));
+		
+		request(url, function(error, rsponse){
+			if(response.statusCode >= 200 && response.statusCode < 400){
+				//socket.emit('weatherAPI', {});
+			} else {
+				console.log(error);
+			}
+		});
+		
+	)};
 	
 	/**
 	 * Here you push the user name and the image to the client side.

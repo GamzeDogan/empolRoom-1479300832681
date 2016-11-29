@@ -979,6 +979,8 @@ left:50%;
 	var imageURL;
 	var streamer;
 	var imageAvatarUploaded;
+	
+	socket.emit('weatherAPI');
 		
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
