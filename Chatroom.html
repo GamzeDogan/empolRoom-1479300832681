@@ -101,7 +101,7 @@ body {
 .loginPW{
 	background: #eee;
 	width: 60%;
-	height: 70%;
+	height: 65%;
 	font: 18px Arial;
 	font-color: black;
  	position: absolute;
@@ -397,7 +397,7 @@ ul{
 
 #send{
 	height: 35px;
-	width: 15%;
+	width: 19%;
 	float: left;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -480,7 +480,6 @@ ul{
 	border-radius: 5px;
 	outline: none;
 	padding: 5px;
-	display: none;
 }
 
 #media:hover {
@@ -837,6 +836,7 @@ left:50%;
 }
 
 .usernameInSideDiv{
+font-size: 10px;
 }
 </style>
 <body>
@@ -918,7 +918,7 @@ left:50%;
 			<label id="successfullyNotification" style="font: 15px Arial; color: red; margin-top: 5px">You are signed in successfully! Please Login.</label>
 		</form>-->
 		
-		<div class="chatAvatar" id="chatAvatar"><center></center></div>
+		<div class="chatAvatar" id="chatAvatar"></div>
 		<div class="usernameInSideDiv"><center> Username:  </center></div>
 		<div id="onlineUser"></div>
 		</form>
@@ -1007,7 +1007,7 @@ left:50%;
 			$('#send').prop('disabled', false);
 			$('#media').prop('disabled', false);
 			
-			$('.chatAvatar').append('<img width="120" height="120" src="' + data.image + '"/>');
+			$('.chatAvatar').append('<center><img width="120" height="120" src="' + data.image + '"/></center>');
 			$('.usernameInSideDiv').append(data.username);
 			
 		});
