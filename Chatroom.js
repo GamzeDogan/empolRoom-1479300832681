@@ -331,14 +331,13 @@ io.on('connection', function(socket) {
 		method: "GET",
 		headers: {
             "Content-Type": "application/json;charset=utf-8",
-            "Accept": "application/json"
-		}
+            "Accept": "application/json"}
 		});
 		
 		console.log("blub ");
 		request(url, function(error, response){
 			if(response.statusCode >= 200 && response.statusCode < 400){
-				console.log("hallo " + response.metadata);
+				console.log("response " + response);
 			} else {
 				console.log(error);
 			}
