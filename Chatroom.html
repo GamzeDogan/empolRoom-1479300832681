@@ -377,13 +377,13 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 81%;
+	width: 80%;
 	float: left;
 }
 
 #send{
 	height: 35px;
-	width: 17%;
+	width: 18%;
 	background: #2EBFB5;
 	float: left;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -426,7 +426,7 @@ ul{
 	float:left;
 	position: fixed;
 	bottom: 6.7%;
-	width: 14%;
+	width: 17%;
 	margin-left: 0;
 	margin-left: 0;
 	heigth: 5%;
@@ -904,7 +904,7 @@ left:50%;
 	
 	<div class="takePictureDiv">
 		<label id="captureLabel"><b><center> Capture a photo </center></b> </label>
-		<form id="takePictureEvent1" action="">
+		<form id="takePictureEvent" action="">
 			<center><video id="video" width="250" height="200"></video><p/>
 			<a href="#" id="capture">Take a photo</a> <br> 
 			<canvas id="canvas" width="250" height="200"></canvas></center>
@@ -1122,8 +1122,10 @@ left:50%;
 			
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
-				imageURL = canvas.toDataURL('image/jpeg');	
+				imageURL = canvas.toDataURL('image/jpeg');
+				if(imageURL!= undefined){
 				$("#savePicture").attr("disabled", false);
+				}else
 				console.log(imageURL);
 			});
 			return false;
