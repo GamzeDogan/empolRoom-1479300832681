@@ -37,21 +37,21 @@ var weather = {
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
 
-app.get('/api/forecast/daily', function(req, res) {
-    var geocode = (req.query.geocode || "45.43,-75.68").split(",");
-    weatherAPI("/api/weather/v1/geocode/" + geocode[0] + "/" + geocode[1] + "/forecast/daily/10day.json", {
-        units: req.query.units || "m",
-        language: req.query.language || "en"
-    }, function(err, result) {
-        if (err) {
-        	console.log(err);
-            res.send(err).status(400);
-        } else {
-        	console.log("10 days Forecast");
-            res.json(result);
-        }
-    });
-});
+// app.get('/api/forecast/daily', function(req, res) {
+    // var geocode = (req.query.geocode || "45.43,-75.68").split(",");
+    // weatherAPI("/api/weather/v1/geocode/" + geocode[0] + "/" + geocode[1] + "/forecast/daily/10day.json", {
+        // units: req.query.units || "m",
+        // language: req.query.language || "en"
+    // }, function(err, result) {
+        // if (err) {
+        	// console.log(err);
+            // res.send(err).status(400);
+        // } else {
+        	// console.log("10 days Forecast");
+            // res.json(result);
+        // }
+    // });
+// });
 
 //var weather = json.loads(r.text);   
 //console.log(json.dumps(weather,indent=1));
