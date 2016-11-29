@@ -337,10 +337,10 @@ io.on('connection', function(socket) {
 		
 		request(urlStandort, function(error, response){
 			if(response.statusCode >= 200 && response.statusCode < 400){
-				for(var i=0; i<response.location.length; i++){
-					console.log(response.location[0].latitude);
-				}
-				//console.log("response " + JSON.stringify(response.location[0].));
+				// for(var i=0; i<response.location.length; i++){
+					// console.log(response.location[0].latitude);
+				// }
+				console.log("response " + JSON.stringify(response.location.latitude));
 			} else {
 				console.log(error);
 			}
