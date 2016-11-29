@@ -340,7 +340,7 @@ io.on('connection', function(socket) {
 				// for(var i=0; i<response.location.length; i++){
 					// console.log(response.location[i]);
 				// }
-				console.log("response " + JSON.stringify(response.body.location));
+				console.log("response " + JSON.stringify(response.body.location\));
 			} else {
 				console.log(error);
 			}
