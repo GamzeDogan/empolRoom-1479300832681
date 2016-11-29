@@ -12,6 +12,7 @@ var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
 var watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
+var request = require('request');
 
 var userList = {};
 var home = 'home';
