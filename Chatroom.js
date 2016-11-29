@@ -40,7 +40,51 @@ var lat = '51.49999473';
 var lon = '-0.116721844';
 var line= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
 
-console.log(line);
+function weatherAPI(path, qs, done){
+	var url = weather + path;
+	console(url, qs);
+	
+	request({
+		url : url,
+		method: "GET",
+		headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            "Accept": "application/json"
+        },
+		qs: qs}, function(error, req, data){
+		if(error){
+			console.log(error);
+		} else {
+			if (req.statusCode >= 200 && req.statusCode < 400) {
+                try {
+                    done(null, JSON.parse(data));
+                } catch(e) {
+                    console.log(e);
+                    done(e);
+                }
+			} else {
+                console.log(err);
+                done({ message: req.statusCode, data: data });
+            }
+		}
+	});
+}
+
+app.get('/api/forecast/daily', function(req, res) {
+    var geocode = (req.query.geocode || "45.43,-75.68").split(",");
+    weatherAPI("/api/weather/v1/geocode/" + geocode[0] + "/" + geocode[1] + "/forecast/daily/10day.json", {
+        units: req.query.units || "m",
+        language: req.query.language || "en"
+    }, function(err, result) {
+        if (err) {
+        	console.log(err);
+            res.send(err).status(400);
+        } else {
+        	console.log("10 days Forecast");
+            res.json(result);
+        }
+    });
+});
 
 //var weather = json.loads(r.text);   
 //console.log(json.dumps(weather,indent=1));
