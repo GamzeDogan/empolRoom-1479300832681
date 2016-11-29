@@ -333,7 +333,7 @@ io.on('connection', function(socket) {
 		headers: {
             "Content-Type": "application/json;charset=utf-8",
             "Accept": "application/json"}
-		});
+		}); 
 		
 		request(urlLocation, function(error, response){
 			if(response.statusCode >= 200 && response.statusCode < 400){
