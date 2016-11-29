@@ -373,19 +373,17 @@ body {
 	border: 1px solid #000;
 }
 
-
-
 ul{ 
   list-style-type: none;
 }
 #message{
-	width: 80%;
+	width: 81%;
 	float: left;
 }
 
 #send{
 height: 35px;
-	width: 18%;
+	width: 17%;
 	background: #2EBFB5;
 	float: right;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -426,22 +424,12 @@ height: 35px;
 }
 
 
-<!--
-#upload {
-	position: fixed;
-	bottom: 6.7%;
-	width: 15%;
-	height: 5.7%;
-	float: right;
-	right: 0;
-	display: none;
-}-->
 
 #media{
 	float:left;
 	position: fixed;
 	bottom: 6.7%;
-	width: 35%;
+	width: 20%;
 	margin-left: 0;
 	margin-left: 0;
 	heigth: 5%;
@@ -1077,7 +1065,7 @@ left:50%;
 					});	
 				} else {
 					console.log("Passwort Re enter falsch");
-					$('#signUpPWDError').show();
+					//$('#signUpPWDError').show();
 					
 				}
 			} else {
@@ -1199,6 +1187,13 @@ left:50%;
 			var vid = $('#video').get(0);
 			vid.pause();
 			streamer.getVideoTracks()[0].stop();
+			
+			var empty = "";
+			$('.uploadAvatarDiv').html(empty);
+			
+			$('#usernameSignUp').val('');
+			$('#passwordSignUp').val('');
+			$('#passwordVerification').val('');
 			
 			$('.takePictureDiv').hide();
 			$('.signUpDiv').show();
