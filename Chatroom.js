@@ -326,22 +326,23 @@ io.on('connection', function(socket) {
 	socket.on('weatherAPI', function(msg){
 		var url= 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
 		
-		console.log(request({
+		request({
 		url : url,
 		method: "GET",
 		headers: {
             "Content-Type": "application/json;charset=utf-8",
             "Accept": "application/json"
 		}
-		}));
+		});
 		
-		 request(url, function(error, response){
-			 if(response.statusCode >= 200 && response.statusCode < 400){
-				 console.log("hallo " + response.metadata);
-			 } else {
-				 console.log(error);
-			 }
-		 });
+		console.log("blub ");
+		request(url, function(error, response){
+			if(response.statusCode >= 200 && response.statusCode < 400){
+				console.log("hallo " + response.metadata);
+			} else {
+				console.log(error);
+			}
+		});
 		
 	});
 	
