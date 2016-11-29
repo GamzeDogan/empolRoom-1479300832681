@@ -191,6 +191,7 @@ io.on('connection', function(socket) {
 									});
 								});
 							} else {
+								io.emit('errorHumanFace');
 								//ÖZGÜN: Error Message: Kein Mensch auf dem Bild (bild in dem div löschen)
 								console.log("Doesnt contain a human face ");
 							}
@@ -199,6 +200,7 @@ io.on('connection', function(socket) {
                 }
             }); 
 		} else {
+			io.emit('errorPWDVerification');
 			//ÖZGÜN: ERROR Message : PWD und PWD Verification stimmen nicht überein
 			console.log("Passwörter stimmen nicht überein");
 		}	

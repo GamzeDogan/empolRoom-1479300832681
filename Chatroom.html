@@ -832,31 +832,35 @@ left:50%;
 
 #signUpError {
 	position: absolute;
-    top: 62%;
-    left: 67%;
+    top: 90%;
+    left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    width: 50%;
 	display: none;
 }
 
 #signUpUsernameError {
 	position: absolute;
-    top: 62%;
-    left: 67%;
+    top: 92%;
+    left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    width: 50%;
 	display: none;
 }
 
 #signUpPWDError {
 	position: absolute;
-    top: 66%;
-    left: 67%;
+    top: 93%;
+    left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    width: 50%;
 	display: none;
 }
 
+#signUpHumanFaceError{
+	position: absolute;
+    top: 94%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+	display: none;
+}
 </style>
 <body>
 	<div class="serverPW">
@@ -890,9 +894,10 @@ left:50%;
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
 			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
-			<label id="signUpUsernameError" style="font: 15px Arial; color: red; margin-top: 2%"><center>Username already exists! Try again</center></label>
-			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 2%"><center>Please fill in the form completely!</center></label>
-			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 2%"><center>Passwords are not similar. Try again!</center></label>
+			<label id="signUpUsernameError" style="font: 15px Arial; color: red; margin-top: 2%">Username already exists! Try again</label>
+			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 2%">Please fill in the form completely!</label>
+			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 2%">Passwords are not similar. Try again!</label>
+			<label id="signUpHumanFaceError" style="font: 15px Arial; color: red; margin-top: 2%">Please choose a picture of yourself!</label>
 
 		</form>
 		<form id="backToLogin" action="">
@@ -1006,6 +1011,7 @@ left:50%;
 				});
 			}
 			//sign up values deleted not login
+			//ÖZGÜN Bild löschen
 			$('#usernameSignUp').val('');
 			$('#passwordSignUp').val('');
 			$('#passwordVerification').val('');
@@ -1020,7 +1026,6 @@ left:50%;
 			
 			$('#onlineUser').show();
 			$('.sideDiv').show();
-			//$('#upload').show();
 			$('#messagesDiv').show();
 			$('.box').show();
 			$('.chatAvatar').show();
@@ -1148,6 +1153,23 @@ left:50%;
 			reader.readAsDataURL(media);
 		});
 		
+
+		socket.on('errorHumanFace', function(data) {
+		var empty = "";
+		$('.uploadAvatarDiv').html(empty);
+		$('#signUpHumanFaceError').show();
+		
+		return false;
+		});
+		
+		socket.on('errorPWDVerification', function(data) {
+		$('#signUpHumanFaceError').hide();
+		$('#signUpPWD').hide();
+		$('#signUpPWDError').hide();
+		$('#signUpPWDError').show();
+		
+		return false;
+		});
 		socket.on('avatarUploaded', function(image) {
 		imageAvatarUploaded = image.result;
 		var empty = "";
