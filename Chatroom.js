@@ -337,7 +337,7 @@ io.on('connection', function(socket) {
 		request(url, function(error, response){
 			console.log(response.statusCode);
 			if(response.statusCode >= 200 && response.statusCode < 400){
-				console.log("response " + response.metadata[3]);
+				console.log("response " + response.metadata);
 			} else {
 				console.log(error);
 			}
