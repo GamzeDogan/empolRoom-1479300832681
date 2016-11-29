@@ -118,7 +118,7 @@ body {
 
 #loginLabel {
 	position: absolute;
-	top: 20%;
+	top: 10%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	font-size: 20px;
@@ -397,7 +397,7 @@ ul{
 
 #send{
 	height: 35px;
-	width: 19%;
+	width: 17,5%;
 	float: left;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -451,7 +451,8 @@ ul{
 #media{
 	float:left;
 	position: fixed;
-	bottom: 20.7%;
+	bottom: 6.7%;
+	width: 95%;
 	margin-left: 0;
 	margin-left: 0;
 	heigth: 5%;
@@ -836,7 +837,7 @@ left:50%;
 }
 
 .usernameInSideDiv{
-font-size: 10px;
+font-size: 14px;
 }
 </style>
 <body>
@@ -919,7 +920,7 @@ font-size: 10px;
 		</form>-->
 		
 		<div class="chatAvatar" id="chatAvatar"></div>
-		<div class="usernameInSideDiv"><center> Username:  </center></div>
+		<div class="usernameInSideDiv"> Username: </div>
 		<div id="onlineUser"></div>
 		</form>
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
@@ -1007,7 +1008,7 @@ font-size: 10px;
 			$('#send').prop('disabled', false);
 			$('#media').prop('disabled', false);
 			
-			$('.chatAvatar').append('<center><img width="120" height="120" src="' + data.image + '"/></center>');
+			$('.chatAvatar').append('<img width="120" height="120" src="' + data.image + '"/>');
 			$('.usernameInSideDiv').append(data.username);
 			
 		});
