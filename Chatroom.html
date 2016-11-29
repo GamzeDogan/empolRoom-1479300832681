@@ -351,7 +351,7 @@ body {
 	display: none;
 }
 #empolLabel{
-margin-top:2%
+	margin-top:2%
 }
 .box input {
 	border: 0;
@@ -380,13 +380,13 @@ margin-top:2%
 	font: 15px arial;
 	width: 100%;
 	height: 250px;
-	margin-top: 1%;
+	margin-top: 5%;
 	border: 1px solid #000;
 }
 
 #messages {
 	overflow: auto;
-	width: 84%;
+	width: 90%;
 	
 }
 
@@ -395,13 +395,13 @@ ul{
 }
 
 #message{
-	width: 79%;
+	width: 80%;
 	float: left;
 }
 
 #send{
-	height: 35px;
-	width: 2%;
+	height: 100%;
+	width: 20%;
 	float: left;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -455,10 +455,10 @@ ul{
 #media{
 	float:left;
 	position: fixed;
-	margin-top: 0.5%;
+	bottom: 6.7%;
 	margin-left: 0;
 	margin-left: 0;
-	heigth: 20px;
+	heigth: 5%;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	-webkit-box-shadow: inset 0px 1px 3px 0px #91b8b3;
 	box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -485,6 +485,7 @@ ul{
 	outline: none;
 	padding: 5px;
 	width:26%
+	display: none;
 }
 
 #media:hover {
@@ -920,12 +921,11 @@ left:50%;
 		</form>-->
 		
 		<div class="chatAvatar" id="chatAvatar"></div>
+		<div class="usernameInSideDiv"></div>
 		<div id="onlineUser"></div>
 		</form>
-			<div id="upload">
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
 			<input id="media" type="file" disabled="disabled" value="Data Upload"/>
-			</div>
 		</form>
 	</div>
 
@@ -1010,6 +1010,8 @@ left:50%;
 			$('#media').prop('disabled', false);
 			
 			$('.chatAvatar').append('<img width="120" height="120" src="' + data.image + '"/>');
+			$('.usernameInSideDiv').append(data.username);
+			
 		});
 		
 		$('#signUpLinkForm').submit(function() {
@@ -1152,6 +1154,10 @@ left:50%;
 		});
 		
 		$('#backToSignUp').submit(function() {
+			var vid = $('#video').get(0);
+			vid.pause();
+			streamer.getVideoTracks()[0].stop();
+			
 			$('.takePictureDiv').hide();
 			$('.signUpDiv').show();
 			$('.uploadAvatarDiv').show();
