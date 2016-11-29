@@ -1012,7 +1012,8 @@ left:50%;
 				});
 			}
 			//sign up values deleted not login
-			//ÖZGÜN Bild löschen
+			var empty = "";
+			$('.uploadAvatarDiv').html(empty);
 			$('#usernameSignUp').val('');
 			$('#passwordSignUp').val('');
 			$('#passwordVerification').val('');
@@ -1076,13 +1077,18 @@ left:50%;
 					});	
 				} else {
 					console.log("Passwort Re enter falsch");
-					
-					$('#signUpPWDError').show();
+						$('#signUpHumanFaceError').hide();
+						$('#signUpError').hide();
+						$('#signUpPWDError').show();
 					
 				}
 			} else {
 				console.log("Alle Zeilen ausfüllen");
+										$('#signUpHumanFaceError').hide();
+				$('#signUpError').hide();
+				$('#signUpPWDError').show();
 				$('#signUpError').show();
+				console.log('error in html');
 			}
 			return false;
 		});
@@ -1165,10 +1171,10 @@ left:50%;
 		
 		socket.on('errorPWDVerification', function(data) {
 		$('#signUpHumanFaceError').hide();
-		$('#signUpPWD').hide();
+		$('#signUpError').hide();
 		
 		$('#signUpPWDError').show();
-		
+		console.log('error HTMl verification');
 		return false;
 		});
 		socket.on('avatarUploaded', function(image) {
