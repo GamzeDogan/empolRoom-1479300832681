@@ -332,14 +332,16 @@ io.on('connection', function(socket) {
 		headers: {
             "Content-Type": "application/json;charset=utf-8",
             "Accept": "application/json"
-        }}));
+		}
+		}));
 		
-		// request(url, function(error, rsponse){
-			// if(response.statusCode >= 200 && response.statusCode < 400){
-			// } else {
-				// console.log(error);
-			// }
-		// });
+		 request(url, function(error, rsponse){
+			 if(response.statusCode >= 200 && response.statusCode < 400){
+				 console.log("hallo " + response.metadata.latitude);
+			 } else {
+				 console.log(error);
+			 }
+		 });
 		
 	});
 	
