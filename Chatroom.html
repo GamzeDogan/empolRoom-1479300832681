@@ -827,8 +827,36 @@ left:50%;
 }
 
 .usernameInSideDiv{
-font-size: 14px;
+	font-size: 14px;
 }
+
+#signUpError {
+	position: absolute;
+    top: 62%;
+    left: 67%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+	display: none;
+}
+
+#signUpUsernameError {
+	position: absolute;
+    top: 62%;
+    left: 67%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+	display: none;
+}
+
+#signUpPWDError {
+	position: absolute;
+    top: 66%;
+    left: 67%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+	display: none;
+}
+
 </style>
 <body>
 	<div class="serverPW">
@@ -862,8 +890,9 @@ font-size: 14px;
 			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
 			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
-			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 5px"><center>Please fill in the form completely!</center></label>
-			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 5px"><center>Passwords are not similar. Try again!</center></label>
+			<label id="signUpUsernameError" style="font: 15px Arial; color: red; margin-top: 2%"><center>Username already exists! Try again</center></label>
+			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 2%"><center>Please fill in the form completely!</center></label>
+			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 2%"><center>Passwords are not similar. Try again!</center></label>
 
 		</form>
 		<form id="backToLogin" action="">
