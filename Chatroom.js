@@ -338,10 +338,11 @@ io.on('connection', function(socket) {
 		request(urlLocation, function(error, response){
 			if(response.statusCode >= 200 && response.statusCode < 400){
 				 for(var i=0; i<response.body.length; i++){
-					 console.log("hallo: "+JSON.stringify(response.body.location));
-					 console.log("hallo2: "+JSON.stringify(response.body[i]));
+					// console.log("hallo: "+JSON.stringify(response.body.location));
+					var line += response.body[i]
+					console.log("hallo2: "+JSON.stringify(line));
 				 }
-				 console.log("hallo3: "+JSON.stringify(response.body.location));
+				// console.log("hallo3: "+JSON.stringify(response.body.location));
 				//console.log("response " + JSON.stringify(response.body));
 			} else {
 				console.log(error);
