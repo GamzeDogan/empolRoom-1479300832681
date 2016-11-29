@@ -335,7 +335,7 @@ io.on('connection', function(socket) {
 		}
 		}));
 		
-		 request(url, function(error, rsponse){
+		 request(url, function(error, response){
 			 if(response.statusCode >= 200 && response.statusCode < 400){
 				 console.log("hallo " + response.metadata.latitude);
 			 } else {
