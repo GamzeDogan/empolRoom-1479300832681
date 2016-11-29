@@ -324,7 +324,7 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('weatherAPI', function(msg){
-		var urlStandort = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
+		var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
 		var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/forecast/hourly/48hour.json?units=m&language=en-US';
 		
 		request({
@@ -335,12 +335,12 @@ io.on('connection', function(socket) {
             "Accept": "application/json"}
 		});
 		
-		request(urlStandort, function(error, response){
+		request(urlLocation, function(error, response){
 			if(response.statusCode >= 200 && response.statusCode < 400){
 				// for(var i=0; i<response.location.length; i++){
 					// console.log(response.location[i]);
 				// }
-				console.log("response " + JSON.stringify(response.body.location.latitude));
+				console.log("response " + JSON.stringify(response.body));
 			} else {
 				console.log(error);
 			}
