@@ -1175,6 +1175,14 @@ left:50%;
 		});
 		
 			$('#backToLogin').submit(function() {
+						
+			var empty = "";
+			$('.uploadAvatarDiv').html(empty);
+			
+			$('#usernameSignUp').val('');
+			$('#passwordSignUp').val('');
+			$('#passwordVerification').val('');
+			
 			$('.signUpDiv').hide();
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
@@ -1187,13 +1195,6 @@ left:50%;
 			var vid = $('#video').get(0);
 			vid.pause();
 			streamer.getVideoTracks()[0].stop();
-			
-			var empty = "";
-			$('.uploadAvatarDiv').html(empty);
-			
-			$('#usernameSignUp').val('');
-			$('#passwordSignUp').val('');
-			$('#passwordVerification').val('');
 			
 			$('.takePictureDiv').hide();
 			$('.signUpDiv').show();
