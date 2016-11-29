@@ -166,7 +166,6 @@ io.on('connection', function(socket) {
             }); 
 		} else {
 			io.emit('errorPWDVerification');
-			//ÖZGÜN: ERROR Message : PWD und PWD Verification stimmen nicht überein
 			console.log("Passwörter stimmen nicht überein");
 		}	
 	});

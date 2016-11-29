@@ -377,7 +377,7 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 79%;
+	width: 81%;
 	float: left;
 }
 
@@ -426,7 +426,7 @@ ul{
 	float:left;
 	position: fixed;
 	bottom: 6.7%;
-	width: 10%;
+	width: 14%;
 	margin-left: 0;
 	margin-left: 0;
 	heigth: 5%;
@@ -476,7 +476,6 @@ ul{
 	display: none;
 }
 #messages {
-	overflow: auto;
 	width: 90%;
 	list-style-type: none;
 	margin: 0;
@@ -617,8 +616,8 @@ ul{
 }
 
 #uploadLabelAvatar{
-font: 13px Arial;
-position: fixed;
+	font: 13px Arial;
+	position: fixed;
 	top: 14%;
 	left: 40%;
 }
@@ -693,7 +692,7 @@ position: fixed;
 
 
 #backtoSignUpId{
-position:absolute;
+	position:absolute;
 	top: 5%;
 	left: 5%;
 	width: 8%;
@@ -905,13 +904,13 @@ left:50%;
 	
 	<div class="takePictureDiv">
 		<label id="captureLabel"><b><center> Capture a photo </center></b> </label>
-		<form id="takePictureEvent" action="">
+		<form id="takePictureEvent1" action="">
 			<center><video id="video" width="250" height="200"></video><p/>
 			<a href="#" id="capture">Take a photo</a> <br> 
 			<canvas id="canvas" width="250" height="200"></canvas></center>
 		</form>
 		<form id="savePictureEvent" action=""> 
-			<center><input id="savePicture" type="submit" disabled="disabled" value="Save this picture"/></center>
+			<center><input id="savePicture" type="submit" value="Save this picture"/></center>
 		</form>
 		<br>
 		<form id="backToSignUp" action=""> 
@@ -962,7 +961,6 @@ left:50%;
 	$('.serverPW').show();
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
-	$('#savePicture').prop('disabled', true);
 	
 	var imageURL;
 	var streamer;
@@ -1096,7 +1094,6 @@ left:50%;
 			$('.uploadAvatarDiv').hide();
 			$('.uploadAvatar').hide();
 			$('.takePictureDiv').show();
-			$("#savePicture").attr("disabled", false);
 			
 			var video = document.getElementById('video');
 			var canvas = document.getElementById('canvas');
@@ -1126,6 +1123,7 @@ left:50%;
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
 				imageURL = canvas.toDataURL('image/jpeg');	
+				$("#savePicture").attr("disabled", false);
 				console.log(imageURL);
 			});
 			return false;
