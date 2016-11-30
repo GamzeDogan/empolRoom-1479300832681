@@ -1315,7 +1315,7 @@ left:50%;
 			if ($('.msgClass').val() != "") {
 				var username = $('#username').val();
 				var textmessage = $('#message').val();
-				var chatImage = canvas.toDataURL('image/jpeg');;
+				var chatImage = imageURL;
 				console.log("imgurl:"+imageURL);
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
@@ -1340,7 +1340,7 @@ left:50%;
 			time = new Date(msg.timezone);
 			$('#messages').append(
 					$('<li>').append(
-							$('<span>').text( msg.chatImage+
+							$('<span>').text( '<img width="50" height="50" src="' + msg.chatImage + '"/>' +
 									'['
 											+ time.getFullYear()
 											+ '/'
