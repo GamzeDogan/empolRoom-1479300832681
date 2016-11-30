@@ -377,13 +377,13 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 80%;
+	width: 79.5%;
 	float: left;
 }
 
 #send{
 	height: 35px;
-	width: 18%;
+	width: 19%;
 	background: #2EBFB5;
 	float: right;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -1021,15 +1021,15 @@ left:50%;
 			} else {
 				socket.emit('logInUser', {username : username, password : password}, function(data) {
 				
-			setTimeout(function(){
-			document.getElementById('interactive');
-			document.getElementById('load').style.visibility="hidden";
-			  },1000);
-				
 					if (data == false) {
 						$('#accountError').show();
 					} 
 				});
+				setTimeout(function(){
+				document.getElementById('interactive');
+				document.getElementById('load').style.visibility="hidden";
+				  },1000);
+				
 			}
 			//sign up values deleted not login
 			var empty = "";
