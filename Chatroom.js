@@ -307,12 +307,31 @@ io.on('connection', function(socket) {
 		console.log("msg: "+message);
 		var latitude;
 		var longitude;
+		var city;
 		console.log("Bin in weather api drinne");
 		
 		if(message.match('atlanta') != undefined || message.match('chicago') != undefined || message.match('miami') != undefined || message.match('boston') != undefined || message.match('detroit') != undefined || message.match('phoenix') != undefined){
-			var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
+			if(message.match('atlanta') != undefined) {
+				city = 'Atlanta';
+			} 
+			else if(message.match('chicago') != undefined){
+				city = 'Chicago';
+			}
+			else if(message.match('miami') != undefined){
+				city = 'Miami';
+			}
+			else if(message.match('boston') != undefined){
+				city = 'Boston';
+			}
+			else if(message.match('detroit') != undefined){
+				city = 'Detroit';
+			}
+			else if(message.match('phoenix') != undefined){
+				city = 'Phoenix';
+			}
+			//var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			
-			requestLocation(url, function(error, response){
+			requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					latitude = content.location.latitude[0];
@@ -332,7 +351,9 @@ io.on('connection', function(socket) {
 					console.log("Error Message2: " + error);
 				}	
 			});
-		} else {  console.log("is undefined");}
+		} else {  
+			console.log("is undefined");
+		}
 		
 	});
 	
