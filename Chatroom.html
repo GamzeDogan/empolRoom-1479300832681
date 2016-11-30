@@ -387,13 +387,13 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 79.7%;
+	width: 79.8%;
 	float: left;
 }
 
 #send{
 	height: 35px;
-	width: 18.3%;
+	width: 18.1%;
 	background: #2EBFB5;
 	float: right;
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -417,7 +417,6 @@ ul{
 	text-shadow: 0px -1px 0px #2b8a7c;
 	outline: none;
 	padding: 5px;
-	border-left: 3px solid black;
 }
 
 #send:hover {
@@ -1018,6 +1017,7 @@ left:50%;
 			var username = $('#username').val();
 			var password = $('#password').val();
 			if (($('.usClass').val() == "" && $('.pwClass').val() == "") | ($('.usClass').val() == "" || $('.pwClass').val() == "")){
+				$('userIsAlreadyLogged').hide();
 				$('#accountError').show();
 			} else {
 				socket.emit('logInUser', {username : username, password : password}, function(data) {
@@ -1043,6 +1043,7 @@ left:50%;
 					
 					
 		socket.on('userIsAlreadyLogged',function(data){
+		$('#accountError').hide();
 		$('#userIsAlreadyLogged').show();
 		$('#username').val('');
 		$('#password').val('');
