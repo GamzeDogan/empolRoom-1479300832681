@@ -344,8 +344,9 @@ io.on('connection', function(socket) {
 				}
 
 			});
-	
-			request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response, body){
+			console.log("latitude: "+latitude);
+			console.log("longitude "+longitude);
+			request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					console.log("body mit data: "+content.metadata.language);
