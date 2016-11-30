@@ -208,6 +208,7 @@ io.on('connection', function(socket) {
 	socket.on('chat message', function(msg) {
 		var textMessage = '' + msg.text;
 		var pwd;
+		var chatImage;
 		
 		if(socket.username != undefined){
 			if(textMessage.slice(0, 8) === '/create '){
@@ -295,7 +296,7 @@ io.on('connection', function(socket) {
 				}
 				for(var i = 0; i < targetUsers.length; i++){
 					if(userList[targetUsers[i]] != undefined){
-					userList[targetUsers[i]].emit('chat message', { timezone : new Date(), name : msg.name, text : msg.text});
+					userList[targetUsers[i]].emit('chat message', {chatImage: chatImage, timezone : new Date(), name : msg.name, text : msg.text});
 					} else { console.log("fehler");}
 				}
 			}

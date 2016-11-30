@@ -150,7 +150,7 @@ body {
 	height: 9%;
 	width: 50%;
  	position: absolute;
-    top: 46%;
+    top: 45%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     max-width: 400px;  
@@ -1314,11 +1314,14 @@ left:50%;
 		$('#sendEvent').submit(function() {
 			if ($('.msgClass').val() != "") {
 				var username = $('#username').val();
-				var textmessage = $('#message').val();	
+				var textmessage = $('#message').val();
+				var chatImage = imageURL;
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
 					text : textmessage,
-					name : username
+					name : username,
+					image : chatImage
+					
 				});
 				$('#message').val('');
 				return false;
@@ -1336,7 +1339,7 @@ left:50%;
 			time = new Date(msg.timezone);
 			$('#messages').append(
 					$('<li>').append(
-							$('<span>').text(
+							$('<span>').text( msg.chatImage+
 									'['
 											+ time.getFullYear()
 											+ '/'
