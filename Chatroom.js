@@ -306,13 +306,11 @@ io.on('connection', function(socket) {
 		var message = msg.text;
 		console.log("msg: "+message);
 		var latitude;
-		console.log("lat: "+latitude);
 		var longitude;
-		console.log("long: "+longitude);
 		console.log("Bin in weather api drinne");
 		//var reg = new RegExp('atlanta', 'i');
 		
-		//if(message.match('atlanta') != undefined){
+		if(message.match('atlanta') != undefined){
 			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			var url;
 			
@@ -337,23 +335,23 @@ io.on('connection', function(socket) {
 				url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US';
 			});
 			
-			request({
-				url : url,
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json;charset=utf-8",
-					"Accept": "application/json"}
-			}); 
+			// request({
+				// url : url,
+				// method: "GET",
+				// headers: {
+					// "Content-Type": "application/json;charset=utf-8",
+					// "Accept": "application/json"}
+			// }); 
 			
-			request(url, function(error, response){
-				if(response.statusCode >= 200 && response.statusCode < 400){
-					var content = JSON.parse(response.body);
-					console.log("content: "+content);
-				} else {
-					console.log("Error Message2: " + error);
-				}	
-			});
-		//} else {  console.log("ist undefined");}
+			// request(url, function(error, response){
+				// if(response.statusCode >= 200 && response.statusCode < 400){
+					// var content = JSON.parse(response.body);
+					// console.log("content: "+content);
+				// } else {
+					// console.log("Error Message2: " + error);
+				// }	
+			// });
+		} else {  console.log("ist undefined");}
 		
 	});
 	
