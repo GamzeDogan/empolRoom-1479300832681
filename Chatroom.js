@@ -339,7 +339,7 @@ io.on('connection', function(socket) {
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					//var content = JSON.parse(response.body.metadata.language);
 					console.log("body mit data: "+body.metadata);
-					console.log("body mit language : "+body.metadata.language);
+					//console.log("body mit language : "+body.metadata.language);
 				} else {
 					console.log("Error Message2: " + error);
 				}	
