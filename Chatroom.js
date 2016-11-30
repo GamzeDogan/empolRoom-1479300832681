@@ -341,7 +341,7 @@ io.on('connection', function(socket) {
 					//var line = line + response.body[i];
 				 //}
 				// console.log("hallo3: " + JSON.stringify(line));
-				var line = JSON.parse(body);
+				var line = JSON.parse(response.body);
 				console.log(line.location.latitude[0]);
 				//console.log("response " + JSON.stringify(response.body));
 			} else {
