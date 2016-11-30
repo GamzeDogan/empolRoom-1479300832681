@@ -349,7 +349,7 @@ io.on('connection', function(socket) {
 							var iconNum = content.forecasts[0].night.icon_code;
 							if(iconNum != undefined){
 								console.log("body mit data: "+content.forecasts[0].night.icon_code);
-								filename = "/weathericons/" + path.basename('icon29');
+								filename = "/weathericons/" + path.basename('icon29.png');
 								var url = appEnv.url + filename;
 								console.log("url wetter: " + url);
 								socket.emit('weatherIcon', {imageWeather : url});

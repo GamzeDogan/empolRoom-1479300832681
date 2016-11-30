@@ -987,7 +987,7 @@ left:50%;
 		if(socket.username != undefined){
 			var weatherIcon = new Image(50,50);
 			weatherIcon.src = data.imageWeather;
-			time = new Date(msg.timezone);
+			time = new Date(data.timezone);
 			$('#messages').append(
 					$('<li>').append(
 							$('<span>').text(
