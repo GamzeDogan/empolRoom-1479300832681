@@ -159,7 +159,6 @@ io.on('connection', function(socket) {
 		if(password != undefined){
 			if(username in userList){
 					io.emit('userIsAlreadyLogged');
-					//ÖZGÜN: Der User ist schon angemeldet
 					console.log("Gibts schon");
 			} else {
 				userSelector.selector._id = username;
