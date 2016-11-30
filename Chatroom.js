@@ -326,7 +326,7 @@ io.on('connection', function(socket) {
 		var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/forecast/hourly/48hour.json?units=m&language=en-US';
 		
 		request({
-		url : url,
+		url : urlLocation,
 		method: "GET",
 		headers: {
             "Content-Type": "application/json;charset=utf-8",
