@@ -345,7 +345,7 @@ io.on('connection', function(socket) {
 				console.log("resp: "+ line.body.location);
 				console.log("resp2: "+ line.location);
 				console.log("resp3: "+ line.location.latitude);
-				console.log("hallo3: "+JSON.stringify(response.body.location.latitude));
+				//console.log("hallo3: "+JSON.stringify(response.body.location.latitude));
 				//console.log("response " + JSON.stringify(response.body));
 			} else {
 				console.log(error);
