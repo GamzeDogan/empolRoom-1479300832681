@@ -303,17 +303,20 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('weatherAPI', function(msg){
-		var msg = msg.text;
+		var message = msg.text;
+		console.log("msg: "+message);
 		var latitude;
+		console.log("lat: "+latitude);
 		var longitude;
+		console.log("long: "+longitude);
 		console.log("Bin in weather api drinne");
 		//var reg = new RegExp('atlanta', 'i');
 		
-		if(msg.match('atlanta') != undefined){
+		//if(message.match('atlanta') != undefined){
 			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			var url;
 			
-			request({
+			requestLocation({
 			url : urlLocation,
 			method: "GET",
 			headers: {
@@ -321,7 +324,7 @@ io.on('connection', function(socket) {
 				"Accept": "application/json"}
 			}); 
 			
-			request(urlLocation, function(error, response){
+			requestLocation(urlLocation, function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					latitude = content.location.latitude[0];
@@ -350,7 +353,7 @@ io.on('connection', function(socket) {
 					console.log("Error Message2: " + error);
 				}	
 			});
-		} else {  console.log("ist undefined");}
+		//} else {  console.log("ist undefined");}
 		
 	});
 	
