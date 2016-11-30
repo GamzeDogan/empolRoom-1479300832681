@@ -1345,8 +1345,10 @@ left:50%;
 			if ($('.msgClass').val() != "") {
 				var username = $('#username').val();
 				var textmessage = $('#message').val();
-				var chatImage = avatar;
-				console.log("imgurl:"+avatar);
+				var chatImage = $('#chatAvatar').val();
+				var chatImage2 = $('#chatAvatar');
+				console.log("imgurl:"+chatImage);
+				console.log("ohne val"+ chatImage2);
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
 					text : textmessage,
