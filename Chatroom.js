@@ -333,7 +333,6 @@ io.on('connection', function(socket) {
 			else if(message.match('phoenix') != undefined){
 				city = 'Phoenix';
 			}
-			//var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			
 			requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
 				console.log(city);
@@ -350,10 +349,26 @@ io.on('connection', function(socket) {
 							var iconNum = content.forecasts[0].night.icon_code;
 							if(iconNum != undefined){
 								console.log("body mit data: "+content.forecasts[0].night.icon_code);
-								filename = "/weathericons/" + path.basename('icon29.png');
-								var url = appEnv.url + filename;
-								console.log("url wetter: " + url);
-								socket.emit('weatherIcon', {timezone: new Date(), imageWeather : url});
+								
+									userSelector.selector._id = iconNum;
+									databaseEmpol.find(userSelector, function(error, resultSet) {
+										if (!(error)) {
+											bcrypt.compare(iconNum, resultSet.docs[0].password, function(err, res) {
+												if(!(err)){
+													if(res == true){
+														console.log("image nach hash: " + resultSet.docs[0].image);
+														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image});	
+													} else  {
+														console.log("ERROR: " + IconNum);
+													}
+												} else {
+													console.log('ERROR: ' + hash);
+												}
+											});
+										} else {
+											console.log("ERROR: " + error.message);
+										}
+									});	
 							} else { console.log("IconNum is undefined");}	
 						} else {
 							console.log("Error Message2: " + error);
