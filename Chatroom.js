@@ -313,7 +313,7 @@ io.on('connection', function(socket) {
 			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			var url;
 			
-			requestLocation({
+			request({
 			url : urlLocation,
 			method: "GET",
 			headers: {
@@ -321,7 +321,7 @@ io.on('connection', function(socket) {
 				"Accept": "application/json"}
 			}); 
 			
-			requestLocation(urlLocation, function(error, response){
+			request(urlLocation, function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					latitude = content.location.latitude[0];
