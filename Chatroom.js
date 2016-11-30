@@ -327,7 +327,7 @@ io.on('connection', function(socket) {
 					latitude = content.location.latitude[0];
 					longitude = content.location.longitude[0];
 				} else {
-					console.log(error);
+					console.log("Error Message: " + error);
 				}
 				
 				url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US';
@@ -346,10 +346,10 @@ io.on('connection', function(socket) {
 					var content = JSON.parse(response.body);
 					console.log("content: "+content);
 				} else {
-					console.log(error);
+					console.log("Error Message2: " + error);
 				}	
 			});
-		}
+		} else {  console.log("ist undefined");}
 		
 	});
 	
