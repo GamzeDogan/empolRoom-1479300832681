@@ -377,7 +377,7 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 80%;
+	width: 79%;
 	float: left;
 }
 
@@ -849,8 +849,17 @@ left:50%;
     top: 93%;
     left: 50%;
     z-index:9999;
-    background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25)
+    background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25);
 }
+
+#savePictureError{
+	position: absolute;
+    top: 94%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+	display: none;
+}
+
 </style>
 <body>
 	<div class="serverPW">
@@ -917,6 +926,7 @@ left:50%;
 		</form>
 		<form id="savePictureEvent" action=""> 
 			<center><input id="savePicture" type="submit" value="Save this picture"/></center>
+			<label id="savePictureError" style="font: 15px Arial; color: red; margin-top: 2%">Picture can be saved after capturing it!</label>
 		</form>
 		<br>
 		<form id="backToSignUp" action=""> 
@@ -1009,11 +1019,11 @@ left:50%;
 			} else {
 				socket.emit('logInUser', {username : username, password : password}, function(data) {
 				
-			<!-- setTimeout(function(){ -->
-			<!-- document.getElementById('interactive'); -->
-			<!-- document.getElementById('load').style.visibility="hidden"; -->
-			  <!-- },1000); -->
-				<!--  -->
+			setTimeout(function(){
+			document.getElementById('interactive');
+			document.getElementById('load').style.visibility="hidden";
+			  },1000);
+				
 					if (data == false) {
 						$('#accountError').show();
 					} 
@@ -1154,7 +1164,7 @@ left:50%;
 			$('.uploadAvatar').show();
 			$('.takePictureDiv').hide();
 			} else {
-				//ERROR MESSAGE ÖZGÜN
+				$('#savePictureError').show();
 				console.log("Erst Bild capturen und dann kann man speichern");
 			}
 			return false;
