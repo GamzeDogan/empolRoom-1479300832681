@@ -1164,18 +1164,18 @@ left:50%;
 		});
 		
 		$('#savePictureEvent').submit(function(){
-			if($('#canvas').val() != ""){
-			var vid = $('#video').get(0);
-			vid.pause();
-			streamer.getVideoTracks()[0].stop();
-			var empty = "";
-			
-			$('.uploadAvatarDiv').html(empty);
-			$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
-			$('.signUpDiv').show();
-			$('.uploadAvatarDiv').show();
-			$('.uploadAvatar').show();
-			$('.takePictureDiv').hide();
+			if($('#canvas').val() != ""||('#canvas').val() != undefined ){
+				var vid = $('#video').get(0);
+				vid.pause();
+				streamer.getVideoTracks()[0].stop();
+				var empty = "";
+				
+				$('.uploadAvatarDiv').html(empty);
+				$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
+				$('.signUpDiv').show();
+				$('.uploadAvatarDiv').show();
+				$('.uploadAvatar').show();
+				$('.takePictureDiv').hide();
 			} else {
 				$('#savePictureError').show();
 				console.log("Erst Bild capturen und dann kann man speichern");
