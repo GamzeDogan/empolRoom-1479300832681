@@ -337,7 +337,7 @@ io.on('connection', function(socket) {
 	
 			request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/forecast/daily/10day.json?units=m&language=en-US', function(error, response, body){
 				if(response.statusCode >= 200 && response.statusCode < 400){
-					var content = JSON.parse(response.body.metadata.language);
+					//var content = JSON.parse(response.body.metadata.language);
 					console.log("body: "+body);
 				} else {
 					console.log("Error Message2: " + error);
