@@ -81,7 +81,7 @@ io.on('connection', function(socket) {
 		}
 	});
 	
-k){
+	socket.on('signUp', function(data, callback){
 		var image = data.image;
 		var username = data.username;
 		var password = data.password;
