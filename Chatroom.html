@@ -1122,7 +1122,9 @@ left:50%;
 			
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
+				console.log(imageURL);
 				imageURL = canvas.toDataURL('image/jpeg');
+				console.log(imageURL);
 				if(imageURL!= undefined){
 				$("#savePicture").attr("disabled", false);
 				}else
