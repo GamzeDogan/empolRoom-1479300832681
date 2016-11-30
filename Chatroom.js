@@ -121,7 +121,8 @@ io.on('connection', function(socket) {
 									detected = true;
 								}
 							}	
-							if(detected == true){	
+							// eigt == true
+							if(detected != true){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
