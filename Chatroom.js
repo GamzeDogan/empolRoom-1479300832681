@@ -282,12 +282,6 @@ io.on('connection', function(socket) {
 			} else {
 				var currentRoom = roomUserlist[socket.username];
 				var targetUsers = [];
-				
-				/*var compareLocation;
-				if(msg.text.match(reutlingen)){
-					weatherAPI();
-					
-				}*/
 	
 				for(var key in roomUserlist){
 					if(roomUserlist[key] == currentRoom){
@@ -307,7 +301,10 @@ io.on('connection', function(socket) {
 		var msg = msg.text;
 		var latitude;
 		var longitude;
-		if(msg.match(/Stuttgart/g) == true){
+		console.log("Bin in weather api drinne");
+		var reg = new RegExp('stuttgart', 'i');
+		
+		if(msg.match(reg) != undefined){
 			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Stuttgart&locationType=city&language=en-US';
 			var url;
 			
