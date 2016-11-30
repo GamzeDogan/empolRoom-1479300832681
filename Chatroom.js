@@ -157,39 +157,44 @@ io.on('connection', function(socket) {
 		var password = data.password;
 		
 		if(password != undefined){
-			userSelector.selector._id = username;
-			databaseEmpol.find(userSelector, function(error, resultSet) {
-				if (error) {
-					console.log("Something went wrong!");
-				} else {
-					bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
-						if(!(err)){
-							if(res == true){
-								socket.username = username;
-								userList[socket.username] = socket;						
-								if(socket.username != undefined){
-									io.emit('logInUserEmit', {
-									timezone : new Date(),
-									username : socket.username
-									});
-									userList[socket.username].emit('loginSuccessful', {username: socket.username, image: resultSet.docs[0].image});
+			if(username in userList){
+					//ÖZGÜN: Der User ist schon angemeldet
+					console.log("Gibts schon");
+			} else {
+				userSelector.selector._id = username;
+				databaseEmpol.find(userSelector, function(error, resultSet) {
+					if (error) {
+						console.log("Something went wrong!");
+					} else {
+						bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
+							if(!(err)){
+								if(res == true){
+									socket.username = username;
+									userList[socket.username] = socket;						
+									if(socket.username != undefined){
+										io.emit('logInUserEmit', {
+										timezone : new Date(),
+										username : socket.username
+										});
+										userList[socket.username].emit('loginSuccessful', {username: socket.username, image: resultSet.docs[0].image});
+									}
+									roomUserlist[socket.username] = home;
+									if(socket.username != undefined){
+										io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+									} else { 
+										console.log("socket username ist undefined");
+									}	
+								} else  {
+									callback(false);
+									console.log("Passwort falsch");
 								}
-								roomUserlist[socket.username] = home;
-								if(socket.username != undefined){
-									io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-								} else { 
-									console.log("socket username ist undefined");
-								}	
-							} else  {
-								callback(false);
-								console.log("Passwort falsch");
+							} else {
+								console.log('Fehler: ' + hash);
 							}
-						} else {
-							console.log('Fehler: ' + hash);
-						}
-					});
-				}
-			});	
+						});
+					}
+				});	
+			}
 		} else { 
 			console.log("password ist anscheinend undefined: " +data.password)};
 	});
@@ -302,9 +307,9 @@ io.on('connection', function(socket) {
 		var latitude;
 		var longitude;
 		console.log("Bin in weather api drinne");
-		var reg = new RegExp('atlanta', 'i');
+		//var reg = new RegExp('atlanta', 'i');
 		
-		if(msg.match(reg) != undefined){
+		if(msg.match('atlanta', 'i') != undefined){
 			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			var url;
 			
