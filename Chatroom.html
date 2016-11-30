@@ -1130,21 +1130,22 @@ left:50%;
 		});
 		
 		$('#savePictureEvent').submit(function(){
+			if($('#canvas').val() != ""){
 			var vid = $('#video').get(0);
 			vid.pause();
 			streamer.getVideoTracks()[0].stop();
-
 			var empty = "";
-			if($('#canvas').val() != ""){
+			
 			$('.uploadAvatarDiv').html(empty);
 			$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
 			$('.signUpDiv').show();
 			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
 			$('.takePictureDiv').hide();
-			} else {console.log("Erst Bild capturen und dann kann man speichern");
+			} else {
+				//ERROR MESSAGE ÖZGÜN
+				console.log("Erst Bild capturen und dann kann man speichern");
 			}
-			
 			return false;
 		});
 		
