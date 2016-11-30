@@ -336,12 +336,16 @@ io.on('connection', function(socket) {
 		request(urlLocation, function(error, response){
 			if(response.statusCode >= 200 && response.statusCode < 400){
 				//var line;
-				 f//or(var i=0; i<response.body.length; i++){
+				 //for(var i=0; i<response.body.length; i++){
 					// console.log("hallo: "+JSON.stringify(response.body.location));
 					//var line = line + response.body[i];
 				 //}
 				// console.log("hallo3: " + JSON.stringify(line));
-				 console.log("hallo3: "+JSON.stringify(response.body.location.latitude));
+				var line = JSON.parse(response);
+				console.log("resp: "+ line.body.location);
+				console.log("resp2: "+ line.location);
+				console.log("resp3: "+ line.location.latitude);
+				console.log("hallo3: "+JSON.stringify(response.body.location.latitude));
 				//console.log("response " + JSON.stringify(response.body));
 			} else {
 				console.log(error);
