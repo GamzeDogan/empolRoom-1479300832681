@@ -351,9 +351,9 @@ io.on('connection', function(socket) {
 									userSelector.selector._id = iconNum;
 									var password = iconNum;
 
+									console.log("pwd: " + password);
 									databaseEmpol.find(userSelector, function(error, resultSet) {
 										console.log("resultset: " + resultSet.docs[0].password);
-										console.log("pwd: " + password);
 										if (!(error)) {
 											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 												if(!(err)){
