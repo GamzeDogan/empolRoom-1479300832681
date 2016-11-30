@@ -320,14 +320,14 @@ io.on('connection', function(socket) {
 				// "Accept": "application/json"}
 			// }); 
 			
-			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
-			var url;
-			requestLocation(urlLocation, function(error, response){
+			//var urlLocation = '';
+			//var url;
+			requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US', function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					latitude = content.location.latitude[0];
 					longitude = content.location.longitude[0];
-					url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/forecast/daily/10day.json?units=m&language=en-US';
+					//url = ';
 				} else {
 					console.log("Error Message: " + error);
 				}
@@ -335,7 +335,7 @@ io.on('connection', function(socket) {
 				console.log("long: "+longitude);
 			});
 	
-			request(url, function(error, response){
+			request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					console.log("content: "+content);
