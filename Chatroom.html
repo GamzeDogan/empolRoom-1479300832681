@@ -1124,12 +1124,8 @@ left:50%;
 				context.drawImage(video, 0, 0, 250, 200);
 				console.log(imageURL);
 				imageURL = canvas.toDataURL('image/jpeg');
-				console.log(imageURL);
-				if(imageURL!= undefined){
 				$("#savePicture").attr("disabled", false);
-				}else
-				console.log(imageURL);
-			});
+			);
 			return false;
 		});
 		
@@ -1139,12 +1135,15 @@ left:50%;
 			streamer.getVideoTracks()[0].stop();
 
 			var empty = "";
+			if($('#canvas').val() != ""){
 			$('.uploadAvatarDiv').html(empty);
 			$('.uploadAvatarDiv').append('<img width="120" height="120" src="' + imageURL + '"/>');
 			$('.signUpDiv').show();
 			$('.uploadAvatarDiv').show();
 			$('.uploadAvatar').show();
 			$('.takePictureDiv').hide();
+			} else {console.log("Erst Bild capturen und dann kann man speichern");
+			}
 			
 			return false;
 		});
@@ -1215,6 +1214,7 @@ left:50%;
 			var vid = $('#video').get(0);
 			vid.pause();
 			streamer.getVideoTracks()[0].stop();
+			
 			
 			$('.takePictureDiv').hide();
 			$('.signUpDiv').show();
