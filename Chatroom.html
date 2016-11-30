@@ -1339,9 +1339,9 @@ left:50%;
 			if(socket.username != undefined){
 			time = new Date(msg.timezone);
 			$('#messages').append(
-					$('<li>').append(
-							$('<span>').text( '<img width="50" height="50" src="' + msg.chatImage + '"/>' +
-									'['
+					$('<li>').append( '<img width="50" height="50" src="' + msg.chatImage + '"/>',
+							$('<span>').text( 
+											'['
 											+ time.getFullYear()
 											+ '/'
 											+ (time.getMonth() + 1)
