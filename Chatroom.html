@@ -317,6 +317,15 @@ body {
 	display: none;
 }
 
+#userIsAlreadyLogged {
+	position: absolute;
+    top: 62%;
+    left: 67%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 50%;
+	display: none;
+}
+
 #serverWrongPWD {
 	position: absolute;
     top: 64%;
@@ -383,6 +392,7 @@ ul{
 
 #send{
 	height: 35px;
+	width: 19%;
 	width: 19%;
 	background: #2EBFB5;
 	float: right;
@@ -884,8 +894,9 @@ left:50%;
 		<form id="signUpLinkForm" action="">
 			<button id ="signUpLink">Sign up?</button>
 		</form>
+			<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
+			<label id="userIsAlreadyLogged" style="font: 15px Arial; color: red; margin-top: 5px">This user is alredy logged in.</label>
 	</div>
-	<label id="accountError" style="font: 15px Arial; color: red; margin-top: 5px">Wrong credentials! Please try again.</label>
 
 	<div class="signUpDiv">
 		<label id="signUpLabel"><b>Sign Up</b></label>
@@ -1000,16 +1011,6 @@ left:50%;
 			}
 			return false;
 		});
- // load button
-		<!-- document.onreadystatechange = function () { -->
-		<!-- var state = document.readyState -->
-		<!-- if (state == 'complete') { -->
-		<!-- setTimeout(function(){ -->
-          <!-- document.getElementById('interactive'); -->
-         <!-- document.getElementById('load').style.visibility="hidden"; -->
-			  <!-- },1000); -->
-		  <!-- } -->
-		<!-- } -->
 		
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
@@ -1038,6 +1039,14 @@ left:50%;
 			return false;
 		});
 					
+					
+		socket.on('userIsAlreadyLogged',function(data){
+		$('userIsAlreadyLogged').show();
+		$('#username').val('');
+		$('#password').val('');
+		
+		return false;
+		});
 		socket.on('loginSuccessful', function(data){
 			socket.username = username;
 			socket.password = password;
@@ -1307,6 +1316,7 @@ left:50%;
 													.getMinutes()) + '] '),
 							$('<b>').text(
 									logOut.name ), $('<strong style="color:#20B2AA;">').text(" has left the chatroom.")));
+			
 		});
 		
 		/*
