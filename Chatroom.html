@@ -985,8 +985,6 @@ left:50%;
 	
 	socket.on('weatherIcon', function(data){
 		if(socket.username != undefined){
-			var weatherIcon = new Image(50,50);
-			weatherIcon.src = data.imageWeather;
 			time = new Date(data.timezone);
 			$('#messages').append(
 					$('<li>').append(
@@ -1005,7 +1003,7 @@ left:50%;
 											+ (time.getMinutes() < 10 ? '0'
 													+ time.getMinutes() : time
 													.getMinutes()) + ']'),
-							$('<b>'), weatherIcon));
+							$('<b>'), '<img width="120" height="120" src="' + data.image + '"/>'));
 			}
 	});
 	
