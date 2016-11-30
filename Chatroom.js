@@ -87,8 +87,7 @@ io.on('connection', function(socket) {
 		var password = data.password;
 		var passwordVerification = data.passwordVerification;
 		var detected = false;
-		var filename = '0';
-		//var filename = 'profilePicture_' + data.username;
+		var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
 		var splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
         var data = image.replace(/^data:image\/\w+;base64,/, "");
