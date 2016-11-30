@@ -1316,6 +1316,7 @@ left:50%;
 				var username = $('#username').val();
 				var textmessage = $('#message').val();
 				var chatImage = imageURL;
+				console.log("imgurl:"+imageURL);
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
 					text : textmessage,
