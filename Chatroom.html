@@ -1315,7 +1315,7 @@ left:50%;
 			if ($('.msgClass').val() != "") {
 				var username = $('#username').val();
 				var textmessage = $('#message').val();
-				var chatImage = imageURL;
+				var chatImage = canvas.toDataURL('image/jpeg');;
 				console.log("imgurl:"+imageURL);
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {

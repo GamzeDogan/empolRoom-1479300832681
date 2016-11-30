@@ -296,7 +296,7 @@ io.on('connection', function(socket) {
 				}
 				for(var i = 0; i < targetUsers.length; i++){
 					if(userList[targetUsers[i]] != undefined){
-					userList[targetUsers[i]].emit('chat message', {chatImage: chatImage, timezone : new Date(), name : msg.name, text : msg.text});
+					userList[targetUsers[i]].emit('chat message', {chatImage: msg.chatImage, timezone : new Date(), name : msg.name, text : msg.text});
 					} else { console.log("fehler");}
 				}
 			}
