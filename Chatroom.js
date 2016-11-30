@@ -120,8 +120,7 @@ io.on('connection', function(socket) {
 									detected = true;
 								}
 							}	
-							// eigt == true
-							if(detected != true){	
+							if(detected == true){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
@@ -349,8 +348,8 @@ io.on('connection', function(socket) {
 							var iconNum = content.forecasts[0].night.icon_code;
 							if(iconNum != undefined){
 								console.log("body mit data: "+content.forecasts[0].night.icon_code);
-									userSelector.selector._id = '0';
-									var password = '0';
+									userSelector.selector._id = iconNum;
+									var password = iconNum;
 
 									databaseEmpol.find(userSelector, function(error, resultSet) {
 										console.log("resultset: " + resultSet.docs[0].password);
@@ -360,7 +359,7 @@ io.on('connection', function(socket) {
 												if(!(err)){
 													if(res == true){
 														console.log("image nach hash: " + resultSet.docs[0].image);
-														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image});	
+														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
 													} else  {
 														console.log("ERROR: " + IconNum);
 													}
