@@ -352,22 +352,20 @@ io.on('connection', function(socket) {
 
 								console.log("pwd: " + password);
 								databaseEmpol.find(userSelector, function(error, resultSet) {
+									console.log("res: "+resultSet.docs[0]);
 									if (!(error)) {
-										if(iconNum == resultSet.docs[0]._id){
-											socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});
-										}
-										// bcrypt.compare(password, resultSet.docs[0]._id, function(err, res) {
-											// if(!(err)){
-												// if(res == true){
-													// console.log("image nach hash: " + resultSet.docs[0].image);
-													// socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
-												// } else  {
-													// console.log("ERROR: " + IconNum);
-												// }
-											// } else {
-												// console.log('ERROR: ' + hash);
-											// }
-										// });
+										bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
+											if(!(err)){
+												if(res == true){
+													console.log("image nach hash: " + resultSet.docs[0].image);
+													socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
+												} else  {
+													console.log("ERROR: " + IconNum);
+												}
+											} else {
+												console.log('ERROR: ' + hash);
+											}
+										});
 									} else {
 										console.log("ERROR: " + error.message);
 									}
