@@ -54,7 +54,7 @@ app.get('/', function(request, respond) {
 /**
  * After the response of the server, the client will be connected. 
  */
-io.on('connection', function(socket) {
+io.on('connection', function(socket) {	
 	socket.on('pwdForServerEmpolChatRoom', function(data, callback){
 		var serverPwd = data.password;
 		if(serverPwd != undefined){
@@ -81,13 +81,14 @@ io.on('connection', function(socket) {
 		}
 	});
 	
-	socket.on('signUp', function(data, callback){
+k){
 		var image = data.image;
 		var username = data.username;
 		var password = data.password;
 		var passwordVerification = data.passwordVerification;
 		var detected = false;
-		var filename = 'profilePicture_' + data.username;
+		var filename = '0';
+		//var filename = 'profilePicture_' + data.username;
 		var directory = './image/';
 		var splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
         var data = image.replace(/^data:image\/\w+;base64,/, "");
@@ -210,7 +211,7 @@ io.on('connection', function(socket) {
 		var textMessage = '' + msg.text;
 		var pwd;
 		var chatImage;
-		
+
 		if(socket.username != undefined){
 			if(textMessage.slice(0, 8) === '/create '){
 					var chatroomNameStart = textMessage.slice(8);
