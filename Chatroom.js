@@ -308,6 +308,7 @@ io.on('connection', function(socket) {
 		var latitude;
 		var longitude;
 		var city;
+		var filename;
 		console.log("Bin in weather api drinne");
 		
 		if(message.match('atlanta') != undefined || message.match('chicago') != undefined || message.match('miami') != undefined || message.match('boston') != undefined || message.match('detroit') != undefined || message.match('phoenix') != undefined){
@@ -342,8 +343,9 @@ io.on('connection', function(socket) {
 					
 					request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 						if(response.statusCode >= 200 && response.statusCode < 400){
+							filename = "./weathericons" + path.basename()
 							var content = JSON.parse(response.body);
-							console.log("body mit data: "+content.metadata.language);
+							console.log("body mit data: "+content.metadata.night.icon_code);
 						} else {
 							console.log("Error Message2: " + error);
 						}	
