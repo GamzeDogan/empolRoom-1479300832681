@@ -845,9 +845,9 @@ left:50%;
 }
 
 #load{
-    width:100%;
-    height:100%;
-    position:fixed;
+	position: absolute;
+    top: 93%;
+    left: 50%;
     z-index:9999;
     background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25)
 }
@@ -1008,14 +1008,16 @@ left:50%;
 				$('#accountError').show();
 			} else {
 				socket.emit('logInUser', {username : username, password : password}, function(data) {
+				
+			<!-- setTimeout(function(){ -->
+			<!-- document.getElementById('interactive'); -->
+			<!-- document.getElementById('load').style.visibility="hidden"; -->
+			  <!-- },1000); -->
+				<!-- }); -->
 					if (data == false) {
 						$('#accountError').show();
 					} 
-			setTimeout(function(){
-			document.getElementById('interactive');
-			document.getElementById('load').style.visibility="hidden";
-			  },1000);
-				});
+
 			}
 			//sign up values deleted not login
 			var empty = "";
