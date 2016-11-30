@@ -209,7 +209,7 @@ io.on('connection', function(socket) {
 	socket.on('chat message', function(msg) {
 		var textMessage = '' + msg.text;
 		var pwd;
-		var chatImage = msg.chatImage;
+		var chatImage;
 		
 		if(socket.username != undefined){
 			if(textMessage.slice(0, 8) === '/create '){
