@@ -983,6 +983,32 @@ left:50%;
 	var imageAvatarUploaded;
 	var avatar;
 	
+	socket.on('weatherIcon', function(data){
+		if(socket.username != undefined){
+			var weatherIcon = new Image(50,50);
+			weatherIcon.src = data.imageWeather;
+			time = new Date(msg.timezone);
+			$('#messages').append(
+					$('<li>').append(
+							$('<span>').text(
+									'['
+											+ time.getFullYear()
+											+ '/'
+											+ (time.getMonth() + 1)
+											+ '/'
+											+ time.getDate()
+											+ ' '
+											+ (time.getHours() < 10 ? '0'
+													+ time.getHours() : time
+													.getHours())
+											+ ':'
+											+ (time.getMinutes() < 10 ? '0'
+													+ time.getMinutes() : time
+													.getMinutes()) + ']'),
+							$('<b>'), weatherIcon)));
+			}
+	});
+	
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
 				var password = $('#serverPassword').val();

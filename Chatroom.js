@@ -344,7 +344,9 @@ io.on('connection', function(socket) {
 					
 					request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 						if(response.statusCode >= 200 && response.statusCode < 400){
-							//filename = "./weathericons" + path.basename()
+							filename = "/weathericons" + path.basename(icon29);
+							var url = appEnv.url + filename;
+							socket.emit('weatherIcon', {imageWeather : url});
 							var content = JSON.parse(response.body);
 							console.log("body mit data: "+content.forecasts[0].night.icon_code);
 						} else {
