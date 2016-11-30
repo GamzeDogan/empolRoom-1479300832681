@@ -331,7 +331,7 @@ io.on('connection', function(socket) {
 					console.log("Error Message: " + error);
 				}
 				console.log("lat: "+latitude);
-				console.lof("long: "+longitude);
+				console.log("long: "+longitude);
 				url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US';
 			});
 			
