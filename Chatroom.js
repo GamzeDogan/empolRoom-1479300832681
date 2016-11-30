@@ -345,7 +345,7 @@ io.on('connection', function(socket) {
 						if(response.statusCode >= 200 && response.statusCode < 400){
 							//filename = "./weathericons" + path.basename()
 							var content = JSON.parse(response.body);
-							console.log("body mit data: "+content.forecasts[0]);
+							console.log("body mit data: "+content.forecasts[0].num);
 						} else {
 							console.log("Error Message2: " + error);
 						}	
