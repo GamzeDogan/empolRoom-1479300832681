@@ -981,6 +981,7 @@ left:50%;
 	var imageURL;
 	var streamer;
 	var imageAvatarUploaded;
+	var avatar;
 	
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
@@ -1082,9 +1083,11 @@ left:50%;
 					
 					if(imageURL != undefined){
 						imageChat = imageURL;
+						avatar = imageChat;
 					}
 					else if(imageUploaded != undefined) {
 						imageChat = imageUploaded;
+						avatar = imageChat;
 					}
 					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
 						if(data){
@@ -1195,6 +1198,7 @@ left:50%;
 		console.log('error HTMl verification');
 		return false;
 		});
+		
 		socket.on('avatarUploaded', function(image) {
 		imageAvatarUploaded = image.result;
 		var empty = "";
@@ -1315,8 +1319,8 @@ left:50%;
 			if ($('.msgClass').val() != "") {
 				var username = $('#username').val();
 				var textmessage = $('#message').val();
-				var chatImage = imageURL;
-				console.log("imgurl:"+imageURL);
+				var chatImage = avatar;
+				console.log("imgurl:"+avatar);
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
 					text : textmessage,
