@@ -347,13 +347,9 @@ io.on('connection', function(socket) {
 							var content = JSON.parse(response.body);
 							var iconNum = JSON.parse('response.body.forecasts[0].night.icon_code');
 							if(iconNum != undefined){
-								if(iconNum == 0)
 								userSelector.selector._id = ''+icon;
 								var password = iconNum;
 
-								if(iconNum == '29'){
-									iconNum = '29';
-								}
 								console.log("nummer "+iconNum);
 								console.log("pwd: " + password);
 								databaseEmpol.find(userSelector, function(error, resultSet) {
