@@ -347,30 +347,29 @@ io.on('connection', function(socket) {
 							var content = JSON.parse(response.body);
 							var iconNum = content.forecasts[0].night.icon_code;
 							if(iconNum != undefined){
-								console.log("body mit data: "+content.forecasts[0].night.icon_code);
-									userSelector.selector._id = iconNum;
-									var password = iconNum;
+								userSelector.selector._id = iconNum;
+								var password = iconNum;
 
-									console.log("pwd: " + password);
-									databaseEmpol.find(userSelector, function(error, resultSet) {
-										//console.log("resultset: " + resultSet.docs[0].password);
-										if (!(error)) {
-											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
-												if(!(err)){
-													if(res == true){
-														console.log("image nach hash: " + resultSet.docs[0].image);
-														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
-													} else  {
-														console.log("ERROR: " + IconNum);
-													}
-												} else {
-													console.log('ERROR: ' + hash);
+								console.log("pwd: " + password);
+								databaseEmpol.find(userSelector, function(error, resultSet) {
+									//console.log("resultset: " + resultSet.docs[0].password);
+									if (!(error)) {
+										bcrypt.compare(password, resultSet.docs[0]._id, function(err, res) {
+											if(!(err)){
+												if(res == true){
+													console.log("image nach hash: " + resultSet.docs[0].image);
+													socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
+												} else  {
+													console.log("ERROR: " + IconNum);
 												}
-											});
-										} else {
-											console.log("ERROR: " + error.message);
-										}
-									});	
+											} else {
+												console.log('ERROR: ' + hash);
+											}
+										});
+									} else {
+										console.log("ERROR: " + error.message);
+									}
+								});	
 							} else { console.log("IconNum is undefined");}	
 						} else {
 							console.log("Error Message2: " + error);
