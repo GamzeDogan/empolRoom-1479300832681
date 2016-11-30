@@ -344,7 +344,7 @@ io.on('connection', function(socket) {
 					// "Accept": "application/json"}
 			// }); 
 			
-			requestLocation(urlLocation, function(error, response){
+			request(urlLocation, function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					console.log("content: "+content);
