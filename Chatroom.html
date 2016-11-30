@@ -407,6 +407,7 @@ ul{
 	text-shadow: 0px -1px 0px #2b8a7c;
 	outline: none;
 	padding: 5px;
+	border-left: 1px solid;
 }
 
 #send:hover {
@@ -450,9 +451,6 @@ ul{
 	font-weight: bold;
 	text-decoration: none;
 	text-shadow: 0px -1px 0px #2b8a7c;
-	-webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-	border-radius: 5px;
 	outline: none;
 	padding: 5px;
 }
@@ -845,6 +843,14 @@ left:50%;
     transform: translateX(-50%) translateY(-50%);
 	display: none;
 }
+
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25)
+}
 </style>
 <body>
 	<div class="serverPW">
@@ -974,6 +980,7 @@ left:50%;
 						$('.serverPW').hide();
 						$('#serverPassword').val('');
 						$('#accountError').hide();
+						$('#serverWrongPWD').hide();
 						$('.loginPW').show();
 					} else {
 						$('#serverWrongPWD').show();
@@ -983,16 +990,16 @@ left:50%;
 			}
 			return false;
 		});
-/* // load button
-		document.onreadystatechange = function () {
-		var state = document.readyState
-		if (state == 'complete') {
-		setTimeout(function(){
-          document.getElementById('interactive');
-         document.getElementById('load').style.visibility="hidden";
-			  },1000);
-		  }
-		}*/
+ // load button
+		<!-- document.onreadystatechange = function () { -->
+		<!-- var state = document.readyState -->
+		<!-- if (state == 'complete') { -->
+		<!-- setTimeout(function(){ -->
+          <!-- document.getElementById('interactive'); -->
+         <!-- document.getElementById('load').style.visibility="hidden"; -->
+			  <!-- },1000); -->
+		  <!-- } -->
+		<!-- } -->
 		
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
@@ -1003,7 +1010,11 @@ left:50%;
 				socket.emit('logInUser', {username : username, password : password}, function(data) {
 					if (data == false) {
 						$('#accountError').show();
-					}
+					} 
+			setTimeout(function(){
+			document.getElementById('interactive');
+			document.getElementById('load').style.visibility="hidden";
+			  },1000);
 				});
 			}
 			//sign up values deleted not login
