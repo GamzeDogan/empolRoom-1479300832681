@@ -861,16 +861,6 @@ left:50%;
     background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25);
 }
 
-#savePictureError{
-	width: 20%
-	height: 20%;
-	position: absolute;
-    top: 94%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-	display: none;
-}
-
 </style>
 <body>
 	<div class="serverPW">
@@ -938,7 +928,6 @@ left:50%;
 		</form>
 		<form id="savePictureEvent" action=""> 
 			<center><input id="savePicture" type="submit" value="Save this picture"/></center>
-			<label id="savePictureError" style="font: 15px Arial; color: red; margin-top: 2%">Picture can be saved after capturing it!</label>
 		</form>
 		<br>
 		<form id="backToSignUp" action=""> 
@@ -1157,14 +1146,12 @@ left:50%;
 			document.getElementById('capture').addEventListener('click', function(){
 				context.drawImage(video, 0, 0, 250, 200);
 				imageURL = canvas.toDataURL('image/jpeg');
-				$("#savePicture").attr("disabled", false);
 				console.log(imageURL);
 			});
 			return false;
 		});
 		
 		$('#savePictureEvent').submit(function(){
-			if($('#canvas').val() != ""||('#canvas').val() != undefined ){
 				var vid = $('#video').get(0);
 				vid.pause();
 				streamer.getVideoTracks()[0].stop();
@@ -1176,10 +1163,7 @@ left:50%;
 				$('.uploadAvatarDiv').show();
 				$('.uploadAvatar').show();
 				$('.takePictureDiv').hide();
-			} else {
-				$('#savePictureError').show();
-				console.log("Erst Bild capturen und dann kann man speichern");
-			}
+			
 			return false;
 		});
 		
