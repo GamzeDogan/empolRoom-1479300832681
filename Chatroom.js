@@ -309,7 +309,7 @@ io.on('connection', function(socket) {
 		console.log("Bin in weather api drinne");
 		//var reg = new RegExp('atlanta', 'i');
 		
-		if(msg.match('atlanta', 'i') != undefined){
+		if(msg.match('atlanta') != undefined){
 			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			var url;
 			
