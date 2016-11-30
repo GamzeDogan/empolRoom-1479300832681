@@ -966,8 +966,6 @@ left:50%;
 	var streamer;
 	var imageAvatarUploaded;
 	
-	socket.emit('weatherAPI');
-		
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
 				var password = $('#serverPassword').val();
@@ -1298,7 +1296,8 @@ left:50%;
 		$('#sendEvent').submit(function() {
 			if ($('.msgClass').val() != "") {
 				var username = $('#username').val();
-				var textmessage = $('#message').val();
+				var textmessage = $('#message').val();	
+				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
 					text : textmessage,
 					name : username

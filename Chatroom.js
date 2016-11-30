@@ -13,6 +13,7 @@ var bcrypt = require('bcryptjs');
 var watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
 var request = require('request');
+var requestLocation = require('request');
 
 var userList = {};
 var home = 'home';
@@ -36,25 +37,6 @@ var weather = {
   "port": 443,
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
-
-// app.get('/api/forecast/daily', function(req, res) {
-    // var geocode = (req.query.geocode || "45.43,-75.68").split(",");
-    // weatherAPI("/api/weather/v1/geocode/" + geocode[0] + "/" + geocode[1] + "/forecast/daily/10day.json", {
-        // units: req.query.units || "m",
-        // language: req.query.language || "en"
-    // }, function(err, result) {
-        // if (err) {
-        	// console.log(err);
-            // res.send(err).status(400);
-        // } else {
-        	// console.log("10 days Forecast");
-            // res.json(result);
-        // }
-    // });
-// });
-
-//var weather = json.loads(r.text);   
-//console.log(json.dumps(weather,indent=1));
 
 
 init();
@@ -322,32 +304,50 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('weatherAPI', function(msg){
-		var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&countryCode=US&adminDistrictCode=GA&language=en-US';
-		var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/forecast/hourly/48hour.json?units=m&language=en-US';
-		
-		request({
-		url : urlLocation,
-		method: "GET",
-		headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            "Accept": "application/json"}
-		}); 
-		
-		request(urlLocation, function(error, response){
-			if(response.statusCode >= 200 && response.statusCode < 400){
-				//var line;
-				 //for(var i=0; i<response.body.length; i++){
-					// console.log("hallo: "+JSON.stringify(response.body.location));
-					//var line = line + response.body[i];
-				 //}
-				// console.log("hallo3: " + JSON.stringify(line));
-				var line = JSON.parse(response.body);
-				console.log(line.location.latitude[0]);
-				//console.log("response " + JSON.stringify(response.body));
-			} else {
-				console.log(error);
-			}
-		});
+		var msg = msg.text;
+		var latitude;
+		var longitude;
+		if(msg.match(/Stuttgart/g) == true){
+			var urlLocation = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Stuttgart&locationType=city&language=en-US';
+			var url;
+			
+			requestLocation({
+			url : urlLocation,
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json;charset=utf-8",
+				"Accept": "application/json"}
+			}); 
+			
+			requestLocation(urlLocation, function(error, response){
+				if(response.statusCode >= 200 && response.statusCode < 400){
+					var content = JSON.parse(response.body);
+					latitude = content.location.latitude[0];
+					longitude = content.location.longitude[0];
+				} else {
+					console.log(error);
+				}
+				
+				url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US';
+			});
+			
+			request({
+				url : url,
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json;charset=utf-8",
+					"Accept": "application/json"}
+			}); 
+			
+			request(url, function(error, response){
+				if(response.statusCode >= 200 && response.statusCode < 400){
+					var content = JSON.parse(response.body);
+					console.log(content);
+				} else {
+					console.log(error);
+				}	
+			});
+		}
 		
 	});
 	
