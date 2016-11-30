@@ -347,7 +347,7 @@ io.on('connection', function(socket) {
 							var content = JSON.parse(response.body);
 							var iconNum = content.forecasts[0].night.icon_code;
 							if(iconNum != undefined){
-								userSelector.selector._id = iconNum;
+								userSelector.selector._id = ''+iconNum;
 								var password = iconNum;
 
 								console.log("pwd: " + password);
