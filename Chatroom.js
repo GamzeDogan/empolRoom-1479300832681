@@ -349,12 +349,16 @@ io.on('connection', function(socket) {
 							var iconNum = content.forecasts[0].night.icon_code;
 							if(iconNum != undefined){
 								console.log("body mit data: "+content.forecasts[0].night.icon_code);
-								
 									userSelector.selector._id = iconNum;
 									var password = iconNum;
+									
+									console.log("resultset: " + resultSet.docs[0].password);
+									console.log("pwd: " + password);
+									
+									
 									databaseEmpol.find(userSelector, function(error, resultSet) {
 										if (!(error)) {
-											bcrypt.compare(iconNum, resultSet.docs[0].password, function(err, res) {
+											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 												if(!(err)){
 													if(res == true){
 														console.log("image nach hash: " + resultSet.docs[0].image);
