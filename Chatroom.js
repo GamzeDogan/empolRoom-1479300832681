@@ -351,6 +351,7 @@ io.on('connection', function(socket) {
 								console.log("body mit data: "+content.forecasts[0].night.icon_code);
 								
 									userSelector.selector._id = iconNum;
+									var password = iconNum;
 									databaseEmpol.find(userSelector, function(error, resultSet) {
 										if (!(error)) {
 											bcrypt.compare(iconNum, resultSet.docs[0].password, function(err, res) {
