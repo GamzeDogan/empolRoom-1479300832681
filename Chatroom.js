@@ -308,25 +308,15 @@ io.on('connection', function(socket) {
 		var latitude;
 		var longitude;
 		console.log("Bin in weather api drinne");
-		//var reg = new RegExp('atlanta', 'i');
 		
-		if(message.match('atlanta') != undefined){
-			// requestLocation({
-			// url : urlLocation,
-			// method: "GET",
-			// headers: {
-				// "Content-Type": "application/json;charset=utf-8",
-				// "Accept": "application/json"}
-			// }); 
+		if(message.match('atlanta') != undefined || message.match('chicago') != undefined || message.match('miami') != undefined || message.match('boston') != undefined || message.match('detroit') != undefined || message.match('phoenix') != undefined){
+			var url = 'https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US';
 			
-			//var urlLocation = '';
-			//var url;
-			requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query=Atlanta&locationType=city&language=en-US', function(error, response){
+			requestLocation(url, function(error, response){
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					latitude = content.location.latitude[0];
 					longitude = content.location.longitude[0];
-					//url = ';
 				} else {
 					console.log("Error Message: " + error);
 				}
@@ -338,7 +328,6 @@ io.on('connection', function(socket) {
 				if(response.statusCode >= 200 && response.statusCode < 400){
 					var content = JSON.parse(response.body);
 					console.log("body mit data: "+content.metadata.language);
-					//console.log("body mit language : "+body.metadata.language);
 				} else {
 					console.log("Error Message2: " + error);
 				}	
