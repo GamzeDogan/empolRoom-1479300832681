@@ -324,11 +324,11 @@ io.on('connection', function(socket) {
 		console.log("splitted:" + splittedMessage);
 		
 		for(var i=0; i<splittedMessage.length; i++){
-			var word = splittedMessage[i];
-			console.log(word.toLowerCase());
-			if(splittedMessage[i].toLowerCase == 'atlanta' || splittedMessage[i].toLowerCase == 'chicago' || splittedMessage[i].toLowerCase == 'miami' || splittedMessage[i].toLowerCase == 'boston' || splittedMessage[i].toLowerCase == 'detroit' || splittedMessage[i].toLowerCase == 'reutlingen'){
-				console.log("ander stelle in der if i: "+splittedMessage[i]);
+			var word = splittedMessage[i].toLowerCase();
+			console.log("Lower case: "+word.toLowerCase());
+			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'reutlingen' || word == 'atlanta'){
 				city = splittedMessage[i];	
+				console.log("city: "+city);
 				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
 					console.log(city);
 					if(response.statusCode >= 200 && response.statusCode < 400){
