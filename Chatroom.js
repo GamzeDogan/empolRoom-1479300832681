@@ -314,7 +314,7 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('weatherAPI', function(msg){
-		var message = msg.text;
+		var message = msg.text; 
 		var latitude, longitude, city, filename, word;
 		var splittedMessage = message.split(" ");
 		console.log("splittedMessageArray: "+splittedMessage);
