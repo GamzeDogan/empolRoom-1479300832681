@@ -215,7 +215,7 @@ io.on('connection', function(socket) {
 		
 		
 		databaseEmpol.find(userSelector, function(error, resultSet) {
-			console.log(resultSet.docs[0].image);
+			console.log("result image: "+resultSet.docs[0].image);
 			chatImage = resultSet.docs[0].image;
 				
 		});
