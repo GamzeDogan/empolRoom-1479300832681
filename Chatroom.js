@@ -324,8 +324,8 @@ io.on('connection', function(socket) {
 		console.log("splitted:" + splittedMessage);
 		
 		for(var i=0; i<splittedMessage.length; i++){
-			console.log("ander stelle i: "+splittedMessage[i]);
-			console.log("ander stelle i lower: "+splittedMessage[i].toLowerCase);
+			var word = splittedMessage[i];
+			console.log(word.toLowerCase());
 			if(splittedMessage[i].toLowerCase == 'atlanta' || splittedMessage[i].toLowerCase == 'chicago' || splittedMessage[i].toLowerCase == 'miami' || splittedMessage[i].toLowerCase == 'boston' || splittedMessage[i].toLowerCase == 'detroit' || splittedMessage[i].toLowerCase == 'reutlingen'){
 				console.log("ander stelle in der if i: "+splittedMessage[i]);
 				city = splittedMessage[i];	
