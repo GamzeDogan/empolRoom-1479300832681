@@ -135,7 +135,7 @@ io.on('connection', function(socket) {
 												userList[username].emit('signInSuccessfully');
 											} else { 
 												callback(false);
-												console.log("ERROR: Could not store the values!");
+												console.log("ERROR: Could not store the values!" + error);
 											}
 										});
 									});
