@@ -957,6 +957,7 @@ left:50%;
 		<ul id="messages"></ul>
 	</div>
 	
+	<div id="bottom">bottom</div>
 	<div class="box" >
 		<form id="sendEvent" action="">
 			<input id= "message" class="msgClass" placeholder="write something..." />
@@ -1332,6 +1333,13 @@ left:50%;
 									logOut.name ), $('<strong style="color:#20B2AA;">').text(" has left the chatroom.")));
 			
 		});
+		
+		function bottom() {
+			document.getElementById( 'bottom' ).scrollIntoView();
+			window.setTimeout( function () { top(); }, 900000000 );
+		};
+
+		bottom();
 		
 		/*
 		This is the eventhandler for the send button. 
