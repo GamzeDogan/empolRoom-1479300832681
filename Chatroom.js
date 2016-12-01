@@ -82,97 +82,75 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('signUp', function(data, callback){
-		var image;
+		var image = data.image;
 		var detected = false;
 		var username = data.username;
 		var password = data.password;
 		var passwordVerification = data.passwordVerification;
-		var filename, directory, splitting, data, buffer;
+		var filename = 'profilePicture_' + data.username;
+		var directory = './image/';
+		var splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
+		var data = image.replace(/^data:image\/\w+;base64,/, "");
+		var buffer = new Buffer(data, 'base64');
 		
-		if(data.image == undefined){
-			userSelector.selector._id = 'avatar';
-			var pwd = 'avatar';
-			databaseEmpol.find(userSelector, function(error, resultSet) {
-				if (!(error)) {
-					bcrypt.compare(pwd, resultSet.docs[0].password, function(err, res) {
-						if(!(err)){
-							if(res == true){
-								image = resultSet.docs[0].image;
-								detected = true;
-							} else  {
-								console.log("ERROR: Password not right! [in socket: signUp]");
-							}
-						} else {
-							console.log('ERROR: ' + hash);
-						}
-					});
-				} else {
-					console.log("ERROR: " + error.message);
-				}
-			});	
-		} else {
-			image = data.image;
-		}
-		
-		filename = 'profilePicture_' + data.username;
-		directory = './image/';
-		splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
-		data = image.replace(/^data:image\/\w+;base64,/, "");
-		buffer = new Buffer(data, 'base64');
 		fs.writeFile(directory + filename + '.' + splitting, buffer);
 		
 		var params = {
 			images_file: fs.createReadStream(directory + filename + '.' + splitting)
 		};
 		
-		if(password === passwordVerification){
-			databaseEmpol.find(userSelector, function(error, resultSet) {
-				if (error) {
-					console.log("Something went wrong");
-				} else {
-					visualRecognition.detectFaces(params, function(error, response) {
-						if (error){
-							console.log("ERROR: " + error);
-						} else {
-							var resImage = response.images;
-							console.log(JSON.stringify(response, null, 2));
-							for(var i=0; i<resImage.length; i++){
-								var resImage = response.images[i];
-								for(var j=0; j<resImage.faces.length; j++){
-									console.log(resImage.faces[j]);	
-									detected = true;
-								}
-							}	
-							if(detected == true){	
-								bcrypt.genSalt(10, function(err, salt) {
-									bcrypt.hash(password, salt, function(err, hash) {
-										password = hash; 
-										databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
-											if (!error) {								
-												callback(true);
-												socket.username = username;
-												socket.password = password;
-												socket.image = image;
-												console.log("sign Up fkt!");
-												userList[socket.username].emit('signInSuccessfully');
-											} else { 
-												callback(false);
-												console.log("Could not store the values!");
-											}
+		if(data.image != undefined){
+			if(password === passwordVerification){
+				databaseEmpol.find(userSelector, function(error, resultSet) {
+					if (error) {
+						console.log("Something went wrong");
+					} else {
+						visualRecognition.detectFaces(params, function(error, response) {
+							if (error){
+								console.log("ERROR: " + error);
+							} else {
+								var resImage = response.images;
+								console.log(JSON.stringify(response, null, 2));
+								for(var i=0; i<resImage.length; i++){
+									var resImage = response.images[i];
+									for(var j=0; j<resImage.faces.length; j++){
+										console.log(resImage.faces[j]);	
+										detected = true;
+									}
+								}	
+								if(detected == true){	
+									bcrypt.genSalt(10, function(err, salt) {
+										bcrypt.hash(password, salt, function(err, hash) {
+											password = hash; 
+											databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
+												if (!error) {								
+													callback(true);
+													socket.username = username;
+													socket.password = password;
+													socket.image = image;
+													console.log("sign Up fkt!");
+													userList[socket.username].emit('signInSuccessfully');
+												} else { 
+													callback(false);
+													console.log("Could not store the values!");
+												}
+											});
 										});
 									});
-								});
-							} else {
-								io.emit('errorHumanFace');
-								console.log("Doesnt contain a human face ");
+								} else {
+									io.emit('errorHumanFace');
+									console.log("Doesnt contain a human face ");
+								}
 							}
-						}
-					});
-                }
-            }); 
+						});
+					}
+				}); 
+			} else {
+				io.emit('errorPWDVerification');
+				console.log("Passwörter stimmen nicht überein");
+			}
 		} else {
-			io.emit('errorPWDVerification');
-			console.log("Passwörter stimmen nicht überein");
+			//ERROR Lade ein Bild hoch socket.emit('E');
 		}	
 	});
 	
