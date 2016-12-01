@@ -82,7 +82,31 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('signUp', function(data, callback){
-		var image = data.image;
+		var image;
+		if(data.image == undefined){
+			userSelector.selector._id = 'avatar';
+			var pwd = 'avatar';
+			databaseEmpol.find(userSelector, function(error, resultSet) {
+				if (!(error)) {
+					bcrypt.compare(pwd, resultSet.docs[0].password, function(err, res) {
+						if(!(err)){
+							if(res == true){
+								image = resultSet.docs[0].image;
+							} else  {
+								console.log("ERROR: Password not right! [in socket: signUp]");
+							}
+						} else {
+							console.log('ERROR: ' + hash);
+						}
+					});
+				} else {
+					console.log("ERROR: " + error.message);
+				}
+			});	
+		} else {
+			image = data.image;
+		}
+		
 		var username = data.username;
 		var password = data.password;
 		var passwordVerification = data.passwordVerification;
@@ -120,7 +144,7 @@ io.on('connection', function(socket) {
 									detected = true;
 								}
 							}	
-							if(detected != true){	
+							if(detected == true){	
 								bcrypt.genSalt(10, function(err, salt) {
 									bcrypt.hash(password, salt, function(err, hash) {
 										password = hash; 
@@ -131,7 +155,7 @@ io.on('connection', function(socket) {
 												socket.password = password;
 												socket.image = image;
 												console.log("sign Up fkt!");
-												io.emit('signInSuccessfully');
+												userList[socket.username].emit('signInSuccessfully');
 											} else { 
 												callback(false);
 												console.log("Could not store the values!");
