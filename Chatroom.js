@@ -211,12 +211,10 @@ io.on('connection', function(socket) {
 		var pwd;
 		var chatImage;
 		var username = msg.name;
-		console.log("username: "+username);
 		userSelector.selector._id = username;
 		
 		
 		databaseEmpol.find(userSelector, function(error, resultSet) {
-			console.log("result image: "+resultSet.docs[0].image);
 			chatImage = resultSet.docs[0].image;
 				
 			if(socket.username != undefined){
@@ -279,14 +277,16 @@ io.on('connection', function(socket) {
 							timezone : new Date(),
 							name : name,
 							text : msgText,
-							destinationName : msg.name
+							destinationName : msg.name,
+							chatImage: chatImage
 						});
 		
 						userList[usernameSource].emit('private message', {
 							timezone : new Date(),
 							name : name,
 							text : msgText,
-							destinationName : msg.name
+							destinationName : msg.name,
+							chatImage: chatImage
 						});
 					} else {
 						userList[usernameSource].emit('UnvalidNameError', {

@@ -1399,7 +1399,8 @@ left:50%;
 		socket
 				.on('private message', function(msg) {
 							time = new Date(msg.timezone);
-							$('#messages').append($('<li>').append($('<span>').text(
+							$('#messages').append($('<li>').append( '<img width="50" height="50" src="' + msg.chatImage + '"/>',
+							$('<span>').text(
 																			'['
 																					+ time
 																							.getFullYear()
