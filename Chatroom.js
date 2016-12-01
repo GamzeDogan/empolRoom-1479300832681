@@ -324,6 +324,8 @@ io.on('connection', function(socket) {
 		console.log("splitted:" + splittedMessage);
 		
 		for(var i=0; i<splittedMessage.length; i++){
+			console.log("ander stelle i: "+splittedMessage[i]);
+			console.log("ander stelle i lower: "+splittedMessage[i].toLowerCase);
 			if(splittedMessage[i].toLowerCase == 'atlanta' || splittedMessage[i].toLowerCase == 'chicago' || splittedMessage[i].toLowerCase == 'miami' || splittedMessage[i].toLowerCase == 'boston' || splittedMessage[i].toLowerCase == 'detroit' || splittedMessage[i].toLowerCase == 'reutlingen'){
 				city = splittedMessage[i];	
 				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
