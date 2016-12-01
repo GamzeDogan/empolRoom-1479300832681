@@ -1136,13 +1136,11 @@ left:50%;
 					
 					if(imageURL != undefined){
 						imageChat = imageURL;
-						avatar = imageChat;
 					}
 					else if(imageUploaded != undefined) {
 						imageChat = imageUploaded;
-						avatar = imageChat;
-					} else {
-						imageChat = undefined;
+					} else if(imageUploaded == undefined && imageURL == undefined) {
+						console.log("kein image ausgewählt");
 					}
 					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
 						if(data){
