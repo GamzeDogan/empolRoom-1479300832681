@@ -980,8 +980,7 @@ left:50%;
 	var imageURL;
 	var streamer;
 	var imageAvatarUploaded;
-	var avatar;
-	
+
 	/*
 	This method listens to the server and gets the username and throws a
 	message with the weather icon if the user writes a specific city.
@@ -1139,7 +1138,8 @@ left:50%;
 					}
 					else if(imageUploaded != undefined) {
 						imageChat = imageUploaded;
-					} else if(imageUploaded == undefined && imageURL == undefined) {
+					} 
+					else if(imageUploaded == undefined && imageURL == undefined) {
 						console.log("kein image ausgewählt");
 					}
 					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){

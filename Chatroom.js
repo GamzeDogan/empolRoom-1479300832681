@@ -88,6 +88,7 @@ io.on('connection', function(socket) {
 	If the picture doesnt contain a human face it will be rejected*/
 	socket.on('signUp', function(data, callback){
 		var image = data.image;
+		console.log(image);
 		var detected = false;
 		var username = data.username;
 		var password = data.password;
