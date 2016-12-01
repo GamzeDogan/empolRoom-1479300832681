@@ -80,7 +80,7 @@ io.on('connection', function(socket) {
 				}
 			});	
 		} else {
-			console.log("Server pwd is undefined!");
+			console.log("ERROR: Server password is undefined!");
 		}
 	});
 	
@@ -104,12 +104,12 @@ io.on('connection', function(socket) {
 			images_file: fs.createReadStream(directory + filename + '.' + splitting)
 		};
 		
-		console.log(data.image);
-		if(data.image != undefined){
+		console.log(params);
+		if(params != undefined){
 			if(password === passwordVerification){
 				databaseEmpol.find(userSelector, function(error, resultSet) {
 					if (error) {
-						console.log("Something went wrong");
+						console.log("ERROR: Something went wrong");
 					} else {
 						visualRecognition.detectFaces(params, function(error, response) {
 							if (error){
@@ -138,14 +138,14 @@ io.on('connection', function(socket) {
 													userList[socket.username].emit('signInSuccessfully');
 												} else { 
 													callback(false);
-													console.log("Could not store the values!");
+													console.log("ERROR: Could not store the values!");
 												}
 											});
 										});
 									});
 								} else {
 									io.emit('errorHumanFace');
-									console.log("Doesnt contain a human face ");
+									console.log("WARNING: Doesn't contain a human face!");
 								}
 							}
 						});
@@ -153,7 +153,6 @@ io.on('connection', function(socket) {
 				}); 
 			} else {
 				io.emit('errorPWDVerification');
-				console.log("Passwörter stimmen nicht überein");
 			}
 		} else {
 			console.log("hahah");
@@ -169,7 +168,6 @@ io.on('connection', function(socket) {
 		if(password != undefined){
 			if(username in userList){
 					io.emit('userIsAlreadyLogged');
-					console.log("Gibts schon");
 			} else {
 				userSelector.selector._id = username;
 				databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -192,7 +190,7 @@ io.on('connection', function(socket) {
 									if(socket.username != undefined){
 										io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 									} else { 
-										console.log("socket username ist undefined");
+										console.log("ERROR: Socket username is undefined!");
 									}	
 								} else  {
 									callback(false);
