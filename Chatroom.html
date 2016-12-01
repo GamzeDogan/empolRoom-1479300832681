@@ -1351,7 +1351,7 @@ left:50%;
 				socket.emit('weatherAPI', { text: textmessage });
 				socket.emit('chat message', {
 					text : textmessage,
-					name : username,
+					name : socket.username,
 				});
 				$('#message').val('');
 				return false;
