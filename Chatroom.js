@@ -353,7 +353,6 @@ io.on('connection', function(socket) {
 								console.log("nummer "+iconNum);
 								console.log("pwd: " + password);
 								databaseEmpol.find(userSelector, function(error, resultSet) {
-									console.log("res: "+resultSet.docs[0]);
 									if (!(error)) {
 										bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 											if(!(err)){
