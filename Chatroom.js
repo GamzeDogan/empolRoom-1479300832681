@@ -315,28 +315,21 @@ io.on('connection', function(socket) {
 	
 	socket.on('weatherAPI', function(msg){
 		var message = msg.text;
-		console.log("msg: "+message);
-		var latitude;
-		var longitude;
-		var city;
-		var filename;
+		var latitude, longitude, city, filename, word;
 		var splittedMessage = message.split(" ");
-		console.log("splitted:" + splittedMessage);
-		
+		console.log("splittedMessageArray: "+splittedMessage);
 		for(var i=0; i<splittedMessage.length; i++){
-			var word = splittedMessage[i].toLowerCase();
-			console.log("Lower case: "+word.toLowerCase());
+			word = splittedMessage[i].toLowerCase();
+			console.log("array an der stelle i for der if anweisung: "+word.toLowerCase());
 			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'reutlingen' || word == 'atlanta'){
 				city = splittedMessage[i];	
-				console.log("city: "+city);
+				console.log("city in der if: "+city);
 				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
-					console.log(city);
 					if(response.statusCode >= 200 && response.statusCode < 400){
 						var content = JSON.parse(response.body);
 						latitude = content.location.latitude[0];
 						longitude = content.location.longitude[0];
-						console.log("lat: "+latitude);
-						console.log("long: "+longitude);
+						console.log("city in der zweiten if: "+city);
 					
 						request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 							if(response.statusCode >= 200 && response.statusCode < 400){
@@ -351,7 +344,6 @@ io.on('connection', function(socket) {
 											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 												if(!(err)){
 													if(res == true){
-														console.log("image nach hash: " + resultSet.docs[0].image);
 														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
 													} else  {
 														console.log("ERROR: " + IconNum);
