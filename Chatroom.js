@@ -2,20 +2,20 @@
  * http://usejsdoc.org/
  */
 
-/** Imported needed libraries. */
+/** Imported & needed libraries. */
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
-var appEnv = cfenv.getAppEnv();
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
 var watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
 var request = require('request');
 var requestLocation = require('request');
-var path = require('path');
+var appEnv = cfenv.getAppEnv();
 
+/** Some variables */
 var userList = {};
 var home = 'home';
 var chatroomList = [home];
@@ -25,12 +25,14 @@ var services;
 var cloudant;
 var databaseEmpol;
 
+/** Variable for database*/
 var userSelector = {
     "selector": {
         "_id": ""
     }  
 };
 
+/** Credentials for Weather Company Data*/
 var weather = {
   "username": "bb663f21-bc08-4a00-9585-31f01522991f",
   "password": "fnuIa4TxTE",
@@ -54,7 +56,8 @@ app.get('/', function(request, respond) {
 /**
  * After the response of the server, the client will be connected. 
  */
-io.on('connection', function(socket) {	
+io.on('connection', function(socket) {
+	/** Entered password will be compared with the password in the database*/
 	socket.on('pwdForServerEmpolChatRoom', function(data, callback){
 		var serverPwd = data.password;
 		if(serverPwd != undefined){
@@ -81,6 +84,8 @@ io.on('connection', function(socket) {
 		}
 	});
 	
+	/** To sign up the user has to enter a username and password. Also he has to upload or capture a picture of himself.
+	If the picture doesnt contain a human face it will be rejected*/
 	socket.on('signUp', function(data, callback){
 		var image = data.image;
 		var detected = false;
@@ -99,6 +104,7 @@ io.on('connection', function(socket) {
 			images_file: fs.createReadStream(directory + filename + '.' + splitting)
 		};
 		
+		console.log(data.image);
 		if(data.image != undefined){
 			if(password === passwordVerification){
 				databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -150,10 +156,12 @@ io.on('connection', function(socket) {
 				console.log("Passwörter stimmen nicht überein");
 			}
 		} else {
+			console.log("hahah");
 			//ERROR Lade ein Bild hoch socket.emit('E');
 		}	
 	});
 	
+	/** The user has to enter his username and password to enter the chatroom. */
 	socket.on('logInUser', function(data, callback) {
 		var username = data.username;
 		var password = data.password;
@@ -314,6 +322,7 @@ io.on('connection', function(socket) {
 		});
 	});
 	
+	/**Here we look wheter the chat message contains a city or not. If it contains a city then a weather Icon will be shown*/
 	socket.on('weatherAPI', function(msg){
 		var message = msg.text; 
 		var latitude, longitude, city, filename, word;
@@ -395,6 +404,7 @@ io.on('connection', function(socket) {
 		});
 	});
 	
+	/**To upload a avatar*/
 	socket.on('avatarUpload', function(data) {
 		io.emit('avatarUploaded', {result : data.result});
 	});
@@ -414,6 +424,7 @@ io.on('connection', function(socket) {
 	});
 });
 
+/**Here we look whether the service exists or not*/
 function init() {
     if (process.env.VCAP_SERVICES) {
         services = JSON.parse(process.env.VCAP_SERVICES);
