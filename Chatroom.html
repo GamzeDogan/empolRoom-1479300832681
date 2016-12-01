@@ -386,7 +386,7 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 80.5%;
+	width: 82.5%;
 	float: left;
 }
 
@@ -860,10 +860,6 @@ left:50%;
     background:url("https://www.creditmutuel.fr/cmne/fr/banques/webservices/nswr/images/loading.gif") no-repeat center center rgba(0,0,0,0.25);
 }
 
-#bottom{
-position: position;
-top: 99%;
-}
 </style>
 <body>
 	<div class="serverPW">
@@ -876,7 +872,7 @@ top: 99%;
 		<label id="serverWrongPWD">Wrong credentials! Please try again.</label>
 
 	<div class = "loginPW">
-		<label id="loginLabel"><b>Login</b></label>
+				<label id="loginLabel"><b>Login</b></label>
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /><p/>
 			<input id= "password" type="password" class="pwClass" placeholder=" Password"/>
@@ -903,15 +899,14 @@ top: 99%;
 			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 2%">Please fill in the form completely!</label>
 			<label id="signUpPWDError" style="font: 15px Arial; color: red; margin-top: 2%">Passwords are not similar. Try again!</label>
 			<label id="signUpHumanFaceError" style="font: 15px Arial; color: red; margin-top: 2%">Please choose a picture of yourself!</label>
-
 		</form>
 		<form id="backToLogin" action="">
-		<center><input id="backtoLoginId" type="submit" value="&larrhk;"/></center>
+			<center><input id="backtoLoginId" type="submit" value="&larrhk;"/></center>
 		</form>
 		
 		<div class="uploadAvatarDiv">
-		<!--<img id="avatar" width="100" height="100" src="http://empolchat.mybluemix.net/image/avatar.jpg"/>-->
 		</div>
+		
 		<div class="uploadAvatar">
 			<form id="uploadAvatarIcon" method="post" enctype="multipart/form-data">
 				<input id="mediaAvatar" type="file" accept=".png, .jpg, .jpeg" value="Datei Upload"/>
@@ -941,15 +936,9 @@ top: 99%;
 	
 	<div class="sideDiv">
 		<form>
-		<h1 id="empolLabel"><center>Empol</center></h1>	
-		<!--<form id= "signinEvent" action="">
-			<label id="usernameError" style="font: 15px Arial; color: red; margin-top: 5px">Username is already taken.</label>
-			<label id="unvalidError" style="font: 15px Arial; color: red; margin-top: 5px">Unvalid! Please try again.</label>
-			<label id="successfullyNotification" style="font: 15px Arial; color: red; margin-top: 5px">You are signed in successfully! Please Login.</label>
-		</form>-->
-		
-		<div class="chatAvatar" id="chatAvatar"></div>
-		<div class="usernameInSideDiv"> Username: </div>
+			<h1 id="empolLabel"><center>Empol</center></h1>	
+			<div class="chatAvatar" id="chatAvatar"></div>
+			<div class="usernameInSideDiv"> Username: </div>
 		<div id="onlineUser"></div>
 		</form>
 		<form id="sendMedia" method="post" enctype="multipart/form-data">
@@ -960,8 +949,6 @@ top: 99%;
 	<div id="messagesDiv" >
 		<ul id="messages"></ul>
 	</div>
-	
-	<div id="bottom"></div>
 	<div class="box" >
 		<form id="sendEvent" action="">
 			<input id= "message" class="msgClass" placeholder="write something..." />
@@ -973,20 +960,30 @@ top: 99%;
 
 	<script>
 	
+	/*redirect from http into https*/
     if (document.location.protocol == "http:"){
         document.location='https://empolchat.mybluemix.net/'; 
 	}
 	
+	
 	var socket = io();
+	/*show server div and disable thw butttons send and media */
 	$('.serverPW').show();
 	$('#send').prop('disabled', true);
 	$('#media').prop('disabled', true);
 	
+	/*
+	declaration of global variables
+	*/
 	var imageURL;
 	var streamer;
 	var imageAvatarUploaded;
 	var avatar;
 	
+	/*
+	This method listens to the server and gets the username and throws a
+	message with the weather icon if the user writes a specific city.
+	*/
 	socket.on('weatherIcon', function(data){
 		if(socket.username != undefined){
 			time = new Date(data.timezone);
@@ -1011,6 +1008,12 @@ top: 99%;
 			}
 	});
 	
+		/*
+		This is the eventhandler for the server login. 
+		If the password isn't empty then it sends the password to the server,
+		which will check the password.
+		After the callback in the server the server div will be hided otherwise error messages will be shown.
+		 */
 		$('#serverLogin').submit(function(){
 			if($('.serverPwClass').val() != ""){
 				var password = $('#serverPassword').val();
@@ -1030,6 +1033,12 @@ top: 99%;
 			return false;
 		});
 		
+		/*
+		This is the eventhandler for the login. 
+		If the username and password  isn't empty then it sends the password to the server,
+		which will check the username and password.
+		After the callback in the server the server div will be logged in otherwise error messages will be shown.
+		 */
 		$('#loginEvent').submit(function() {
 			var username = $('#username').val();
 			var password = $('#password').val();
@@ -1043,13 +1052,10 @@ top: 99%;
 						$('#accountError').show();
 					} 
 				});
-				setTimeout(function(){
-				document.getElementById('interactive');
-				document.getElementById('load').style.visibility="hidden";
-				  },1000);
-				
 			}
-			//sign up values deleted not login
+			/*
+			sign up values will be deleted
+			*/
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
 			$('#usernameSignUp').val('');
@@ -1058,7 +1064,10 @@ top: 99%;
 			return false;
 		});
 					
-					
+		/*
+		this method listens to the server if the user is already logged 
+		error messages will be shown  and values will be deleted
+		*/			
 		socket.on('userIsAlreadyLogged',function(data){
 		$('#accountError').hide();
 		$('#userIsAlreadyLogged').show();
@@ -1067,6 +1076,11 @@ top: 99%;
 		
 		return false;
 		});
+		
+		/*
+		If the log in was successfull this method will be called
+		It hides the divs which shouldn't be shown and shows the important elements.
+		*/
 		socket.on('loginSuccessful', function(data){
 			socket.username = username;
 			socket.password = password;
@@ -1087,6 +1101,9 @@ top: 99%;
 			
 		});
 		
+		/*This event handler will be active if the user clicks on the sign up link
+		it will the sgin up div
+		*/
 		$('#signUpLinkForm').submit(function() {
 			$('.loginPW').hide();
 			$('#username').val('');
@@ -1097,6 +1114,13 @@ top: 99%;
 			return false;
 		});
 		
+		/*
+		This event handler is for the sign up button.
+		If the username and password  isn't empty then it sends the password to the server,
+		which will check the username and password and the uploaded picture.
+		After the callback in the server the server div will be signed up and comes to the login page otherwise error messages will be shown.
+		Also the password verification will be checked.
+		*/
 		$('#signUpEvent').submit(function(e){
 			if(($('.usernameSignUpClass').val() != "" && $('.pwdSignUpClass').val() != "" && $('.pwdVfcSignUpClass').val() != "")
 			| ($('.usernameSignUpClass').val() != "" || $('.pwdSignUpClass').val() != "" || $('.pwdVfcSignUpClass').val() != "")){				
@@ -1105,7 +1129,6 @@ top: 99%;
 				var passwordVerification = $('#passwordVerification').val();
 				
 				if(password == passwordVerification){
-					//Schauen die Div Klasse leer ist oder nicht (Bild vorhanden oder nicht)
 					var imageUploaded = imageAvatarUploaded;
 					var imageChat;
 					
@@ -1142,6 +1165,11 @@ top: 99%;
 			return false;
 		});
 		
+		/*
+		This eventhandler will be active if the user wants to take a pictue.
+		An other div will be showed and the other divs will be hided.
+		After that the camera dialog will be Created and initialized.
+		*/
 		$('#takePictureEvent').submit(function(){
 			$('.signUpDiv').hide();
 			$('.uploadAvatarDiv').hide();
@@ -1181,6 +1209,10 @@ top: 99%;
 			return false;
 		});
 		
+		/*
+		This method will be active if the user clicks on the save picture button.
+		It will also stop the camera.
+		*/
 		$('#savePictureEvent').submit(function(){
 				var vid = $('#video').get(0);
 				vid.pause();
@@ -1197,6 +1229,9 @@ top: 99%;
 			return false;
 		});
 		
+		/*
+		This method is for the pictue which can be inserted by a filesystem.
+		*/
 		$('#uploadAvatarIcon').on('change', function(e) {
 			var media = e.originalEvent.target.files[0];
 			var reader = new FileReader();
@@ -1208,6 +1243,10 @@ top: 99%;
 			// Read in the image file as a data URL.
 			reader.readAsDataURL(media);
 		});
+		
+		/*
+		This error message will be showed if the upload picture isn't a huaman face.
+		*/
 		socket.on('errorHumanFace', function(data) {
 		var empty = "";
 		$('.uploadAvatarDiv').html(empty);
@@ -1218,6 +1257,9 @@ top: 99%;
 		return false;
 		});
 		
+		/*
+		This error message will be showed if the passwords aren't the same.
+		*/
 		socket.on('errorPWDVerification', function(data) {
 		$('#signUpHumanFaceError').hide();
 		$('#signUpError').hide();
@@ -1226,6 +1268,7 @@ top: 99%;
 		console.log('error HTMl verification');
 		return false;
 		});
+		
 		
 		socket.on('avatarUploaded', function(image) {
 		imageAvatarUploaded = image.result;
@@ -1337,13 +1380,6 @@ top: 99%;
 									logOut.name ), $('<strong style="color:#20B2AA;">').text(" has left the chatroom.")));
 			
 		});
-		
-		function bottom() {
-			document.getElementById( 'bottom' ).scrollIntoView();
-			window.setTimeout( function () { top(); }, 900000000 );
-		};
-
-		bottom();
 		
 		/*
 		This is the eventhandler for the send button. 
@@ -1496,7 +1532,7 @@ top: 99%;
 		
 		/*It goes through this method if the user clicks to the upload button
 		 Getting the name of a file before it is uploaded with the originalEvent.
-		 A file reader will be created and the event onload will be triggert read operation is completed successfully.
+		 A file reader will be created and the event onload will be triggered read operation is completed successfully.
 		 Then it sends the result to the server.
 		 */
 		$('#sendMedia').on('change', function(e) {
