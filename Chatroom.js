@@ -229,7 +229,7 @@ io.on('connection', function(socket) {
 						} else {
 							chatroomList.push(chatroomName);
 							roomUserlist[socket.username]=chatroomName;
-							io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date()});
+							io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date(), chatImage : chatImage});
 							userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd: pwd});
 		
 							passwordRoomList[chatroomName]=pwd;
@@ -252,7 +252,7 @@ io.on('connection', function(socket) {
 							if(pwdOfRoom === password){
 								roomUserlist[socket.username]=chatroomName;
 								userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd : password});
-								io.emit('userChangedRoom', {name: msg.name, timezone: new Date(), chatroom: chatroomName}); 
+								io.emit('userChangedRoom', {name: msg.name, timezone: new Date(), chatroom: chatroomName, chatImage : chatImage}); 
 								io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 							} else {
 								userList[socket.username].emit('wrongPWforRoom', {chatroom: chatroomName, timezone: new Date()});
@@ -401,13 +401,23 @@ io.on('connection', function(socket) {
 	 * Here you push the user name and the image to the client side.
 	 */
 	socket.on('userImage', function(data) {
-		if(socket.username != undefined){
-			io.emit('userImageEmit', {
-				username : data.username,
-				result : data.result,
-				timezone : new Date()
-			});
-		}
+		var chatImage;
+		var username = data.username;
+		userSelector.selector._id = username;
+		
+		databaseEmpol.find(userSelector, function(error, resultSet) {
+			chatImage = resultSet.docs[0].image;
+			
+			if(socket.username != undefined){
+				io.emit('userImageEmit', {
+					username : data.username,
+					result : data.result,
+					timezone : new Date(),
+					chatImage : chatImage
+				});
+			}
+		
+		});
 	});
 	
 	socket.on('avatarUpload', function(data) {

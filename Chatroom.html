@@ -1511,7 +1511,7 @@ left:50%;
 			if(socket.username != undefined){
 			time = new Date(image.timezone);
 			$('#messages').append(
-					$('<li>').append(
+					$('<li>').append( '<img width="50" height="50" src="' + image.chatImage + '"/>',
 							$('<span>').text(
 									'[' + time.getFullYear() + '/'
 											+ (time.getMonth() + 1) + '/'
@@ -1532,9 +1532,7 @@ left:50%;
 			if(socket.username != undefined){
 				time = new Date(msg.timezone);
 				$('#messages')
-				.append(
-						$('<li>')
-								.append(
+				.append($('<li>').append( '<img width="50" height="50" src="' + msg.chatImage + '"/>',
 										$('<span>')
 												.text(
 														'['
@@ -1614,7 +1612,8 @@ left:50%;
 		 */
 		socket.on('userChangedRoom', function (msg){ 
 			if(socket.username != undefined){ 
-				time = new Date(msg.timezone); $('#messages').append( $('<li>').append( $('<span>') 
+				time = new Date(msg.timezone); $('#messages').append( $('<li>').append( '<img width="50" height="50" src="' + msg.chatImage + '"/>',
+				$('<span>') 
 						.text( '[' + time .getFullYear() + '/' + (time .getMonth() + 1) + '/' + time .getDate() + ' ' 
 						         + (time .getHours() < 10 ? '0' + time .getHours() : time .getHours()) + ':' 
 						         + (time .getMinutes() < 10 ? '0' + time .getMinutes() : time .getMinutes()) + '] '), 
