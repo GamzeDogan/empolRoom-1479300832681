@@ -218,99 +218,98 @@ io.on('connection', function(socket) {
 			console.log("result image: "+resultSet.docs[0].image);
 			chatImage = resultSet.docs[0].image;
 				
-		});
-		
-		if(socket.username != undefined){
-			if(textMessage.slice(0, 8) === '/create '){
-					var chatroomNameStart = textMessage.slice(8);
-					var countWords = chatroomNameStart.indexOf(' ');
-					var chatroomName = chatroomNameStart.slice(0, countWords);
-					pwd = chatroomNameStart.slice((countWords+1));
-					
-					if(chatroomList.indexOf(chatroomName) > -1){
-						userList[socket.username].emit('RoomExistsWarning', {chatroom : chatroomName, timezone: new Date()});
-					} else {
-						chatroomList.push(chatroomName);
-						roomUserlist[socket.username]=chatroomName;
-						io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date()});
-						userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd: pwd});
-	
-						passwordRoomList[chatroomName]=pwd;
-						io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-					}
-			}
-			
-			else if(textMessage.slice(0,6) === '/join '){
-				var chatroomNameStart = textMessage.slice(6);
-				var countWords = chatroomNameStart.indexOf(' ');
-				var chatroomName = chatroomNameStart.slice(0, countWords);
-				var password = chatroomNameStart.slice((countWords+1));
-	
-				var temp = false;
-				for(var i=0; i < chatroomList.length; i++){
-					if(chatroomName == chatroomList[i]){
-						temp = true;
+			if(socket.username != undefined){
+				if(textMessage.slice(0, 8) === '/create '){
+						var chatroomNameStart = textMessage.slice(8);
+						var countWords = chatroomNameStart.indexOf(' ');
+						var chatroomName = chatroomNameStart.slice(0, countWords);
+						pwd = chatroomNameStart.slice((countWords+1));
 						
-						var pwdOfRoom = passwordRoomList[chatroomName];
-						if(pwdOfRoom === password){
-							roomUserlist[socket.username]=chatroomName;
-							userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd : password});
-							io.emit('userChangedRoom', {name: msg.name, timezone: new Date(), chatroom: chatroomName}); 
-							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+						if(chatroomList.indexOf(chatroomName) > -1){
+							userList[socket.username].emit('RoomExistsWarning', {chatroom : chatroomName, timezone: new Date()});
 						} else {
-							userList[socket.username].emit('wrongPWforRoom', {chatroom: chatroomName, timezone: new Date()});
+							chatroomList.push(chatroomName);
+							roomUserlist[socket.username]=chatroomName;
+							io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date()});
+							userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd: pwd});
+		
+							passwordRoomList[chatroomName]=pwd;
+							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 						}
-					}
-				}
-				if(temp == false){
-					userList[socket.username].emit('roomDoesntExistWarning', {timezone: new Date(), room: chatroomName});
-				}
-				temp = false;
-			}
-			
-			else if (textMessage.slice(0, 6) === '/chat ') {
-				var usernameSource = msg.name;
-				var username = textMessage.slice(6);
-				var countWords = username.indexOf(' ');
-				var name = username.slice(0, countWords);
-				var msgText = username.substring((countWords + 1));
-	
-				if (name in userList) {
-					userList[name].emit('private message', {
-						timezone : new Date(),
-						name : name,
-						text : msgText,
-						destinationName : msg.name
-					});
-	
-					userList[usernameSource].emit('private message', {
-						timezone : new Date(),
-						name : name,
-						text : msgText,
-						destinationName : msg.name
-					});
-				} else {
-					userList[usernameSource].emit('UnvalidNameError', {
-						timezone : new Date()
-					});
 				}
 				
-			} else {
-				var currentRoom = roomUserlist[socket.username];
-				var targetUsers = [];
-	
-				for(var key in roomUserlist){
-					if(roomUserlist[key] == currentRoom){
-						targetUsers.push(key);
+				else if(textMessage.slice(0,6) === '/join '){
+					var chatroomNameStart = textMessage.slice(6);
+					var countWords = chatroomNameStart.indexOf(' ');
+					var chatroomName = chatroomNameStart.slice(0, countWords);
+					var password = chatroomNameStart.slice((countWords+1));
+		
+					var temp = false;
+					for(var i=0; i < chatroomList.length; i++){
+						if(chatroomName == chatroomList[i]){
+							temp = true;
+							
+							var pwdOfRoom = passwordRoomList[chatroomName];
+							if(pwdOfRoom === password){
+								roomUserlist[socket.username]=chatroomName;
+								userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd : password});
+								io.emit('userChangedRoom', {name: msg.name, timezone: new Date(), chatroom: chatroomName}); 
+								io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+							} else {
+								userList[socket.username].emit('wrongPWforRoom', {chatroom: chatroomName, timezone: new Date()});
+							}
+						}
+					}
+					if(temp == false){
+						userList[socket.username].emit('roomDoesntExistWarning', {timezone: new Date(), room: chatroomName});
+					}
+					temp = false;
+				}
+				
+				else if (textMessage.slice(0, 6) === '/chat ') {
+					var usernameSource = msg.name;
+					var username = textMessage.slice(6);
+					var countWords = username.indexOf(' ');
+					var name = username.slice(0, countWords);
+					var msgText = username.substring((countWords + 1));
+		
+					if (name in userList) {
+						userList[name].emit('private message', {
+							timezone : new Date(),
+							name : name,
+							text : msgText,
+							destinationName : msg.name
+						});
+		
+						userList[usernameSource].emit('private message', {
+							timezone : new Date(),
+							name : name,
+							text : msgText,
+							destinationName : msg.name
+						});
+					} else {
+						userList[usernameSource].emit('UnvalidNameError', {
+							timezone : new Date()
+						});
+					}
+					
+				} else {
+					var currentRoom = roomUserlist[socket.username];
+					var targetUsers = [];
+		
+					for(var key in roomUserlist){
+						if(roomUserlist[key] == currentRoom){
+							targetUsers.push(key);
+						}
+					}
+					for(var i = 0; i < targetUsers.length; i++){
+						if(userList[targetUsers[i]] != undefined){
+						userList[targetUsers[i]].emit('chat message', {chatImage: chatImage, timezone : new Date(), name : msg.name, text : msg.text});
+						} else { console.log("fehler");}
 					}
 				}
-				for(var i = 0; i < targetUsers.length; i++){
-					if(userList[targetUsers[i]] != undefined){
-					userList[targetUsers[i]].emit('chat message', {chatImage: chatImage, timezone : new Date(), name : msg.name, text : msg.text});
-					} else { console.log("fehler");}
-				}
 			}
-		}
+		});
 	});
 	
 	socket.on('weatherAPI', function(msg){
