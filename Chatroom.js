@@ -132,7 +132,7 @@ io.on('connection', function(socket) {
 												socket.username = username;
 												socket.password = password;
 												socket.image = image;
-												userList[username].emit('signInSuccessfully');
+												username.emit('signInSuccessfully');
 											} else { 
 												callback(false);
 												console.log("ERROR: Could not store the values!" + error);
@@ -141,7 +141,7 @@ io.on('connection', function(socket) {
 									});
 								});
 							} else {
-								userList[username].emit('errorHumanFace');
+								username.emit('errorHumanFace');
 								console.log("WARNING: Doesn't contain a human face!");
 							}
 						}
@@ -149,7 +149,7 @@ io.on('connection', function(socket) {
 				}
 			}); 
 		} else {
-			userList[username].emit('errorPWDVerification');
+			username.emit('errorPWDVerification');
 		}	
 	});
 	
