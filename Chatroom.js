@@ -320,81 +320,57 @@ io.on('connection', function(socket) {
 		var longitude;
 		var city;
 		var filename;
-		console.log("Bin in weather api drinne");
+		var splittedMessage = message.split(" ");
 		
-		if(message.match('atlanta') != undefined || message.match('chicago') != undefined || message.match('miami') != undefined || message.match('boston') != undefined || message.match('detroit') != undefined || message.match('phoenix') != undefined){
-			if(message.match('atlanta') != undefined) {
-				city = 'Atlanta';
-			} 
-			else if(message.match('chicago') != undefined){
-				city = 'Chicago';
-			}
-			else if(message.match('miami') != undefined){
-				city = 'Miami';
-			}
-			else if(message.match('boston') != undefined){
-				city = 'Boston';
-			}
-			else if(message.match('detroit') != undefined){
-				city = 'Detroit';
-			}
-			else if(message.match('phoenix') != undefined){
-				city = 'Phoenix';
-			}
-			
-			requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
-				console.log(city);
-				if(response.statusCode >= 200 && response.statusCode < 400){
-					var content = JSON.parse(response.body);
-					latitude = content.location.latitude[0];
-					longitude = content.location.longitude[0];
-					console.log("lat: "+latitude);
-					console.log("long: "+longitude);
+		for(var i=0; i<splittedMessage.length; i++){
+			if(splittedMessage[i].toLowerCase == 'atlanta' || splittedMessage[i].toLowerCase == 'chicago' || splittedMessage[i].toLowerCase == 'miami' || splittedMessage[i].toLowerCase == 'boston' || splittedMessage[i].toLowerCase == 'detroit' || splittedMessage[i].toLowerCase == 'reutlingen'){
+				city = splittedMessage[i];	
+				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
+					console.log(city);
+					if(response.statusCode >= 200 && response.statusCode < 400){
+						var content = JSON.parse(response.body);
+						latitude = content.location.latitude[0];
+						longitude = content.location.longitude[0];
+						console.log("lat: "+latitude);
+						console.log("long: "+longitude);
 					
-					request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
-						if(response.statusCode >= 200 && response.statusCode < 400){
-							var content = JSON.parse(response.body);
-							var iconNum = JSON.stringify(content.forecasts[0].night.icon_code);
-							if(iconNum != undefined){
-								userSelector.selector._id = iconNum;
-								var password = iconNum;
+						request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
+							if(response.statusCode >= 200 && response.statusCode < 400){
+								var content = JSON.parse(response.body);
+								var iconNum = JSON.stringify(content.forecasts[0].night.icon_code);
+								if(iconNum != undefined){
+									userSelector.selector._id = iconNum;
+									var password = iconNum;
 
-								console.log("nummer "+iconNum);
-								console.log("pwd: " + password);
-								databaseEmpol.find(userSelector, function(error, resultSet) {
-									if (!(error)) {
-										bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
-											if(!(err)){
-												if(res == true){
-													console.log("image nach hash: " + resultSet.docs[0].image);
-													socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
-												} else  {
-													console.log("ERROR: " + IconNum);
+									databaseEmpol.find(userSelector, function(error, resultSet) {
+										if (!(error)) {
+											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
+												if(!(err)){
+													if(res == true){
+														console.log("image nach hash: " + resultSet.docs[0].image);
+														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : city});	
+													} else  {
+														console.log("ERROR: " + IconNum);
+													}
+												} else {
+													console.log('ERROR: ' + hash);
 												}
-											} else {
-												console.log('ERROR: ' + hash);
-											}
-										});
-									} else {
-										console.log("ERROR: " + error.message);
-									}
-								});	
-							} else { console.log("IconNum is undefined");}	
-						} else {
-							console.log("Error Message2: " + error);
-						}	
-					});
-				} else {
-					console.log("Error Message: " + error);
-				}
-
-			});
-
-
-		} else {  
-			console.log("is undefined");
+											});
+										} else {
+											console.log("ERROR: " + error.message);
+										}
+									});	
+								} else { console.log("IconNum is undefined");}	
+							} else {
+								console.log("Error Message2: " + error);
+							}	
+						});
+					} else {
+						console.log("Error Message: " + error);
+					}
+				});	
+			}
 		}
-		
 	});
 	
 	/**
