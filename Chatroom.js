@@ -330,8 +330,9 @@ io.on('connection', function(socket) {
 						var content = JSON.parse(response.body);
 						latitude = content.location.latitude[0];
 						longitude = content.location.longitude[0];
+						var location = content.location.city[0];
 						console.log("city in der zweiten if: "+city);
-					
+						
 						request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 							if(response.statusCode >= 200 && response.statusCode < 400){
 								var content = JSON.parse(response.body);
@@ -345,7 +346,7 @@ io.on('connection', function(socket) {
 											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 												if(!(err)){
 													if(res == true){
-														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : splittedMessage[i]});	
+														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : location});	
 													} else  {
 														console.log("ERROR: " + IconNum);
 													}
