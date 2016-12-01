@@ -213,7 +213,9 @@ io.on('connection', function(socket) {
 		var username = msg.username;
 		userSelector.selector._id = username;
 		
+		
 		databaseEmpol.find(userSelector, function(error, resultSet) {
+			console.log(resultSet.docs[0].image);
 			chatImage = resultSet.docs[0].image;
 				
 		});
