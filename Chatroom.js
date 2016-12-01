@@ -319,7 +319,7 @@ io.on('connection', function(socket) {
 		var splittedMessage = message.split(" ");
 		console.log("splittedMessageArray: "+splittedMessage);
 		for(var i=0; i<splittedMessage.length; i++){
-			word = splittedMessage[i].toLowerCase();
+			word = splittedMessage[i];
 			console.log("hallooooo");
 			console.log("array an der stelle i for der if anweisung: "+word);
 			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'reutlingen' || word == 'atlanta'){
