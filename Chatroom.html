@@ -386,7 +386,7 @@ ul{
   list-style-type: none;
 }
 #message{
-	width: 82.5%;
+	width: 80.5;
 	float: left;
 }
 
@@ -480,7 +480,7 @@ ul{
 	display: none;
 }
 #messages {
-	width: 90%;
+	width: 60%;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -1271,7 +1271,9 @@ left:50%;
 		return false;
 		});
 		
-		
+		/*
+		this method handels the uploaded image
+		*/
 		socket.on('avatarUploaded', function(image) {
 		imageAvatarUploaded = image.result;
 		var empty = "";
@@ -1279,6 +1281,9 @@ left:50%;
 		$('.uploadAvatarDiv').append('<center><img width="100" height="100" src="' + image.result + '"/></center>');
 		});
 		
+		/*
+		this method will be avtive if the sign in was successfully.
+		*/
 		socket.on('signInSuccessfully', function(data) {
 			$('.loginPW').show();
 			$('.signUpDiv').hide();	
@@ -1286,7 +1291,11 @@ left:50%;
 			$('.uploadAvatar').hide();
 		});
 		
-			$('#backToLogin').submit(function() {
+		
+		/*
+		this method will be active if the user clicks on the arrow to get back to the Login page.
+		*/
+		$('#backToLogin').submit(function() {
 						
 			var empty = "";
 			$('.uploadAvatarDiv').html(empty);
@@ -1303,6 +1312,9 @@ left:50%;
 			return false;
 		});
 		
+		/*
+		this method will be active if the user clicks on the arrow to get back to the SignUp page.
+		*/
 		$('#backToSignUp').submit(function() {
 			var vid = $('#video').get(0);
 			vid.pause();
@@ -1317,6 +1329,10 @@ left:50%;
 			return false;
 		});
 		
+		/*
+		This method listens to the server and appends the message with the current date,
+		that a user has joined the chatroom into the messages div.
+		 */
 		socket.on('logInUserEmit', function(logIn) {
 			var time = new Date(logIn.timezone);
 			$('#messages').append(
