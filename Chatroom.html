@@ -1129,6 +1129,8 @@ left:50%;
 				var password = $('#passwordSignUp').val();
 				var passwordVerification = $('#passwordVerification').val();
 				
+				console.log("imageurl "+imageURL);
+				
 				if(password == passwordVerification){
 					var imageUploaded = imageAvatarUploaded;
 					var imageChat;
@@ -1139,7 +1141,7 @@ left:50%;
 					else if(imageUploaded != undefined) {
 						imageChat = imageUploaded;
 					} 
-					else if(imageUploaded == undefined && imageURL == undefined) {
+					else (imageUploaded == undefined && imageURL == undefined) {
 						console.log("kein image ausgewählt");
 					}
 					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){

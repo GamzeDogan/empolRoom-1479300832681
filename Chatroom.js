@@ -88,7 +88,7 @@ io.on('connection', function(socket) {
 	If the picture doesnt contain a human face it will be rejected*/
 	socket.on('signUp', function(data, callback){
 		var image = data.image;
-		console.log(image);
+		console.log("image: "+image);
 		var detected = false;
 		var username = data.username;
 		var password = data.password;
@@ -133,7 +133,7 @@ io.on('connection', function(socket) {
 												socket.username = username;
 												socket.password = password;
 												socket.image = image;
-												username.emit('signInSuccessfully');
+												socket.emit('signInSuccessfully');
 											} else { 
 												callback(false);
 												console.log("ERROR: Could not store the values!" + error);
@@ -142,7 +142,7 @@ io.on('connection', function(socket) {
 									});
 								});
 							} else {
-								username.emit('errorHumanFace');
+								socket.emit('errorHumanFace');
 								console.log("WARNING: Doesn't contain a human face!");
 							}
 						}
@@ -150,7 +150,7 @@ io.on('connection', function(socket) {
 				}
 			}); 
 		} else {
-			username.emit('errorPWDVerification');
+			socket.emit('errorPWDVerification');
 		}	
 	});
 	
