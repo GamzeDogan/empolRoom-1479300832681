@@ -104,59 +104,52 @@ io.on('connection', function(socket) {
 			images_file: fs.createReadStream(directory + filename + '.' + splitting)
 		};
 		
-		console.log(params);
-		if(params != undefined){
-			if(password === passwordVerification){
-				databaseEmpol.find(userSelector, function(error, resultSet) {
-					if (error) {
-						console.log("ERROR: Something went wrong");
-					} else {
-						visualRecognition.detectFaces(params, function(error, response) {
-							if (error){
-								console.log("ERROR: " + error);
-							} else {
-								var resImage = response.images;
-								console.log(JSON.stringify(response, null, 2));
-								for(var i=0; i<resImage.length; i++){
-									var resImage = response.images[i];
-									for(var j=0; j<resImage.faces.length; j++){
-										console.log(resImage.faces[j]);	
-										detected = true;
-									}
-								}	
-								if(detected == true){	
-									bcrypt.genSalt(10, function(err, salt) {
-										bcrypt.hash(password, salt, function(err, hash) {
-											password = hash; 
-											databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
-												if (!error) {								
-													callback(true);
-													socket.username = username;
-													socket.password = password;
-													socket.image = image;
-													console.log("sign Up fkt!");
-													userList[socket.username].emit('signInSuccessfully');
-												} else { 
-													callback(false);
-													console.log("ERROR: Could not store the values!");
-												}
-											});
+		if(password === passwordVerification){
+			databaseEmpol.find(userSelector, function(error, resultSet) {
+				if (error) {
+					console.log("ERROR: Something went wrong");
+				} else {
+					visualRecognition.detectFaces(params, function(error, response) {
+						if (error){
+							console.log("ERROR: " + error);
+						} else {
+							var resImage = response.images;
+							console.log(JSON.stringify(response, null, 2));
+							for(var i=0; i<resImage.length; i++){
+								var resImage = response.images[i];
+								for(var j=0; j<resImage.faces.length; j++){
+									console.log(resImage.faces[j]);	
+									detected = true;
+								}
+							}	
+							if(detected == true){	
+								bcrypt.genSalt(10, function(err, salt) {
+									bcrypt.hash(password, salt, function(err, hash) {
+										password = hash; 
+										databaseEmpol.insert({_id: username, password: password, image: image}, function(error, body) {
+											if (!error) {								
+												callback(true);
+												socket.username = username;
+												socket.password = password;
+												socket.image = image;
+												userList[socket.username].emit('signInSuccessfully');
+											} else { 
+												callback(false);
+												console.log("ERROR: Could not store the values!");
+											}
 										});
 									});
-								} else {
-									io.emit('errorHumanFace');
-									console.log("WARNING: Doesn't contain a human face!");
-								}
+								});
+							} else {
+								userList[socket.username].emit('errorHumanFace');
+								console.log("WARNING: Doesn't contain a human face!");
 							}
-						});
-					}
-				}); 
-			} else {
-				io.emit('errorPWDVerification');
-			}
+						}
+					});
+				}
+			}); 
 		} else {
-			console.log("hahah");
-			//ERROR Lade ein Bild hoch socket.emit('E');
+			io.emit('errorPWDVerification');
 		}	
 	});
 	
@@ -194,17 +187,16 @@ io.on('connection', function(socket) {
 									}	
 								} else  {
 									callback(false);
-									console.log("Passwort falsch");
 								}
 							} else {
-								console.log('Fehler: ' + hash);
+								console.log('ERROR: ' + hash);
 							}
 						});
 					}
 				});	
 			}
 		} else { 
-			console.log("password ist anscheinend undefined: " +data.password)};
+			console.log("ERROR: Password is undefined: " +data.password)};
 	});
 	
 	/**
@@ -220,41 +212,35 @@ io.on('connection', function(socket) {
 		var username = msg.name;
 		userSelector.selector._id = username;
 		
-		
 		databaseEmpol.find(userSelector, function(error, resultSet) {
 			chatImage = resultSet.docs[0].image;
-				
 			if(socket.username != undefined){
 				if(textMessage.slice(0, 8) === '/create '){
-						var chatroomNameStart = textMessage.slice(8);
-						var countWords = chatroomNameStart.indexOf(' ');
-						var chatroomName = chatroomNameStart.slice(0, countWords);
-						pwd = chatroomNameStart.slice((countWords+1));
-						
-						if(chatroomList.indexOf(chatroomName) > -1){
-							userList[socket.username].emit('RoomExistsWarning', {chatroom : chatroomName, timezone: new Date()});
-						} else {
-							chatroomList.push(chatroomName);
-							roomUserlist[socket.username]=chatroomName;
-							io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date(), chatImage : chatImage});
-							userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd: pwd});
-		
-							passwordRoomList[chatroomName]=pwd;
-							io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
-						}
+					var chatroomNameStart = textMessage.slice(8);
+					var countWords = chatroomNameStart.indexOf(' ');
+					var chatroomName = chatroomNameStart.slice(0, countWords);
+					pwd = chatroomNameStart.slice((countWords+1));	
+					if(chatroomList.indexOf(chatroomName) > -1){
+						userList[socket.username].emit('RoomExistsWarning', {chatroom : chatroomName, timezone: new Date()});
+					} else {
+						chatroomList.push(chatroomName);
+						roomUserlist[socket.username]=chatroomName;
+						io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date(), chatImage : chatImage});
+						userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd: pwd});
+	
+						passwordRoomList[chatroomName]=pwd;
+						io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
+					}
 				}
-				
 				else if(textMessage.slice(0,6) === '/join '){
 					var chatroomNameStart = textMessage.slice(6);
 					var countWords = chatroomNameStart.indexOf(' ');
 					var chatroomName = chatroomNameStart.slice(0, countWords);
 					var password = chatroomNameStart.slice((countWords+1));
-		
 					var temp = false;
 					for(var i=0; i < chatroomList.length; i++){
 						if(chatroomName == chatroomList[i]){
 							temp = true;
-							
 							var pwdOfRoom = passwordRoomList[chatroomName];
 							if(pwdOfRoom === password){
 								roomUserlist[socket.username]=chatroomName;
@@ -271,14 +257,12 @@ io.on('connection', function(socket) {
 					}
 					temp = false;
 				}
-				
 				else if (textMessage.slice(0, 6) === '/chat ') {
 					var usernameSource = msg.name;
 					var username = textMessage.slice(6);
 					var countWords = username.indexOf(' ');
 					var name = username.slice(0, countWords);
 					var msgText = username.substring((countWords + 1));
-		
 					if (name in userList) {
 						userList[name].emit('private message', {
 							timezone : new Date(),
@@ -287,7 +271,6 @@ io.on('connection', function(socket) {
 							destinationName : msg.name,
 							chatImage: chatImage
 						});
-		
 						userList[usernameSource].emit('private message', {
 							timezone : new Date(),
 							name : name,
@@ -300,7 +283,6 @@ io.on('connection', function(socket) {
 							timezone : new Date()
 						});
 					}
-					
 				} else {
 					var currentRoom = roomUserlist[socket.username];
 					var targetUsers = [];
