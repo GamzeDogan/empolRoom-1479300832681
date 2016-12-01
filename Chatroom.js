@@ -308,19 +308,15 @@ io.on('connection', function(socket) {
 		console.log("splittedMessageArray: "+splittedMessage);
 		for(var i=0; i<splittedMessage.length; i++){
 			word = splittedMessage[i].toLowerCase();
-			console.log("hallooooo");
-			console.log("array an der stelle i for der if anweisung: "+word);
 			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'reutlingen' || word == 'atlanta'){
 				city = splittedMessage[i];	
-				console.log("city in der if: "+city);
 				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
 					if(response.statusCode >= 200 && response.statusCode < 400){
 						var content = JSON.parse(response.body);
 						latitude = content.location.latitude[0];
 						longitude = content.location.longitude[0];
 						var location = content.location.city[0];
-						console.log("city in der zweiten if: "+city);
-						
+
 						request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 							if(response.statusCode >= 200 && response.statusCode < 400){
 								var content = JSON.parse(response.body);
@@ -346,13 +342,13 @@ io.on('connection', function(socket) {
 											console.log("ERROR: " + error.message);
 										}
 									});	
-								} else { console.log("IconNum is undefined");}	
+								} else { console.log("ERROR: IconNum is undefined");}	
 							} else {
-								console.log("Error Message2: " + error);
+								console.log("Error: " + error);
 							}	
 						});
 					} else {
-						console.log("Error Message: " + error);
+						console.log("Error: " + error);
 					}
 				});	
 			}
@@ -366,10 +362,8 @@ io.on('connection', function(socket) {
 		var chatImage;
 		var username = data.username;
 		userSelector.selector._id = username;
-		
 		databaseEmpol.find(userSelector, function(error, resultSet) {
 			chatImage = resultSet.docs[0].image;
-			
 			if(socket.username != undefined){
 				io.emit('userImageEmit', {
 					username : data.username,
@@ -378,7 +372,6 @@ io.on('connection', function(socket) {
 					chatImage : chatImage
 				});
 			}
-		
 		});
 	});
 	
@@ -423,11 +416,11 @@ function init() {
             }
         }
     } else {
-        console.log("Cloudant Service was not bound");
+        console.log("ERROR: Cloudant Service was not bound");
     }
         databaseEmpol = cloudant.db.use('datenbankempol');
         if (databaseEmpol === undefined) {
-            console.log("The database is not defined!");
+            console.log("ERROR: The database is not defined!");
         }
 }
 
