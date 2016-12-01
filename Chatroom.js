@@ -321,6 +321,7 @@ io.on('connection', function(socket) {
 		var city;
 		var filename;
 		var splittedMessage = message.split(" ");
+		console.log("splitted:" + splittedMessage);
 		
 		for(var i=0; i<splittedMessage.length; i++){
 			if(splittedMessage[i].toLowerCase == 'atlanta' || splittedMessage[i].toLowerCase == 'chicago' || splittedMessage[i].toLowerCase == 'miami' || splittedMessage[i].toLowerCase == 'boston' || splittedMessage[i].toLowerCase == 'detroit' || splittedMessage[i].toLowerCase == 'reutlingen'){
