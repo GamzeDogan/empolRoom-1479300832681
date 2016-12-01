@@ -83,6 +83,12 @@ io.on('connection', function(socket) {
 	
 	socket.on('signUp', function(data, callback){
 		var image;
+		var detected = false;
+		var username = data.username;
+		var password = data.password;
+		var passwordVerification = data.passwordVerification;
+		var filename, directory, splitting, data, buffer;
+		
 		if(data.image == undefined){
 			userSelector.selector._id = 'avatar';
 			var pwd = 'avatar';
@@ -92,6 +98,7 @@ io.on('connection', function(socket) {
 						if(!(err)){
 							if(res == true){
 								image = resultSet.docs[0].image;
+								detected = true;
 							} else  {
 								console.log("ERROR: Password not right! [in socket: signUp]");
 							}
@@ -107,19 +114,11 @@ io.on('connection', function(socket) {
 			image = data.image;
 		}
 		
-		var username = data.username;
-		var password = data.password;
-		var passwordVerification = data.passwordVerification;
-		var detected = false;
-		var filename = 'profilePicture_' + data.username;
-		var directory = './image/';
-		var splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
-        var data = image.replace(/^data:image\/\w+;base64,/, "");
-        var buffer = new Buffer(data, 'base64');
-		
-		console.log("username: "+username);
-		console.log("pwd: "+password);
-		
+		filename = 'profilePicture_' + data.username;
+		directory = './image/';
+		splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
+		data = image.replace(/^data:image\/\w+;base64,/, "");
+		buffer = new Buffer(data, 'base64');
 		fs.writeFile(directory + filename + '.' + splitting, buffer);
 		
 		var params = {
