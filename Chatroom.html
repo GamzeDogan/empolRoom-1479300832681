@@ -1141,9 +1141,10 @@ left:50%;
 					else if(imageUploaded != undefined) {
 						imageChat = imageUploaded;
 					} 
-					else (imageUploaded == undefined && imageURL == undefined) {
+					else {
 						console.log("kein image ausgewählt");
 					}
+					
 					socket.emit('signUp', {username: username, password: password, passwordVerification: passwordVerification, image : imageChat}, function(data){
 						if(data){
 							socket.username = $('#usernameSignUp').val();
