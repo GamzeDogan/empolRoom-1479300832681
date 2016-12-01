@@ -211,7 +211,7 @@ io.on('connection', function(socket) {
 		var pwd;
 		var chatImage;
 		var username = msg.username;
-		cconsole.log("username: "+username);
+		console.log("username: "+username);
 		userSelector.selector._id = username;
 		
 		
