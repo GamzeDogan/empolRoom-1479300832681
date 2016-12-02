@@ -313,7 +313,7 @@ io.on('connection', function(socket) {
 			word = splittedMessage[i].toLowerCase();
 			console.log("hallooooo");
 			console.log("array an der stelle i for der if anweisung: "+word);
-			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'reutlingen' || word == 'atlanta'){
+			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'phoenix' || word == 'atlanta'){
 				city = splittedMessage[i];	
 				console.log("city in der if: "+city);
 				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
