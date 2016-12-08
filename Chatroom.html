@@ -1637,7 +1637,7 @@ left:50%;
 		/*
 		 If a room doesnt exist, you will get this notification.
 		 */
-		socket.on('roomDoesntExistsWarning', function(msg){ 
+		socket.on('roomDoesntExistsWarning', function(msg){  
 			if(socket.username != undefined){ 
 				time = new Date(msg.timezone); $('#messages') .append( $('<li>') .append( $('<span>') 
 						.text( '[' + time .getFullYear() + '/' + (time .getMonth() + 1) + '/' + time .getDate() 
