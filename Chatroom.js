@@ -88,7 +88,6 @@ io.on('connection', function(socket) {
 	If the picture doesnt contain a human face it will be rejected*/
 	socket.on('signUp', function(data, callback){
 		var image = data.image;
-		console.log("image: "+image);
 		var detected = false;
 		var username = data.username;
 		var password = data.password;
@@ -98,9 +97,7 @@ io.on('connection', function(socket) {
 		var splitting = image.split(';')[0].match(/jpeg|jpg|png/)[0];
 		var data = image.replace(/^data:image\/\w+;base64,/, "");
 		var buffer = new Buffer(data, 'base64');
-		
 		fs.writeFile(directory + filename + '.' + splitting, buffer);
-		
 		var params = {
 			images_file: fs.createReadStream(directory + filename + '.' + splitting)
 		};
@@ -161,7 +158,7 @@ io.on('connection', function(socket) {
 		
 		if(password != undefined){
 			if(username in userList){
-					io.emit('userIsAlreadyLogged');
+				socket.emit('userIsAlreadyLogged');
 			} else {
 				userSelector.selector._id = username;
 				databaseEmpol.find(userSelector, function(error, resultSet) {
@@ -228,7 +225,6 @@ io.on('connection', function(socket) {
 						roomUserlist[socket.username]=chatroomName;
 						io.emit('chatroomBroadcast', {name : msg.name, chatroom: chatroomName, timezone: new Date(), chatImage : chatImage});
 						userList[socket.username].emit('emptyChat', {timezone: new Date(), chatroom: chatroomName, pwd: pwd});
-	
 						passwordRoomList[chatroomName]=pwd;
 						io.emit('usernames', {userList: Object.keys(userList), roomList: roomUserlist});
 					}
@@ -287,7 +283,6 @@ io.on('connection', function(socket) {
 				} else {
 					var currentRoom = roomUserlist[socket.username];
 					var targetUsers = [];
-		
 					for(var key in roomUserlist){
 						if(roomUserlist[key] == currentRoom){
 							targetUsers.push(key);
@@ -296,14 +291,16 @@ io.on('connection', function(socket) {
 					for(var i = 0; i < targetUsers.length; i++){
 						if(userList[targetUsers[i]] != undefined){
 						userList[targetUsers[i]].emit('chat message', {chatImage: chatImage, timezone : new Date(), name : msg.name, text : msg.text});
-						} else { console.log("fehler");}
+						} else { 
+							console.log("ERROR: targetUsers[i] is undefined");
+						}
 					}
 				}
 			}
 		});
 	});
 	
-	/**Here we look wheter the chat message contains a city or not. If it contains a city then a weather Icon will be shown*/
+	/**Here we look whether the chat message contains a city or not. If it contains a city then a weather Icon will be shown*/
 	socket.on('weatherAPI', function(msg){
 		var message = msg.text; 
 		var latitude, longitude, city, filename, word;
@@ -311,19 +308,15 @@ io.on('connection', function(socket) {
 		console.log("splittedMessageArray: "+splittedMessage);
 		for(var i=0; i<splittedMessage.length; i++){
 			word = splittedMessage[i].toLowerCase();
-			console.log("hallooooo");
-			console.log("array an der stelle i for der if anweisung: "+word);
-			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'phoenix' || word == 'atlanta'){
+			if(word == 'chicago' || word == 'miami' || word == 'boston' || word == 'detroit' || word == 'reutlingen' || word == 'atlanta'){
 				city = splittedMessage[i];	
-				console.log("city in der if: "+city);
 				requestLocation('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v3/location/search?query='+city+'&locationType=city&language=en-US', function(error, response){
 					if(response.statusCode >= 200 && response.statusCode < 400){
 						var content = JSON.parse(response.body);
 						latitude = content.location.latitude[0];
 						longitude = content.location.longitude[0];
 						var location = content.location.city[0];
-						console.log("city in der zweiten if: "+city);
-						
+
 						request('https://'+weather.username+':'+weather.password+'@twcservice.mybluemix.net:443/api/weather/v1/geocode/'+latitude+'/'+longitude+'/forecast/daily/10day.json?units=m&language=en-US', function(error, response){
 							if(response.statusCode >= 200 && response.statusCode < 400){
 								var content = JSON.parse(response.body);
@@ -337,7 +330,7 @@ io.on('connection', function(socket) {
 											bcrypt.compare(password, resultSet.docs[0].password, function(err, res) {
 												if(!(err)){
 													if(res == true){
-														socket.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : location});	
+														io.emit('weatherIcon', {timezone: new Date(), image: resultSet.docs[0].image, city : location});	
 													} else  {
 														console.log("ERROR: " + IconNum);
 													}
@@ -349,13 +342,13 @@ io.on('connection', function(socket) {
 											console.log("ERROR: " + error.message);
 										}
 									});	
-								} else { console.log("IconNum is undefined");}	
+								} else { console.log("ERROR: IconNum is undefined");}	
 							} else {
-								console.log("Error Message2: " + error);
+								console.log("Error: " + error);
 							}	
 						});
 					} else {
-						console.log("Error Message: " + error);
+						console.log("Error: " + error);
 					}
 				});	
 			}
@@ -369,10 +362,8 @@ io.on('connection', function(socket) {
 		var chatImage;
 		var username = data.username;
 		userSelector.selector._id = username;
-		
 		databaseEmpol.find(userSelector, function(error, resultSet) {
 			chatImage = resultSet.docs[0].image;
-			
 			if(socket.username != undefined){
 				io.emit('userImageEmit', {
 					username : data.username,
@@ -381,7 +372,6 @@ io.on('connection', function(socket) {
 					chatImage : chatImage
 				});
 			}
-		
 		});
 	});
 	
@@ -426,11 +416,11 @@ function init() {
             }
         }
     } else {
-        console.log("Cloudant Service was not bound");
+        console.log("ERROR: Cloudant Service was not bound");
     }
         databaseEmpol = cloudant.db.use('datenbankempol');
         if (databaseEmpol === undefined) {
-            console.log("The database is not defined!");
+            console.log("ERROR: The database is not defined!");
         }
 }
 
