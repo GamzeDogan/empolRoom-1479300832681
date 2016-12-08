@@ -11,6 +11,7 @@ var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
 var watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
+var helmet = require('helmet');
 var request = require('request');
 var requestLocation = require('request');
 var appEnv = cfenv.getAppEnv();
@@ -41,8 +42,23 @@ var weather = {
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
 
+app.use(helmet.csp({
+	defaultSrc:["'self'"],
+	scriptSrc:[],
+	styleSrc:["'unsafe-inline'"],
+	imgSrc:[],
+	connectSrc:["'none'"],
+	fontSrc: [],
+	objectSrc: [],
+	mediaSrc: [],
+	frameSrc: []
 
+}));
+
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
 init();
+
 
 /**
  * If a client want to connect with the server then this function will send a
