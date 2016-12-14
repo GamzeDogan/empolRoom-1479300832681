@@ -48,7 +48,7 @@ app.use(helmet.contentSecurityPolicy({
 	defaultSrc:["'self'"],
 	scriptSrc:["'@nonce'"],
 	styleSrc:["'unsafe-inline'"],
-	imgSrc:["'none'"],
+	imgSrc:["'\none\'"],
 	connectSrc:["\'none\'"],
 	fontSrc: ["\'none\'"],
 	objectSrc: ["\'none\'"],
