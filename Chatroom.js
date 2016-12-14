@@ -54,7 +54,7 @@ app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
 	styleSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', '/socket.io/socket.io.js'],
-	//scriptSrc:["'self'", 'https://code.jquery.com/jquery-1.11.1.js', '/socket.io/socket.io.js'],
+	scriptSrc:["'unsafe-inline'"],
 	sandbox: ['allow-forms', 'allow-scripts']
 	}
 }));
