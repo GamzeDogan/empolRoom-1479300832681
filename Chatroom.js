@@ -53,7 +53,7 @@ sri.hash(__dirname + '/Chatroom.js', function(err, hash){
 app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
-	styleSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', '/socket.io/socket.io.js']
+	styleSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', '/socket.io/socket.io.js'],
 	//scriptSrc:["'self'", 'https://code.jquery.com/jquery-1.11.1.js', '/socket.io/socket.io.js'],
 	sandbox: ['allow-forms', 'allow-scripts']
 	}
