@@ -46,6 +46,7 @@ var weather = {
 app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
+	scriptSrc:["'self'", '"https://code.jquery.com/jquery-1.11.1.js'],
 	sandbox: ['allow-forms', 'allow-scripts']
 	}
 }));
