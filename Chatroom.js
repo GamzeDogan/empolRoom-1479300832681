@@ -46,14 +46,14 @@ var weather = {
 app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
-	scriptSrc:[],
+	scriptSrc:["'none'"],
 	styleSrc:["'unsafe-inline'"],
-	imgSrc:[],
+	imgSrc:["'none'"],
 	connectSrc:["'none'"],
-	fontSrc: [],
-	objectSrc: [],
-	mediaSrc: [],
-	frameSrc: []
+	fontSrc: ["'none'"],
+	objectSrc: ["'none'"],
+	mediaSrc: ["'none'"],
+	frameSrc: ["'none'"]
 	}
 }));
 
