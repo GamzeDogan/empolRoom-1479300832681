@@ -42,22 +42,22 @@ var weather = {
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
 
-app.use(helmet());
-// app.use(helmet.contentSecurityPolicy({
-	// defaultSrc:["'self'"],
-	// scriptSrc:[],
-	// styleSrc:["'unsafe-inline'"],
-	// imgSrc:[],
-	// connectSrc:["'none'"],
-	// fontSrc: [],
-	// objectSrc: [],
-	// mediaSrc: [],
-	// frameSrc: []
+//app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+	defaultSrc:["'self'"],
+	scriptSrc:[],
+	styleSrc:["'unsafe-inline'"],
+	imgSrc:[],
+	connectSrc:["'none'"],
+	fontSrc: [],
+	objectSrc: [],
+	mediaSrc: [],
+	frameSrc: []
 
-// }));
+}));
 
-// app.use(helmet.xssFilter());
-// app.use(helmet.noSniff());
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
 init();
 
 /**
