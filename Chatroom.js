@@ -68,7 +68,7 @@ var weather = {
 // app.use(helmet.noSniff());
 
 app.use(function(req, res, next){
-    res.header("Content-Security-Policy", "default-src 'self'; script-src 'self', 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js' ; object-src 'none'; img-src 'self' ;media-src 'self'; frame-src 'none'; font-src 'self' data: ; connect-src 'self'; style-src 'unsafe-inline'");
+    res.header("Content-Security-Policy", "default-src 'self'; script-src 'self', 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', 'unsafe-inline'; object-src 'none'; img-src 'self'; media-src 'self'; frame-src 'none'; font-src 'self' data: ; connect-src 'self'; style-src 'unsafe-inline'");
     next();
 });
 
