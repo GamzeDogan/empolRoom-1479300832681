@@ -49,7 +49,7 @@ app.use(helmet.contentSecurityPolicy({
 	scriptSrc:["'@nones'"],
 	styleSrc:["'unsafe-inline'"],
 	imgSrc:[],
-	connectSrc:["'none'"],
+	connectSrc:["\'none\'"],
 	fontSrc: [],
 	objectSrc: [],
 	mediaSrc: [],
