@@ -4,7 +4,8 @@
 
 /** Imported & needed libraries. */
 var app = require('express')();
-var http = require('http').Server(app); 
+var https = require('https').Server(app);
+//var http = require('http').Server(app); 
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
@@ -43,35 +44,29 @@ var weather = {
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
  
-// sri.hash(__dirname + '/Chatroom.js', function(err, hash){
-  // if (err) throw err
+sri.hash(__dirname + '/Chatroom.js', function(err, hash){
+  if (err) throw err
  
-  // console.log('My hash is', hash)
-// });
-
-// //app.use(helmet());
-// app.use(helmet.contentSecurityPolicy({
-	// directives:{
-	// defaultSrc:["'self'"],
-	// scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
-	// styleSrc:["'unsafe-inline'"],
-	// connectSrc:['https://empolchat.mybluemix.net/socket.io/socket.io.js'],
-	// fontSrc: ["'self'"],
-    // objectSrc: ["'none'"],
-    // mediaSrc: ["'self'"],
-    // frameSrc: ["'none'"]
-	// }
-
-// }));
-
-// app.use(helmet.xssFilter()); 
-// app.use(helmet.noSniff());
-
-app.use(function(req, res, next){
-    res.header("Content-Security-Policy", "default-src 'self'; script-src 'self', 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', 'unsafe-inline'; object-src 'none'; img-src 'self'; media-src 'self'; frame-src 'none'; font-src 'self' data: ; connect-src 'self'; style-src 'unsafe-inline'");
-    next();
+  console.log('My hash is', hash)
 });
 
+//app.use(helmet());
+app.use(helmet.contentSecurityPolicy({   
+	directives:{
+	defaultSrc:["'self'"],
+	scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
+	styleSrc:["'unsafe-inline'"],
+	connectSrc:['https://empolchat.mybluemix.net/socket.io/socket.io.js'],
+	fontSrc: ["'self'"],
+    objectSrc: ["'none'"],
+    mediaSrc: ["'self'"],
+    frameSrc: ["'none'"]
+	}
+
+}));
+
+app.use(helmet.xssFilter()); 
+app.use(helmet.noSniff());
 init();
 
 /**
@@ -457,4 +452,4 @@ function init() {
 /**
  * The server listens to the port 3000.
  */
-http.listen(appEnv.port || 3000);
+https.listen(appEnv.port || 3000);
