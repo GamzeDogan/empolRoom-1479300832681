@@ -61,9 +61,6 @@ app.use(helmet.contentSecurityPolicy({
     mediaSrc: ["'self'"],
     frameSrc: ["'none'"]
 	}
-	reportOnly: true,
-    setAllHeaders: true,
-    safari5: false
 }));
 
 app.use(helmet.xssFilter()); 
