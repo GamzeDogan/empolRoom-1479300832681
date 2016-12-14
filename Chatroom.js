@@ -61,7 +61,7 @@ app.use(helmet.contentSecurityPolicy({
     mediaSrc: ["'self'"],
     frameSrc: ["'none'"]
 	}
-	reportOnly: ture,
+	reportOnly: true,
     setAllHeaders: true,
     safari5: false
 }));
