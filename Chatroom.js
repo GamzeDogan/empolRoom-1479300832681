@@ -12,6 +12,7 @@ var bcrypt = require('bcryptjs');
 var watson = require('watson-developer-cloud/visual-recognition/v3');
 var fs = require('fs');
 var helmet = require('helmet');
+var sri = require('sri');
 var request = require('request');
 var requestLocation = require('request');
 var appEnv = cfenv.getAppEnv();
@@ -41,6 +42,12 @@ var weather = {
   "port": 443,
   "url": "https://bb663f21-bc08-4a00-9585-31f01522991f:fnuIa4TxTE@twcservice.mybluemix.net"
 }
+ 
+sri.hash(__dirname + '/Chatroom.js', function(err, hash){
+  if (err) throw err
+ 
+  console.log('My hash is', hash)
+});
 
 //app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
