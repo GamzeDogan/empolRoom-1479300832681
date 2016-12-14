@@ -53,7 +53,7 @@ sri.hash(__dirname + '/Chatroom.js', function(err, hash){
 app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
-	scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js'],
+	scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
 	styleSrc:["'unsafe-inline'"]
 	}
 }));
