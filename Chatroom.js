@@ -55,8 +55,15 @@ app.use(helmet.contentSecurityPolicy({
 	defaultSrc:["'self'"],
 	scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
 	styleSrc:["'unsafe-inline'"],
-	connectSrc:['https://empolchat.mybluemix.net/socket.io/socket.io.js']
+	connectSrc:['https://empolchat.mybluemix.net/socket.io/socket.io.js'],
+	fontSrc: ["'self'"],
+    objectSrc: ["'none'"],
+    mediaSrc: ["'self'"],
+    frameSrc: ["'none'"]
 	}
+	reportOnly: ture,
+    setAllHeaders: true,
+    safari5: false
 }));
 
 app.use(helmet.xssFilter()); 
