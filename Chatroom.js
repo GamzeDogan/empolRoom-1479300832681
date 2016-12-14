@@ -45,16 +45,11 @@ var weather = {
 //app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
 	directives:{
-	defaultSrc:["'self'"],
-	scriptSrc:["'none'"],
-	styleSrc:["'unsafe-inline'"],
-	imgSrc:["'none'"],
-	connectSrc:["'none'"],
-	fontSrc: ["'none'"],
-	objectSrc: ["'none'"],
-	mediaSrc: ["'none'"],
-	frameSrc: ["'none'"]
-	}
+	defaultSrc:['self'],
+	scriptSrc:['@nones'],
+	styleSrc:['unsafe-inline'],
+	connectSrc:['none'],
+}
 }));
 
 app.use(helmet.xssFilter());
