@@ -46,7 +46,8 @@ var weather = {
 app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
-	scriptSrc:["'self'"]
+	scriptSrc:["'self'", 'www.empolchat.mybluemix.net'],
+	sandbox: ['allow-forms', 'allow-scripts']
 	}
 }));
 
