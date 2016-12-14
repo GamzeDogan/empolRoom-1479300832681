@@ -51,7 +51,7 @@ app.use(helmet.contentSecurityPolicy({
 	}
 }));
 
-app.use(helmet.xssFilter());
+app.use(helmet.xssFilter()); 
 app.use(helmet.noSniff());
 init();
 
