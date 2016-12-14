@@ -4,9 +4,8 @@
 
 /** Imported & needed libraries. */
 var app = require('express')();
-var https = require('https').Server(app);
-//var http = require('http').Server(app); 
-var io = require('socket.io')(https);
+var http = require('http').Server(app); 
+var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
@@ -51,7 +50,7 @@ sri.hash(__dirname + '/Chatroom.js', function(err, hash){
 });
 
 //app.use(helmet());
-app.use(helmet.contentSecurityPolicy({   
+app.use(helmet.contentSecurityPolicy({
 	directives:{
 	defaultSrc:["'self'"],
 	scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
@@ -452,4 +451,4 @@ function init() {
 /**
  * The server listens to the port 3000.
  */
-https.listen(appEnv.port || 3000);
+http.listen(appEnv.port || 3000);
