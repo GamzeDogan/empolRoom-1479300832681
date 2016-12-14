@@ -45,9 +45,9 @@ var weather = {
 //app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
 	directives:{
-	defaultSrc:['self'],
-	scriptSrc:['self']
-}
+	defaultSrc:["'self'"],
+	scriptSrc:["'self'"]
+	}
 }));
 
 app.use(helmet.xssFilter());
