@@ -31,8 +31,8 @@ var databaseEmpol;
 
 
 var options = {
-    key: fs.readFileSync('server.enc.key'),
-    cert: fs.readFileSync('server.crt')
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.pem')
 };
 
 var https = require('https').createServer(options, app);
