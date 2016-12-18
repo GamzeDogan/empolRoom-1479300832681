@@ -35,8 +35,8 @@ var options = {
     cert: fs.readFileSync('server.crt')
 };
 
-var httpsServer = https.createServer(options, app);
-var io = require('socket.io').listen(httpsServer);
+var httpsServer = https.Server(options, app);
+var io = require('socket.io')(httpsServer);
 
 /** Variable for database*/
 var userSelector = {
