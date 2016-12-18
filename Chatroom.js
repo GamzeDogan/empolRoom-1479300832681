@@ -4,10 +4,11 @@
 
 /** Imported & needed libraries. */
 var app = require('express')();
-var https = require('https');
+var https = require('https').Server(app);
 var tls = require('tls');
-var http = require('http').Server(app); 
-var io = require('socket.io')(http);
+//var http = require('http').Server(app); 
+//var io = require('socket.io')(http);
+var io = require('socket.io')(https);
 var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
@@ -31,7 +32,7 @@ var databaseEmpol;
 
 
 var options = {
-    key: fs.readFileSync('server.enc.key'),
+    key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.crt')
 };
 
