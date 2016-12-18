@@ -53,7 +53,7 @@ app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
 	directives:{
         defaultSrc:["'self'"],
-        scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
+        scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://cdn.socket.io/socket.io-1.4.5.js', "'unsafe-inline'"],
         styleSrc:["'self'", "'unsafe-inline'"],
         connectSrc:["'self'", "ws://" + appEnv.url.replace('https://', '')],
         fontSrc: ["'self'"],
