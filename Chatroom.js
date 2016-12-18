@@ -4,11 +4,10 @@
 
 /** Imported & needed libraries. */
 var app = require('express')();
-var https = require('https').Server(app);
+//var https = require('https').Server(app);
 var tls = require('tls');
 //var http = require('http').Server(app); 
 //var io = require('socket.io')(http);
-var io = require('socket.io')(https);
 var cfenv = require('cfenv');
 var Cloudant = require('cloudant');
 var bcrypt = require('bcryptjs');
@@ -35,6 +34,9 @@ var options = {
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.crt')
 };
+
+var https = require('https').createServer(options, app);
+var io = require('socket.io').listen(https);
 
 /** Variable for database*/
 var userSelector = {
@@ -463,4 +465,4 @@ function init() {
 /**
  * The server listens to the port 3000.
  */
-https.createServer(options, app).listen(appEnv.port || 3000);
+https.listen(appEnv.port || 3000);
