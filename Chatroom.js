@@ -4,8 +4,8 @@
 
 /** Imported & needed libraries. */
 var app = require('express')();
+var https = require('https');
 //var https = require('https').Server(app);
-var tls = require('tls');
 //var http = require('http').Server(app); 
 //var io = require('socket.io')(http);
 var cfenv = require('cfenv');
@@ -32,11 +32,11 @@ var databaseEmpol;
 
 var options = {
     key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.pem')
+    cert: fs.readFileSync('server.crt')
 };
 
-var https = require('https').createServer(options, app);
-var io = require('socket.io').listen(https);
+var httpsServer = https.createServer(options, app);
+var io = require('socket.io').listen(httpsServer);
 
 /** Variable for database*/
 var userSelector = {
@@ -465,4 +465,4 @@ function init() {
 /**
  * The server listens to the port 3000.
  */
-https.listen(appEnv.port || 3000);
+httpsServer.listen(appEnv.port || 3000);
