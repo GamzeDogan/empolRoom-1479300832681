@@ -83,7 +83,6 @@ body {
     -moz-border-radius: 5px;
 	border-radius: 5px;
 	outline: none;
-	autocomplete: off;
 }
 #labelServerPw {
 	position: absolute;
@@ -164,7 +163,6 @@ body {
     -moz-border-radius: 5px;
 	border-radius: 5px;
 	outline: none;
-	autocomplete: off;
 
 }
 #passwordSignUp{
@@ -180,7 +178,6 @@ body {
 	border-radius: 5px;
 	outline: none;
 	margin-top: 0.5%;
-	autocomplete: off;
 
 }
 #passwordVerification{
@@ -195,8 +192,6 @@ body {
     -moz-border-radius: 5px;
 	border-radius: 5px;
 	outline: none;
-	autocomplete: off;
-
 }
 #login {
 	-moz-box-shadow: inset 0px 1px 3px 0px #91b8b3;
@@ -808,7 +803,7 @@ left:50%;
 	<div class="serverPW">
 		<label id="labelServerPw"><b>Server password</b></label>
 		<form id="serverLogin" action="">
-			<input id= "serverPassword" type="password" class= "serverPwClass" placeholder=" Password"/>
+			<input id= "serverPassword" type="password"  autocomplete="off" class= "serverPwClass" placeholder=" Password"/>
 			<input id= "serverPwButton" type="submit" value= "Send"/>
 		</form>
 	</div>
@@ -818,7 +813,7 @@ left:50%;
 				<label id="loginLabel"><b>Login</b></label>
 		<form id ="loginEvent" action="">
 			<input id="username" type="text" class="usClass" placeholder=" Username" /><p/>
-			<input id= "password" type="password" class="pwClass" placeholder=" Password"/>
+			<input id= "password" type="password"  autocomplete="off" class="pwClass" placeholder=" Password"/>
 			<input id="login" type="submit" value="Log In" />	
 		</form>
 		<div id="load"></div>
@@ -833,8 +828,8 @@ left:50%;
 		<label id="signUpLabel"><b>Sign Up</b></label>
 		<form id ="signUpEvent" action="">
 			<input id="usernameSignUp" type="text" class="usernameSignUpClass" placeholder=" Username" />
-			<input id= "passwordSignUp" type="password" class="pwdSignUpClass" placeholder=" Password"/>
-			<input id= "passwordVerification" type="password" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
+			<input id= "passwordSignUp" type="password"  autocomplete="off" class="pwdSignUpClass" placeholder=" Password"/>
+			<input id= "passwordVerification" type="password"  autocomplete="off" class="pwdVfcSignUpClass" placeholder=" Re-enter password"/>
 			<input id="signUp" type="submit" value="Sign Up" />
 			<label id="signUpUsernameError" style="font: 15px Arial; color: red; margin-top: 2%">Username already exists! Try again</label>
 			<label id="signUpError" style="font: 15px Arial; color: red; margin-top: 2%">Please fill in the form completely!</label>
