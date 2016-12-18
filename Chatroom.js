@@ -31,7 +31,7 @@ var databaseEmpol;
 
 
 var options = {
-    key: fs.readFileSync('server.key'),
+    key: fs.readFileSync('server.enc.key'),
     cert: fs.readFileSync('server.crt')
 };
 
