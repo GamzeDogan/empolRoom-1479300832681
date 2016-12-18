@@ -4,6 +4,8 @@
 
 /** Imported & needed libraries. */
 var app = require('express')();
+var https = require('https');
+var tls = require('tls');
 var http = require('http').Server(app); 
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
@@ -26,6 +28,12 @@ var passwordRoomList = {};
 var services;
 var cloudant;
 var databaseEmpol;
+
+
+var options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt')
+};
 
 /** Variable for database*/
 var userSelector = {
@@ -454,4 +462,4 @@ function init() {
 /**
  * The server listens to the port 3000.
  */
-http.listen(appEnv.port || 3000);
+https.createServer(options, app).listen(appEnv.port || 3000);
