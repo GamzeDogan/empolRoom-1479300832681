@@ -46,25 +46,28 @@ var weather = {
 sri.hash(__dirname + '/Chatroom.js', function(err, hash){
   if (err) throw err
  
-  console.log('My hash is', hash)
+  console.log('My hash is', hash);
 });
 
-//app.use(helmet());
+app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
 	directives:{
-	defaultSrc:["'self'"],
-	scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
-	styleSrc:["'unsafe-inline'"],
-	connectSrc:['https://empolchat.mybluemix.net/socket.io/socket.io.js'],
-	fontSrc: ["'self'"],
-    objectSrc: ["'none'"],
-    mediaSrc: ["'self'"],
-    frameSrc: ["'none'"]
-	}
+        defaultSrc:["'self'"],
+        scriptSrc: ["'self'", 'https://code.jquery.com/jquery-1.11.1.js', 'https://empolchat.mybluemix.net/socket.io/socket.io.js', "'unsafe-inline'"],
+        styleSrc:["'self'", "'unsafe-inline'"],
+        connectSrc:["'self'", "ws://" + appEnv.url.replace('https://', '')],
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"]
+	},
+    browserSniff: false,
+    setAllHeaders: true
 
 }));
 
 app.use(helmet.xssFilter()); 
+app.enable('trust proxy');
 app.use(helmet.noSniff());
 init();
 
