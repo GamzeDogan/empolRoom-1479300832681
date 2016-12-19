@@ -72,8 +72,8 @@ app.use(helmet.contentSecurityPolicy({
         mediaSrc: ["'self'"],
         frameSrc: ["'none'"]
 	},
-    browserSniff: false,
-    setAllHeaders: true
+    setAllHeaders: true,
+    browserSniff: false
 
 }));
 
